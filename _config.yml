@@ -1,0 +1,22 @@
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely need to edit after that.
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'jekyll serve'. If you change this file, please restart the server process.
+
+# Site settings
+title: enekoalonso.com
+email: mail [at] enekoalonso [dot] com
+description: > # this means to ignore newlines until "baseurl:"
+  You are viewing *enekoalonso.com*.
+  This is the personal site of Eneko Alonso. Any content included and
+  any opinions expressed on this site are personal of Eneko only and do
+  not represent his employer.
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "http://enekoalonso.com" # the base hostname & protocol for your site
+twitter_username: eneko
+github_username:  eneko
+
+# Build settings
+markdown: kramdown
