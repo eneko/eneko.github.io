@@ -1,14 +1,14 @@
 ---
 layout: page
-title: Grand Prix Stats AppleTV App
+title: Grand Prix Stats Apple TV App
 permalink: /grand-prix-stats/
 ---
 
-![Application icon and Top Shelf image - Grand Prix Stats](/media/grand-prix-stats/screenshot-1.png)
+![Application icon and Top Shelf image - Grand Prix Stats](/media/grand-prix-stats/screenshot-1.jpg)
 *Application icon and Top Shelf image*
 
-Grand Prix Stats is an Apple TV application that provides information about
-the Formula 1® driver and constructor championships.
+Grand Prix Stats is an application for [Apple TV](http://apple.com/tv) that
+provides information about the Formula 1® driver and constructor championships.
 
 The application provides the following information:
 
@@ -22,6 +22,7 @@ The application provides the following information:
 - Season Driver Championship Standings
 - Season Constructor Championship Standings
 
+* * *
 
 ### Season Navigation
 
@@ -29,53 +30,53 @@ Grand Prix Stats includes information from all seasons from year 2000 to
 year 2015.  Navigation between seasons is done using a previous/next
 season format, where the user can quickly move from one season to another.
 
-![Season Navigation Menu - Grand Prix Stats](/media/grand-prix-stats/screenshot-9.png)
+![Season Navigation Menu - Grand Prix Stats](/media/grand-prix-stats/screenshot-9.jpg)
 *Season Navigation Menu*
 
 ### Season Race Calendar
 
-![Season Calendar - Grand Prix Stats](/media/grand-prix-stats/screenshot-4.png)
+![Season Calendar - Grand Prix Stats](/media/grand-prix-stats/screenshot-4.jpg)
 *Season Calendar*
 
-# Race Menu
+### Race Menu
 
-![Race Menu - 2015 United States Grand Prix - Grand Prix Stats](/media/grand-prix-stats/screenshot-3.png)
+![Race Menu - 2015 United States Grand Prix - Grand Prix Stats](/media/grand-prix-stats/screenshot-3.jpg)
 *Race Menu - 2015 United States Grand Prix*
 
 ### Race Results
 
-![Race Results - Grand Prix Stats](/media/grand-prix-stats/screenshot-5.png)
+![Race Results - Grand Prix Stats](/media/grand-prix-stats/screenshot-5.jpg)
 *Race Results*
 
 ### Qualifying Results
 
-![Qualifying Results - Grand Prix Stats](/media/grand-prix-stats/screenshot-6.png)
+![Qualifying Results - Grand Prix Stats](/media/grand-prix-stats/screenshot-6.jpg)
 *Qualifying Results*
 
 ### Starting Grid
 
-![Starting Grid - Grand Prix Stats](/media/grand-prix-stats/screenshot-7.png)
+![Starting Grid - Grand Prix Stats](/media/grand-prix-stats/screenshot-7.jpg)
 *Starting Grid*
 
 ### Fastest Laps
 
-![Fastest Laps - Grand Prix Stats](/media/grand-prix-stats/screenshot-10.png)
+![Fastest Laps - Grand Prix Stats](/media/grand-prix-stats/screenshot-10.jpg)
 *Fastest Laps*
 
 ### Race Track Layout
 
-![Race Track Layout - Grand Prix Stats](/media/grand-prix-stats/screenshot-8.png)
+![Race Track Layout - Grand Prix Stats](/media/grand-prix-stats/screenshot-8.jpg)
 *Race Track Layout*
 
-### Season Driver Championship Standings
+### Season Driver's Championship Standings
 
-![Driver Championship Standings - Grand Prix Stats](/media/grand-prix-stats/screenshot-11.png)
-*Driver Championship Standings*
+![Driver's Championship Standings - Grand Prix Stats](/media/grand-prix-stats/screenshot-11.jpg)
+*Driver's Championship Standings*
 
-### Season Constructor Championship Standings
+### Season Constructor's Championship Standings
 
-![Constructor Championship Standings - Grand Prix Stats](/media/grand-prix-stats/screenshot-12.png)
-*Constructor Championship Standings*
+![Constructor's Championship Standings - Grand Prix Stats](/media/grand-prix-stats/screenshot-12.jpg)
+*Constructor's Championship Standings*
 
 
 #### Installation
@@ -83,7 +84,78 @@ season format, where the user can quickly move from one season to another.
 Open the App Store application on your Apple TV and search for
 "Grand Prix Stats".  The application should appear on the list.
 
-# Behind the Scenes
+* * *
+
+
+## Behind the Scenes
+
+Grand Prix Stats was developed in:
+
+- Xcode 7.x
+- Swift 2
+
+### Backend API
+
+All data displayed by Grand Prix Stats is provided by the [Ergast Motor Racing Developer API](http://ergast.com/mrd/).
+
+### Application Architecture
+
+#### Backend Services
+
+- CircuitService
+- DriverService
+- RaceService
+- SeasonService
+- StandingsService
+
+```swift
+class RaceService {
+
+    static let sharedInstance = RaceService()
+
+    func loadQualifyingResults(race: Race, callback: [QualifyingResult] -> Void) {
+        JSONRequest.get("\(Ergast.baseURL)/\(race.season)/\(race.round)/qualifying.json?limit=30") { result in
+            switch result {
+            case .Success(let data):
+                let json = JSON(data!)
+                let results = json["MRData"]["RaceTable"]["Races"][0]["QualifyingResults"].arrayValue
+                callback(results.map { QualifyingResult(json: $0) })
+            case .Failure:
+                callback([])
+            }
+        }
+    }
+
+    func loadRaceResults(race: Race, callback: [RaceResult] -> Void) {
+        JSONRequest.get("\(Ergast.baseURL)/\(race.season)/\(race.round)/results.json?limit=30") { result in
+            switch result {
+            case .Success(let data):
+                let json = JSON(data!)
+                let results = json["MRData"]["RaceTable"]["Races"][0]["Results"].arrayValue
+                callback(results.map { RaceResult(json: $0) })
+            case .Failure:
+                callback([])
+            }
+        }
+    }
+
+}
+```
+
+#### Data Structures
+
+- Circuit
+- Constructor
+- ConstructorStanding
+- Driver
+- DriverStanding
+- FastestLap
+- Location
+- QualifyingResult
+- Race
+- RaceResult
+- Season
+- SeasonStanding
 
 ```swift
 struct Circuit {
@@ -102,3 +174,5 @@ struct Circuit {
 
 }
 ```
+
+#### User Interface
