@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Grand Prix Stats AppleTV App
-permalink: /projects/grand-prix-stats/
+permalink: /grand-prix-stats/
 ---
 
 ![Application icon and Top Shelf image - Grand Prix Stats](/media/grand-prix-stats/screenshot-1.png)
