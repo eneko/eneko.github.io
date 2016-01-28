@@ -85,7 +85,7 @@ Open the App Store application on your Apple TV and search for
 
 # Behind the Scenes
 
-{% highlight swift %}
+```swift
 struct Circuit {
 
     var circuitId: String
@@ -101,4 +101,4 @@ struct Circuit {
     }
 
 }
-{% endhighlight %}
+```

@@ -6,6 +6,8 @@
 # 'jekyll serve'. If you change this file, please restart the server process.
 gems:
   - jekyll-assets
+  - redcarpet
+  - albino
 
 
 # Site settings
@@ -22,4 +24,6 @@ twitter_username: eneko
 github_username:  eneko
 
 # Build settings
-markdown: kramdown
+markdown: redcarpet
+redcarpet:
+  extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "strikethrough", "superscript"]
