@@ -18,7 +18,7 @@ description: > # this means to ignore newlines until "baseurl:"
   any opinions expressed on this site are personal of Eneko only and do
   not represent his employer.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "http://enekoalonso.com" # the base hostname & protocol for your site
+url: "http://www.enekoalonso.com" # the base hostname & protocol for your site
 twitter_username: eneko
 github_username:  eneko
 
