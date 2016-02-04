@@ -5,6 +5,7 @@
 <meta property="og:description" content="{% if page.description %}{{ page.description | strip_html | strip_newlines | truncate: 160 }}{% endif %}">
 <meta property="og:site_name" content="{{ site.title }}">
 <meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="es_ES">
 {% if page.date %}
   <meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}">
   <meta property="article:author" content="Eneko Alonso">
