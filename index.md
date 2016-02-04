@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Eneko Alonso
+title: Eneko Alonso, Software Engineer in iOS and tvOS
 permalink: /
 desc: Hi, I am Eneko Alonso, a software engineer specialized in iOS and tvOS living in San Luis Obispo, California.
 ---
