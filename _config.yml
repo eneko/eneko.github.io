@@ -21,8 +21,3 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://www.enekoalonso.com" # the base hostname & protocol for your site
 twitter_username: eneko
 github_username:  eneko
-
-# Build settings
-markdown: redcarpet
-redcarpet:
-  extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "strikethrough", "superscript"]

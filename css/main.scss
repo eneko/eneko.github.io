@@ -50,13 +50,32 @@ $on-laptop:        800px;
 ;
 
 
+// ------------------------------------------
+
+h1 {
+    font-weight: 800;
+}
+.post-title {
+    letter-spacing: -2px;
+}
+h2 {
+    color: #222;
+}
+h3 {
+    color: #444;
+}
+h4 {
+    color: #666;
+}
+
 img + em {
     color: #a8a8a8;
     text-align: center;
     display: block;
 }
 pre,
-code {
+code,
+.highlighter-rouge .highlight {
     background-color: #faf8f5;
 }
 
