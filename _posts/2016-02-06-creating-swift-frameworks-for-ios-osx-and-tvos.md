@@ -1,10 +1,10 @@
 ---
 layout: post
 title: Creating Swift frameworks for iOS, OS X and tvOS with Unit Tests and Distributing via CocoaPods and Swift Package Manager
-date: 2016-02-04
+date: 2016-02-06
 desc: In this article we cover how to create Swift Frameworks for iOS, OS X and tvOS in Xcode 7.
 keywords: swift, tvos, ios, osx, appletv, framework
-image: /media/swift-frameworks/1-create-framework-project.png
+image: /media/swift-frameworks/12-schemes-after.png
 ---
 
 There are many ways to make code easily reusable in Apple platforms. For
@@ -491,6 +491,51 @@ date.
 At this point we can zip our framework and distribute it.
 
 ### CocoaPods PodSpec
+To distribute our frameworks via CocoaPods, we need to create a `podspec` file.
+In the root of your repository type:
+
+    $ pod spec create MyFramework
+    Specification created at MyFramework.podspec
+
+Now, let's add the `podspec` file to Xcode, for easy editing, but without
+adding it to any of the targets. Right-click on the project navigator and
+select `Add Files to "MyFramework"...`.
+
+Then proceed to edit the `MyFramework.podspec` file as follows:
+
+~~~ruby
+Pod::Spec.new do |s|
+  s.name         = "MyFramework"
+  s.version      = "0.0.1"
+  s.summary      = "MyFramework with a Car to track miles."
+  s.homepage     = "https://github.com/eneko/MyFramework.swift"
+  s.license      = "MIT"
+  s.author       = { "Eneko Alonso" => "eneko.alonso@gmail.com" }
+
+  s.ios.deployment_target = "8.0"
+  s.osx.deployment_target = "10.9"
+  s.tvos.deployment_target = "9.0"
+
+  s.source       = { :git => "https://github.com/eneko/MyFramework.swift.git", :tag => s.version }
+  s.source_files = "Sources/*.swift"
+end
+~~~
+
+To verify the pod works as expected, use the command (add `--private` if your
+repository is not public):
+
+    $ pod lib lint
+    -> MyFramework (0.0.1)
+    MyFramework passed validation.
+
+The minimum platform versions for a Swift application/framework are iOS 8.0,
+OS X 10.9 and tvOS 9.0.
+
+For more information about making Pods see
+[Making a CocoaPod](https://guides.cocoapods.org/making/making-a-cocoapod.html),
+[Using Pod Lib Create](https://guides.cocoapods.org/making/using-pod-lib-create.html)
+and
+[Private Pods](https://guides.cocoapods.org/making/private-cocoapods.html).
 
 ### Swift Package Manager
 To distribute your library via Swift Package Manager, all that is required is
@@ -500,6 +545,9 @@ repository.
 This is because Swift Package Manager will include by default only those files
 in the `Sources` folder, which in our case, contains the source code we want
 to distribute.
+
+For more information about the Swift Package Manager see
+[Swift Page Manager](https://swift.org/package-manager)
 
 * * *
 
