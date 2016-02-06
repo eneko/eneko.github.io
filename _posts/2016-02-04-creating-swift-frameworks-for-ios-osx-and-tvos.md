@@ -100,14 +100,76 @@ applications [^2].
 *Framework Project*
 
 ### Removing the default target
+In order to make our framework available in different platforms, we need to
+create one target for each platform. I like giving them names that relate to
+each of the platforms, like this:
+
+- MyFramework**iOS**
+- MyFramework**OSX**
+- MyFramework**TVOS**
+
+When we created the project in the previous
+step, we already selected an iOS framework type of project. This means our
+project will already contains a target for iOS. In my experience, I found it
+easier to just remove that target than to rename it and the files associated.
+
+To remove a target, we need to:
+
+1. Select the framework and unit test targets, and delete them.
+
+![Remove Targets](/media/swift-frameworks/4-remove-targets.png)
+*Remove both framework and unit tests targets*
+
+2. Select the project source files, and delete them.
+
+![Remove Framework Sources](/media/swift-frameworks/5-remove-sources.png)
+*Remove framework sources*
+
+3. Select the unit test source files, and delete them.
+
+![Remove Unit Test Sources](/media/swift-frameworks/6-remove-test-sources.png)
+*Remove unit test sources*
 
 ### Adding a target for iOS
+Now that our project has no targets, we are going to add three targets. To add
+a new target for iOS, select the '+' icon on the project target list. Then
+choose `iOS -> Framework & Library`.
+
+![Add iOS Framework Target](/media/swift-frameworks/7-add-ios-target.png)
+*Add new iOS Framework target*
+
+When entering the name, type `MyFrameworkiOS`.
 
 ### Adding a target for OS X
+Now, let's add a new target for OS X. Select the '+' icon on the project target
+list. Then choose `OS X -> Framework & Library`.
+
+![Add OS X Framework Target](/media/swift-frameworks/8-add-osx-target.png)
+*Add new OS X Framework target*
+
+When entering the name, type `MyFrameworkOSX`.
 
 ### Adding a target for tvOS
+Finally, add a new target for tvOS. Select the '+' icon on the project target
+list. Then choose `tvOS -> Framework & Library`.
+
+![Add tvOS Framework Target](/media/swift-frameworks/9-add-tvos-target.png)
+*Add new tvOS Framework target*
+
+When entering the name, type `MyFrameworkTVOS`.
 
 ### Configuring shared build schemes
+For continuous integration, we are going to configure one scheme for each
+target. We also want to remove the scheme from the old target that we no longer
+have.
+
+Open `Projects -> Schemes -> Manage Schemes...` and check the checkbox on each
+one of the schemes matching the targets we just created.
+
+![Configure Schemes](/media/swift-frameworks/10-schemes.png)
+*Configure shared schemes for each target*
+
+* * *
 
 ## Development
 
@@ -137,18 +199,27 @@ entities that we want to make accessible.
 accessible from other frameworks.*
 
 ### Private
+When working with frameworks, only entities marked as `public` are accessible
+from the outside. Thus, there is no much value on marking entities as `private`.
 
-While using `private` in your properties, types and methods is totally fine, it
-makes it harder to test your code.
+In fact, using `private` can actually make your code harder to test. Xcode 7
+enables importing frameworks with `@testable import`, which makes it possible
+to test non-public code. However, it cannot test private code.
 
-When writing frameworks, I avoid using `private` to enable the code to
-be tested using `@testable import`.
+* * *
 
 ## Testing
 
 ### Testing each target manually
+Testing each target manually is as simple as selecting the correct scheme in
+the Xcode build configuration and then running the tests (`⌘ + U`).
+
+![Select Scheme to Build](/media/swift-frameworks/XX-schemes-testing.png)
+*Selecting the scheme to test*
 
 ### Configuration for Travis CI (Continuous Integration)
+
+* * *
 
 ## Distribution
 
@@ -156,8 +227,41 @@ be tested using `@testable import`.
 
 ### Swift Package Manager
 
-## CocoaPod dependencies
+* * *
 
+## CocoaPod dependencies
+As mentioned before, Framework projects can import dependencies via CocoaPods.
+Since we have created only one project for all three frameworks, adding
+CocoaPods will be super easy.
+
+In the terminal, navigate to the folder containing your Xcode project and type
+the following command:
+
+    $ pod init
+
+This will create a `Podfile` file with some content for your multiple targets.
+Alternatively, you can also create the Podfile manually with any text editor.
+
+Add any pod dependencies. In most cases, the dependencies will be the same for
+all three frameworks, so we can create a ruby function to contain all the pods
+as follows:
+
+
+Once you have listed your dependencies, run this command to install them (it
+  is a good habit to close your project on Xcode, since moving forward we
+  will use the workspace instead):
+
+    $ pod install
+
+Open the new workspace created by CocoaPods:
+
+    $ open MyFrameworks.xcworkspace
+
+At this point, your workspace should contain two projects our framework
+project with our three targets and a second project from CocoaPods.
+
+Build and test your schemes, everything should work as before, and all
+dependencies included in the Podfile should be available for import.
 
 * * *
 

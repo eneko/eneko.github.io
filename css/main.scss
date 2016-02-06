@@ -97,3 +97,20 @@ hr {
     height: 1px;
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(200, 200, 200, 0.75), rgba(0, 0, 0, 0));
 }
+
+.post-content p {
+  font-family: Georgia, "Cambria", "Times New Roman", Times, serif;
+  font-size: 1.2em;
+}
+
+blockquote {
+  border-color: #ef2;
+  background-color: #fafec0;
+  padding: 20px;
+}
+.post-content blockquote p {
+  letter-spacing: 0px;
+  color: #555;
+  font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
+  font-weight: 300;
+}
