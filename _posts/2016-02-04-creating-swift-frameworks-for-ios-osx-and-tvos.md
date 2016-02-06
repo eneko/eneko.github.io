@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Creating Swift Frameworks for iOS, OS X and tvOS
+title: Creating Swift frameworks for iOS, OS X and tvOS with Unit Tests and Distributing via CocoaPods and Swift Package Manager
 date: 2016-02-04
 desc: In this article I cover how to create Swift Frameworks for iOS, OS X and tvOS in Xcode 7.
 keywords: swift, tvos, ios, osx, appletv, framework
@@ -56,7 +56,7 @@ And initialize Git:
     $ git init
 
 Alternatively, if you are using GitHub, you can directly create the repository
-in GitHub and clone it in your computer.  The benefits of this approach is that
+in GitHub and clone it in your computer.  The benefit of this approach is that
 you can have GitHub generate the `README`, `.gitignore` and `LICENSE` files for
 you.
 
@@ -89,7 +89,7 @@ Open Xcode 7 and press `⇧ + ⌘ + N` to create a new project. For now, choose
 *Creating a Framework Project in Xcode 7*
 
 Enter the name of your Framework. This should be the name you would like to use
-when distributing your Framework. This WILL be the name of the Swift module
+when distributing your Framework. This will be the name of the Swift module
 other developers will have to use when importing the framework into their
 applications [^2].
 
@@ -113,27 +113,29 @@ step, we already selected an iOS framework type of project. This means our
 project will already contains a target for iOS. In my experience, I found it
 easier to just remove that target than to rename it and the files associated.
 
-To remove a target, we need to:
-
-1. Select the framework and unit test targets, and delete them.
+Select the framework and unit test targets on the project target list and delete
+them by pressing on the `-` button at the bottom of the target list.
 
 ![Remove Targets](/media/swift-frameworks/4-remove-targets.png)
 *Remove both framework and unit tests targets*
 
-2. Select the project source files, and delete them.
+On the project navigator, select the project source files, including the group,
+and delete them. When asked, select "Move to trash".
 
 ![Remove Framework Sources](/media/swift-frameworks/5-remove-sources.png)
 *Remove framework sources*
 
-3. Select the unit test source files, and delete them.
+Select the unit test source files, including the group, and delete them. When
+asked, select "Move to trash".
 
 ![Remove Unit Test Sources](/media/swift-frameworks/6-remove-test-sources.png)
 *Remove unit test sources*
 
 ### Adding a target for iOS
 Now that our project has no targets, we are going to add three targets. To add
-a new target for iOS, select the '+' icon on the project target list. Then
-choose `iOS -> Framework & Library`.
+a new target for iOS, select the `+` icon on the project target list, or
+`File -> New -> Target...`. Then choose
+`iOS -> Framework & Library -> Cocoa Touch Framework`.
 
 ![Add iOS Framework Target](/media/swift-frameworks/7-add-ios-target.png)
 *Add new iOS Framework target*
@@ -141,8 +143,9 @@ choose `iOS -> Framework & Library`.
 When entering the name, type `MyFrameworkiOS`.
 
 ### Adding a target for OS X
-Now, let's add a new target for OS X. Select the '+' icon on the project target
-list. Then choose `OS X -> Framework & Library`.
+Now, let's add a new target for OS X. Select the `+` icon on the project target
+list, or `File -> New -> Target...`. Then choose
+`OS X -> Framework & Library -> Cocoa Framework`.
 
 ![Add OS X Framework Target](/media/swift-frameworks/8-add-osx-target.png)
 *Add new OS X Framework target*
@@ -150,34 +153,124 @@ list. Then choose `OS X -> Framework & Library`.
 When entering the name, type `MyFrameworkOSX`.
 
 ### Adding a target for tvOS
-Finally, add a new target for tvOS. Select the '+' icon on the project target
-list. Then choose `tvOS -> Framework & Library`.
+Finally, add a new target for tvOS. Select the `+` icon on the project target
+list, or `File -> New -> Target...`. Then choose
+`tvOS -> Framework & Library -> TV Framework`.
 
 ![Add tvOS Framework Target](/media/swift-frameworks/9-add-tvos-target.png)
 *Add new tvOS Framework target*
 
 When entering the name, type `MyFrameworkTVOS`.
 
+### Project review
+Both the project navigator and your project target list should contain these
+6 items:
+
+- MyFrameworkiOS
+- MyFrameworkiOSTests
+- MyFrameworkOSX
+- MyFrameworkOSXTests
+- MyFrameworkTVOS
+- MyFrameworkTVOSTests
+
+![Xcode framework with three targets](/media/swift-frameworks/10-project-screen.png)
+*Project Screen with all three targets created*
+
+
 ### Configuring shared build schemes
 For continuous integration, we are going to configure one scheme for each
-target. We also want to remove the scheme from the old target that we no longer
-have.
+target.
 
-Open `Projects -> Schemes -> Manage Schemes...` and check the checkbox on each
-one of the schemes matching the targets we just created.
+![Configure Schemes](/media/swift-frameworks/11-schemes-before.png)
+*Non-shared schemes (before configuration)*
 
-![Configure Schemes](/media/swift-frameworks/10-schemes.png)
-*Configure shared schemes for each target*
+Open `Product -> Scheme -> Manage Schemes...` and check the checkbox on each
+one of the schemes matching the targets we just created. In addition, remove
+the scheme from the old target that we no longer have (MyFramework).
+
+![Configured Schemes](/media/swift-frameworks/12-schemes-after.png)
+*Configured shared schemes for each target*
+
+In addition, it is a good idea to enable Code Coverage data for each of the
+three schemes. Select one scheme after another and press `Edit Scheme...`.
+Then, under 'Tests', select the checkbox that says `Gather coverage data`.
+
+![Configured Schemes](/media/swift-frameworks/13-code-coverage.png)
+*Enabling Code Coverage in Xcode 7*
+
 
 * * *
 
 ## Development
+Now that we have our project set up, it is time to add some source code!
+
+Our goal is to share as much source code as possible between all three
+frameworks. To do this, we will add our shared source files into the `Sources`
+folder we created when setting up the project and then assign the source files
+to all three framework targets.
+
+Let's add a sample class to track our car miles:
+
+~~~swift
+public class Car: CustomStringConvertible {
+
+    var name: String
+    var miles: Int
+
+    public init(name: String, miles: Int) {
+        self.name = name
+        self.miles = miles
+    }
+
+    public func addMiles(miles: Int) {
+        self.miles += miles
+    }
+
+    public var description: String {
+        return "Car '\(name)' has \(miles) miles."
+    }
+
+}
+~~~
+
+In our application, we will use the car like this:
+
+~~~swift
+let car = Car("Toyota Camry", miles: 190000)
+print(car) //  Car 'Toyota Camry' has 190000 miles
+car.addMiles(1000)
+print(car) //  Car 'Toyota Camry' has 191000 miles
+~~~
+
+Note that because both `name` and `miles` properties are non-public, we wont be
+able to access them from our main application.
 
 ### Adding source files
+Let's create the file and add it to the project.
 
-### Adding test files
+On the project navigator, right-click on the project item and choose "New Group"
+and call it `Sources`.
 
-### Public
+Next, right-click on `Sources` and select `New File... -> iOS -> Swift File`.
+
+![Creating a new Swift File](/media/swift-frameworks/14-swift-file.png)
+*Creating a new Swift source file*
+
+Name the file `Car.swift` and save it in the `Sources` folder. Check that it is
+being added to the `Sources` group and that all framework targets are selected.
+
+![Add Swift File](/media/swift-frameworks/15-car-class.png)
+*Adding Swift source files to all targets*
+
+Copy the code from the class above and paste it in Xcode.
+
+![Car Class](/media/swift-frameworks/16-car-class.png)
+*Car Class*
+
+Try building each one of the schemes (`⌘ + B`). You can navigate between schemes
+with the shortcuts `Ctrl + ⌘ + [` and `Ctrl + ⌘ + ]`.
+
+### About Public and Private
 In Swift, the `public` keyword indicates the code flagged as public will
 accessible from outside the current module.
 
@@ -198,24 +291,102 @@ entities that we want to make accessible.
 *TL,DR: Only those entities flagged as public in your framework will be
 accessible from other frameworks.*
 
-### Private
-When working with frameworks, only entities marked as `public` are accessible
-from the outside. Thus, there is no much value on marking entities as `private`.
+Contrary to `public`, using `private` can actually make your code harder to
+test. Xcode 7 has a new feature that enables importing frameworks with
+`@testable import`, which makes it possible to test non-public code. However,
+it cannot test private code.
 
-In fact, using `private` can actually make your code harder to test. Xcode 7
-enables importing frameworks with `@testable import`, which makes it possible
-to test non-public code. However, it cannot test private code.
+Because modules do not expose non-public entities outside of the module, there
+is no need to use `private` anywhere in the framework code.
 
 * * *
 
 ## Testing
+Now that we have some working code, it is time to test it! How else could we
+guarantee our code does what we designed it to do?
+
+Same as our source code, our goal for our tests is to share as many tests as
+possible between all three frameworks. To do this, we will add our shared
+test source files into the `Tests` folder we created when setting up the
+project. Then we will assign the test source files to all three unit test
+targets.
+
+We are going to write two tests.
+
+The first test will create a new car and check the description is correct.
+
+~~~swift
+func testCarDescription() {
+    let car = Car(name: "Test", miles: 0)
+    XCTAssertEqual(car.description, "Car 'Test' has 0 miles.")
+}
+~~~
+
+The second test, will create a new car, add some miles, and verify the
+description is the one expected.
+
+~~~swift
+func testCarDescriptionAfterAddingMiles() {
+    let car = Car(name: "Test", miles: 0)
+    car.addMiles(125)
+    XCTAssertEqual(car.description, "Car 'Test' has 125 miles.")
+}
+~~~
+
+### Adding test files
+Let's create the test file and add it to the project.
+
+On the project navigator, right-click on the project item and choose "New Group"
+and call it `Tests`.
+
+Next, right-click on `Sources` and select
+`New File... -> iOS -> Unit Test Case Class`.
+
+![Creating a new Unit Test](/media/swift-frameworks/17-unit-test-case.png)
+*Creating a new Unit Test Case*
+
+Name the class `CarTests` and inherit from `XCTestCase`.
+
+![Creating a new Unit Test](/media/swift-frameworks/18-car-tests.png)
+*Creating a new Unit Test Case*
+
+Name the file `CarTests.swift` and save it in the `Tests` folder. Check that it
+is being added to the `Tests` group and that all unit test targets are selected.
+
+![Add Unit Test Case](/media/swift-frameworks/19-tests-folder.png)
+*Adding source files to all unit test targets*
+
+Copy the tests from above and paste them in Xcode.
+
+![Unit Tests](/media/swift-frameworks/20-unit-tests.png)
+*Unit Tests for our Car class*
+
+Note that, because we want our `CarTests` Unit Test Case to be used on all three
+frameworks, we wont be able to use `@testable import` to import our `Car` class.
+
+Instead, we will have to add the `Car.swift` file to all our unit test targets.
+
+![Target Membership](/media/swift-frameworks/21-target-membership.png)
+*Car class target membership*
+
 
 ### Testing each target manually
 Testing each target manually is as simple as selecting the correct scheme in
 the Xcode build configuration and then running the tests (`⌘ + U`).
 
-![Select Scheme to Build](/media/swift-frameworks/XX-schemes-testing.png)
-*Selecting the scheme to test*
+Our tests results should be all green for each of our frameworks.
+
+![Test Results](/media/swift-frameworks/22-test-results.png)
+*Test results are green*
+
+In addition, our coverage should be 100%.
+
+![Code Coverage](/media/swift-frameworks/23-coverage.png)
+*100% Code Coverage*
+
+Note that since we are including the source files directly into the test bundle,
+the coverage will only appear when selecting 'Show Test Bundles' on the
+coverage report screen.
 
 ### Configuration for Travis CI (Continuous Integration)
 
