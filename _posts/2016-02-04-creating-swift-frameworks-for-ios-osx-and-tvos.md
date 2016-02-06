@@ -2,7 +2,7 @@
 layout: post
 title: Creating Swift frameworks for iOS, OS X and tvOS with Unit Tests and Distributing via CocoaPods and Swift Package Manager
 date: 2016-02-04
-desc: In this article I cover how to create Swift Frameworks for iOS, OS X and tvOS in Xcode 7.
+desc: In this article we cover how to create Swift Frameworks for iOS, OS X and tvOS in Xcode 7.
 keywords: swift, tvos, ios, osx, appletv, framework
 image: /media/swift-frameworks/1-create-framework-project.png
 ---
@@ -15,27 +15,28 @@ to errors.
 
 ### Introduction to Frameworks and Package Managers
 Traditionally, on Apple platforms, reusable code will be packed and distributed
-as frameworks (bundled files with extension `.framework`).
+as [frameworks](https://developer.apple.com/library/mac/documentation/MacOSX/Conceptual/BPFrameworks/Concepts/WhatAreFrameworks.html) (bundled files with extension `.framework`).
 
 In the last few years, other package managers have become very popular, like
-CocoaPods, Carthage or the new Swift Package Manager.
+[CocoaPods](https://cocoapods.org), [Carthage](https://github.com/Carthage/Carthage)
+or the new [Swift Package Manager](https://swift.org/package-manager/).
 
 These package managers do not require for the code to be put inside a framework.
 They can pack and distribute the code directly without the need for any project
 whatsoever.
 
-However, in my experience, **I have found three major benefits when using
+However, in my experience, **I have found some major benefits when using
 frameworks for my libraries and SDKs**:
 
 1. Frameworks can include Unit Tests without the need for Example projects.
-2. Frameworks can be distributed via CocoaPods or Carthage.
-3. Frameworks can include dependencies via CocoaPods and Carthage.
+1. Frameworks can be distributed via CocoaPods or Carthage.
+1. Frameworks can include dependencies via CocoaPods and Carthage.
 
-Furthermore, Frameworks can have CocoaPod dependencies while being distributed
-as a CocoaPod, with unit tests included!
+Furthermore, Frameworks can have CocoaPod dependencies installed via `Podfile`
+while being distributed as a CocoaPod with a `podspec` file.
 
-On this article I will cover how to create an Xcode project for a framework for
-multiple platforms (iOS, OS X and tvOS) while reusing the source code and unit
+On this article we will cover how to create an Xcode project for a framework for
+multiple platforms (iOS, OS X and tvOS) while reusing source code and unit
 tests. We will also cover distribution via CocoaPods and CocoaPod dependencies.
 
 * * *
@@ -55,7 +56,8 @@ And initialize Git:
 
     $ git init
 
-Alternatively, if you are using GitHub, you can directly create the repository
+Alternatively, if you are using [GitHub](https://github.com), you can directly
+create the repository
 in GitHub and clone it in your computer.  The benefit of this approach is that
 you can have GitHub generate the `README`, `.gitignore` and `LICENSE` files for
 you.
@@ -191,7 +193,8 @@ the scheme from the old target that we no longer have (MyFramework).
 ![Configured Schemes](/media/swift-frameworks/12-schemes-after.png)
 *Configured shared schemes for each target*
 
-In addition, it is a good idea to enable Code Coverage data for each of the
+In addition, it is a good idea to enable
+[code coverage](https://en.wikipedia.org/wiki/Code_coverage) for each of the
 three schemes. Select one scheme after another and press `Edit Scheme...`.
 Then, under 'Tests', select the checkbox that says `Gather coverage data`.
 
@@ -271,6 +274,9 @@ Try building each one of the schemes (`⌘ + B`). You can navigate between schem
 with the shortcuts `Ctrl + ⌘ + [` and `Ctrl + ⌘ + ]`.
 
 ### About Public and Private
+*TL;DR: Only those entities flagged as public in your framework will be
+accessible from the outside.*
+
 In Swift, the `public` keyword indicates the code flagged as public will
 accessible from outside the current module.
 
@@ -287,9 +293,6 @@ within the application module.
 However, for an application to be able to access the source
 code inside a framework, it is necessary to use `public` to *expose* the
 entities that we want to make accessible.
-
-*TL,DR: Only those entities flagged as public in your framework will be
-accessible from other frameworks.*
 
 Contrary to `public`, using `private` can actually make your code harder to
 test. Xcode 7 has a new feature that enables importing frameworks with
@@ -389,14 +392,114 @@ the coverage will only appear when selecting 'Show Test Bundles' on the
 coverage report screen.
 
 ### Configuration for Travis CI (Continuous Integration)
+For [continuous integration](https://en.wikipedia.org/wiki/Continuous_integration)
+we will use [Travis CI](https://travis-ci.org). Travis CI pulls
+out your code from your GitHub repository, and looks at the `.travis.yml`
+configuration file to build your project.
+
+In our case, we are going to configure a build matrix to build and test all our
+targets.
+
+~~~ruby
+language: objective-c
+osx_image: xcode7.2
+env:
+  global:
+  - LC_CTYPE=en_US.UTF-8
+  - LANG=en_US.UTF-8
+  - WORKSPACE=MyFramework/MyFramework.xcworkspace
+  - IOS_SCHEME="MyFrameworkiOS"
+  - IOS_SDK=iphonesimulator9.2
+  - OSX_SCHEME="MyFrameworkOSX"
+  - OSX_SDK=macosx10.11
+  - TVOS_SCHEME="MyFrameworkTVOS"
+  - TVOS_SDK=appletvsimulator9.1
+  matrix:
+    - DESTINATION="OS=9.2,name=iPhone 4S"        SCHEME="$IOS_SCHEME"     SDK="$IOS_SDK"     RUN_TESTS="YES" POD_LINT="NO"
+    - DESTINATION="OS=9.2,name=iPhone 5"         SCHEME="$IOS_SCHEME"     SDK="$IOS_SDK"     RUN_TESTS="YES" POD_LINT="NO"
+    - DESTINATION="OS=9.2,name=iPhone 5S"        SCHEME="$IOS_SCHEME"     SDK="$IOS_SDK"     RUN_TESTS="YES" POD_LINT="NO"
+    - DESTINATION="OS=9.2,name=iPhone 6"         SCHEME="$IOS_SCHEME"     SDK="$IOS_SDK"     RUN_TESTS="YES" POD_LINT="NO"
+    - DESTINATION="OS=9.2,name=iPhone 6 Plus"    SCHEME="$IOS_SCHEME"     SDK="$IOS_SDK"     RUN_TESTS="YES" POD_LINT="NO"
+    - DESTINATION="OS=9.2,name=iPhone 6S"        SCHEME="$IOS_SCHEME"     SDK="$IOS_SDK"     RUN_TESTS="YES" POD_LINT="NO"
+    - DESTINATION="OS=9.2,name=iPhone 6S Plus"   SCHEME="$IOS_SCHEME"     SDK="$IOS_SDK"     RUN_TESTS="YES" POD_LINT="NO"
+    - DESTINATION="arch=x86_64"                  SCHEME="$OSX_SCHEME"     SDK="$OSX_SDK"     RUN_TESTS="YES" POD_LINT="NO"
+    - DESTINATION="OS=9.1,name=Apple TV 1080p"   SCHEME="$TVOS_SCHEME"    SDK="$TVOS_SDK"    RUN_TESTS="YES" POD_LINT="NO"
+
+script:
+  - set -o pipefail
+  - xcodebuild -version
+  - xcodebuild -showsdks
+
+  # Build Framework in Debug and Run Tests if specified
+  - if [ $RUN_TESTS == "YES" ]; then
+      xcodebuild -workspace "$WORKSPACE" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO test | xcpretty -c;
+    else
+      xcodebuild -workspace "$WORKSPACE" -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO build | xcpretty -c;
+    fi
+
+  # Run `pod lib lint` if specified
+  - if [ $POD_LINT == "YES" ]; then
+      pod lib lint --private --verbose;
+    fi
+~~~
+
+The above matrix includes a `pod lib lint` command to be run once for each
+platform, we will get to that later once we add the CocoaPods `podspec` file.
+
+Once you have added the `.travis.yml` configuration file, enable your
+repository on [travis-ci.org](http://travis-ci.org)
+or [travis-ci.com](http://travis-ci.com) and push your travis configuration file
+to GitHub.
+
+![Enable Travis](/media/swift-frameworks/24-enable-travis.png)
+*Enable repository on Travis CI*
+
+The push will trigger a new build.
+
+![Build Result](/media/swift-frameworks/25-travis-passing.png)
+*Our build is passing in all platforms and devices*
+
 
 * * *
 
 ## Distribution
 
+### Archiving our Frameworks
+The *defacto* way to distribute a framework is by archiving it. Select the
+generic device destination on your project build configuration. You can switch
+between destinations by pressing `^ + ⌥ + ⌘ + [` and `^ + ⌥ + ⌘ + ]`.
+
+Before we can archive our frameworks, we need to set the `Skip Install` setting
+to `NO`.
+
+![Skip Install](/media/swift-frameworks/26-skip-install.png)
+*Set Skip Install to NO for all framework targets*
+
+To archive your framework, choose `Product -> Archive` in the menu. The archive
+will appear on the Organizer. To export it, select
+`Export -> Save Built Products`.
+
+![Export Framework](/media/swift-frameworks/27-export-framework.png)
+*Export Framework*
+
+Your framework will be exported to a folder with the framework name and export
+date.
+
+![Exported Framework](/media/swift-frameworks/28-exported-framework.png)
+*Exported Framework*
+
+At this point we can zip our framework and distribute it.
+
 ### CocoaPods PodSpec
 
 ### Swift Package Manager
+To distribute your library via Swift Package Manager, all that is required is
+to create an empty `Package.swift` configuration file on the root of your
+repository.
+
+This is because Swift Package Manager will include by default only those files
+in the `Sources` folder, which in our case, contains the source code we want
+to distribute.
 
 * * *
 
@@ -411,7 +514,7 @@ the following command:
     $ pod init
 
 This will create a `Podfile` file with some content for your multiple targets.
-Alternatively, you can also create the Podfile manually with any text editor.
+Alternatively, you can also create the `Podfile` manually with any text editor.
 
 Add any pod dependencies. In most cases, the dependencies will be the same for
 all three frameworks, so we can create a ruby function to contain all the pods
@@ -432,7 +535,18 @@ At this point, your workspace should contain two projects our framework
 project with our three targets and a second project from CocoaPods.
 
 Build and test your schemes, everything should work as before, and all
-dependencies included in the Podfile should be available for import.
+dependencies included in the `Podfile` should be available for import.
+
+* * *
+
+## Source Code
+The entire source code for this tutorial is available on GitHub:
+
+[https://github.com/eneko/MyFramework.swift](https://github.com/eneko/MyFramework.swift)
+
+Build reports are available on Travis CI:
+
+[https://travis-ci.org/eneko/MyFramework.swift](https://travis-ci.org/eneko/MyFramework.swift)
 
 * * *
 

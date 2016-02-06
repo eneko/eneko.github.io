@@ -12,4 +12,20 @@ layout: default
     {{ content }}
   </div>
 
+  <footer class="post-footer">
+      <p>Thank you for reading! If you liked this article, please share it or <a href="http://twitter.com/eneko">shoot me a note on Twitter</a>.</p>
+      <div><a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ page.url | replace:'.html','' | prepend: site.baseurl | prepend: site.url }}" data-via="eneko">Tweet</a></div>
+      <div class="fb-share-button" data-href="{{ page.url | replace:'.html','' | prepend: site.baseurl | prepend: site.url }}" data-layout="button"></div>
+  </footer>
+
 </article>
+
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=462576193771165";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
