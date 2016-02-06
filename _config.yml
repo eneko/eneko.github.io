@@ -21,3 +21,4 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://www.enekoalonso.com" # the base hostname & protocol for your site
 twitter_username: eneko
 github_username:  eneko
+stackoverflow_username: eneko

@@ -52,19 +52,30 @@ $on-laptop:        800px;
 
 // ------------------------------------------
 
+h1, h2, h3, h4 {
+    line-height: 1;
+    margin: 0;
+}
 h1 {
     font-weight: 800;
+    color: #333;
 }
 .post-title {
     letter-spacing: -2px;
 }
 h2 {
-    color: #222;
-}
-h3 {
+    padding: 20px 0 20px;
+    font-weight: 700;
     color: #444;
 }
+h3 {
+    padding: 20px 0 10px;
+    font-weight: 600;
+    color: #555;
+}
 h4 {
+    padding: 20px 0 10px;
+    font-weight: 500;
     color: #666;
 }
 
