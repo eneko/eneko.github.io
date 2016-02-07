@@ -568,6 +568,38 @@ Add any pod dependencies. In most cases, the dependencies will be the same for
 all three frameworks, so we can create a ruby function to contain all the pods
 as follows:
 
+~~~ruby
+use_frameworks!
+
+def pods()
+    # Your favorite pods here
+    # pod 'SwiftyJSON'
+end
+
+target 'MyFrameworkiOS' do
+    pods()
+end
+
+target 'MyFrameworkiOSTests' do
+    pods()
+end
+
+target 'MyFrameworkOSX' do
+    pods()
+end
+
+target 'MyFrameworkOSXTests' do
+    pods()
+end
+
+target 'MyFrameworkTVOS' do
+    pods()
+end
+
+target 'MyFrameworkTVOSTests' do
+    pods()
+end
+~~~
 
 Once you have listed your dependencies, run this command to install them (it
   is a good habit to close your project on Xcode, since moving forward we
@@ -582,6 +614,9 @@ Open the new workspace created by CocoaPods:
 At this point, your workspace should contain two projects our framework
 project with our three targets and a second project from CocoaPods.
 
+![Project Workspace](/media/swift-frameworks/29-workspace.png)
+*Project Workspace with CocoaPods dependencies*
+
 Build and test your schemes, everything should work as before, and all
 dependencies included in the `Podfile` should be available for import.
 
@@ -590,11 +625,11 @@ dependencies included in the `Podfile` should be available for import.
 ## Source Code
 The entire source code for this tutorial is available on GitHub:
 
-[https://github.com/eneko/MyFramework.swift](https://github.com/eneko/MyFramework.swift)
+[MyFramework.swift Source Code](https://github.com/eneko/MyFramework.swift)
 
 Build reports are available on Travis CI:
 
-[https://travis-ci.org/eneko/MyFramework.swift](https://travis-ci.org/eneko/MyFramework.swift)
+[MyFramework.swift Build Report](https://travis-ci.org/eneko/MyFramework.swift)
 
 * * *
 
