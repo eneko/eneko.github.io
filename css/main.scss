@@ -92,7 +92,7 @@ code,
 }
 
 .post-content p,
-.post-content li {
+.post-content > ul > li {
   font-family: Georgia, "Cambria", "Times New Roman", Times, serif;
   font-size: 1.2em;
 }
