@@ -18,16 +18,16 @@ the amount of text pending to be translated for each of the languages
 supported by the website**.
 
 Basically, if the user selected Japanese, the client wanted to know how many
-pages where still showing English content. Furthermore, the client would be
+pages were still showing English content. Furthermore, the client would be
 very pleased if they knew how much of each page was translated
 (none, half, all?).
 
-Some pages where "completely" translated:
+Some pages were "completely" translated:
 
 ![Translated Product](/media/articles/language-detection/product-translated.png)
 *A "fully" translated product page*
 
-Some pages where not translated at all:
+Some pages were not translated at all:
 
 ![Non-Translated Product](/media/articles/language-detection/product-non-translated.png)
 *A non-translated product page*
@@ -131,12 +131,12 @@ After retrieving the HTML content of a page, we had to extract the text.
 Instead of checking the entire HTML, I focused on
 `<h1>`, `<h2>`, `<h3>`, `<h4>` and, most importantly, `<p>` tags. I considered
 checking also for links (`<a>` tags) but finally decided to not include them
-as most of them where related to navigation.
+as most of them were related to navigation.
 
 ### Regular Expressions
 While [HTML cannot be parsed with regular expressions](http://stackoverflow.com/a/1732454/422288)
 (thanks for the reminder, [Vincent](https://github.com/sdobz)),
-I found that for the job at hand, regular expressions where good enough
+I found that for the job at hand, regular expressions were good enough
 (thank you for the assistance, [Kevin Strong](https://github.com/kmstrong)).
 
 When extracting text from the HTML, I noticed that
