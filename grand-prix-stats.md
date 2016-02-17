@@ -90,7 +90,7 @@ Open the App Store application on your Apple TV and search for
 * * *
 
 
-## Behind the Scenes
+## Under the Hood
 
 Grand Prix Stats was developed in:
 
@@ -111,7 +111,7 @@ All data displayed by Grand Prix Stats is provided by the [Ergast Motor Racing D
 - SeasonService
 - StandingsService
 
-```swift
+~~~swift
 class RaceService {
 
     static let sharedInstance = RaceService()
@@ -143,7 +143,7 @@ class RaceService {
     }
 
 }
-```
+~~~
 
 #### Data Structures
 
@@ -160,7 +160,7 @@ class RaceService {
 - Season
 - SeasonStanding
 
-```swift
+~~~swift
 struct Circuit {
 
     var circuitId: String
@@ -176,6 +176,4 @@ struct Circuit {
     }
 
 }
-```
-
-#### User Interface
+~~~

@@ -16,7 +16,7 @@ description: > # this means to ignore newlines until "baseurl:"
   You are viewing enekoalonso.com.
   This is the personal site of Eneko Alonso. Any content included and
   any opinions expressed on this site are personal of Eneko only and do
-  not represent his employer.
+  not represent any of his current or past employers.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://www.enekoalonso.com" # the base hostname & protocol for your site
 twitter_username: eneko
