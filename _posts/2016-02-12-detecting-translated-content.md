@@ -1,10 +1,14 @@
 ---
 layout: post
+permalink: /articles/:title
 title: Calculating percentages of translated text on a website using a Multi-Threaded Crawler and a Naive Bayes Classifier written in Swift
 date: 2016-02-12
 desc: I wrote a crawler in Swift to detect the percentage of text translated on a website.
 keywords: swift, http, crawl, detection, language, localization, translation, content
 image: /media/articles/language-detection/xcode-worker-threads.png
+redirect_from:
+  - /2016/02/12/detecting-translated-content
+  - /2016/02/12/detecting-translated-content.html
 ---
 
 A few years back we built Applied Materials corporate website.

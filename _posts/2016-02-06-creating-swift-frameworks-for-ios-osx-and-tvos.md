@@ -1,10 +1,14 @@
 ---
 layout: post
+permalink: /articles/:title
 title: Creating Swift frameworks for iOS, OS X and tvOS with Unit Tests and Distributing via CocoaPods and Swift Package Manager
 date: 2016-02-06
 desc: In this article we cover how to create Swift Frameworks for iOS, OS X and tvOS in Xcode 7.
 keywords: swift, tvos, ios, osx, appletv, framework
 image: /media/swift-frameworks/12-schemes-after.png
+redirect_from:
+  - /2016/02/06/creating-swift-frameworks-for-ios-osx-and-tvos
+  - /2016/02/06/creating-swift-frameworks-for-ios-osx-and-tvos.html
 ---
 
 There are many ways to make code easily reusable in Apple platforms. For

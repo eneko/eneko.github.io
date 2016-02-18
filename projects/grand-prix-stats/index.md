@@ -1,10 +1,13 @@
 ---
 layout: page
+permalink: /projects/grand-prix-stats/
 title: Grand Prix Stats Apple TV App
-permalink: /grand-prix-stats/
 desc: Grand Prix Stats is an application for Apple TV that provides information about the Formula 1® driver and constructor championships.
 keywords: appletv, tv, app, formula1, formulaone, formula one, swift, tvos
 image: /media/grand-prix-stats/screenshot.jpg
+redirect_from:
+   - /grand-prix-stats
+   - /grand-prix-stats.html
 ---
 
 ![Application icon and Top Shelf image - Grand Prix Stats](/media/grand-prix-stats/screenshot-1.jpg)

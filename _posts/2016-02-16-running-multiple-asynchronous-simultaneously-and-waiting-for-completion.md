@@ -1,10 +1,14 @@
 ---
 layout: post
+permalink: /articles/:title
 title: Running multiple asynchronous operations simultaneously with GCD and waiting for completion
 date: 2016-02-16
 desc: Waiting for multiple asynchronous operations to complete can be complicated.
 keywords: swift, Async, AsyncGroup, GCD, asynchronous, operation, block, multiple, group, grand, central, dispatch
 image: /media/articles/multiple-async-operations/async-group.png
+redirect_from:
+    - /2016/02/16/running-multiple-asynchronous-simultaneously-and-waiting-for-completion
+    - /2016/02/16/running-multiple-asynchronous-simultaneously-and-waiting-for-completion.html
 ---
 
 Running asynchronous operations in Swift is pretty easy with Grand Central
