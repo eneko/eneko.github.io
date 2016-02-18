@@ -6,8 +6,7 @@ desc: Grand Prix Stats is an application for Apple TV that provides information 
 keywords: appletv, tv, app, formula1, formulaone, formula one, swift, tvos
 image: /media/grand-prix-stats/screenshot.jpg
 redirect_from:
-   - /grand-prix-stats
-   - /grand-prix-stats.html
+    - /grand-prix-stats.html
 ---
 
 ![Application icon and Top Shelf image - Grand Prix Stats](/media/grand-prix-stats/screenshot-1.jpg)

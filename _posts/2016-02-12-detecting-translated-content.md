@@ -7,7 +7,6 @@ desc: I wrote a crawler in Swift to detect the percentage of text translated on 
 keywords: swift, http, crawl, detection, language, localization, translation, content
 image: /media/articles/language-detection/xcode-worker-threads.png
 redirect_from:
-  - /2016/02/12/detecting-translated-content
   - /2016/02/12/detecting-translated-content.html
 ---
 

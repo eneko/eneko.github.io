@@ -7,7 +7,6 @@ desc: In this article we cover how to create Swift Frameworks for iOS, OS X and 
 keywords: swift, tvos, ios, osx, appletv, framework
 image: /media/swift-frameworks/12-schemes-after.png
 redirect_from:
-  - /2016/02/06/creating-swift-frameworks-for-ios-osx-and-tvos
   - /2016/02/06/creating-swift-frameworks-for-ios-osx-and-tvos.html
 ---
 
