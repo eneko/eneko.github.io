@@ -14,7 +14,7 @@ desc: Hi, I am Eneko Alonso, a software engineer specialized in iOS and tvOS liv
 
 ### Recent Projects
 
-- [Grand Prix Stats Apple TV Application](/grand-prix-stats)
+- [Grand Prix Stats Apple TV Application](/projects/grand-prix-stats)
 
 ### Recent Articles
 
