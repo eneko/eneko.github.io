@@ -39,23 +39,39 @@ terminal to run the code. Use `swift build` if you have Swift 2.2 installed.
 * * *
 
 
-## Working with lists
+## Working with _Linked_ Lists
 
 While most of these problems can be solved using an Array and built-in methods
 or extensions, I would like to challenge you to solve these problems by
-implementing a generic [linked list](https://en.wikipedia.org/wiki/Linked_list)
+implementing a generic [Linked List](https://en.wikipedia.org/wiki/Linked_list)
 with the following constructor:
 
 ~~~swift
 public class List<T> {
+    var head: ListItem<T>?
+
     public init(_ values: T...) {
-        // ...
+        // append values to the list
     }
 }
 ~~~
 
-Then, individual methods or computed properties can be added to the class
-to solve each of problem.
+Items of the linked list will have a value and a pointer to the next element in
+the list.
+
+~~~swift
+class ListItem<T> {
+    var value: T
+    var next: ListItem<T>?
+
+    init(value: T) {
+        self.value = value
+    }
+}
+~~~
+
+Then, individual methods or computed properties can be added to the `List` class
+to solve each problem.
 
 
 ### <a name="p01"/>[P01](#p01) Find the last element of a list.
@@ -174,20 +190,29 @@ print(list.encode()) // ((4, "a"), (1, "b"), (2, "c"), (2, "a"), (1, "d"), (4, "
 ### <a name="p11"/>[P11](#p11) Modified run-length encoding.
 Difficulty: 🔨
 
-Modify the result of problem P10 in such a way that if an element has no duplicates it is simply copied into the result list. Only elements with duplicates are transferred as (N, E) terms.
+Modify the result of problem P10 in such a way that if an element has no
+duplicates it is simply copied into the result list. Only elements with
+duplicates are transferred as (N, E) terms.
+
 Example:
 
-scala> encodeModified(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e))
-res0: List[Any] = List((4,'a), 'b, (2,'c), (2,'a), 'd, (4,'e))
+~~~swift
+let list = List("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e")
+print(list.encodeModified()) // ((4, "a"), "b", (2, "c"), (2, "a"), "d", (4, "e"))
+~~~
 
 ### <a name="p12"/>[P12](#p12) Decode a run-length encoded list.
 Difficulty: 🔨🔨
 
-Given a run-length code list generated as specified in problem P10, construct its uncompressed version.
+Given a run-length code list generated as specified in problem P10, construct
+its uncompressed version.
+
 Example:
 
-scala> decode(List((4, 'a), (1, 'b), (2, 'c), (2, 'a), (1, 'd), (4, 'e)))
-res0: List[Symbol] = List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)
+~~~swift
+let list = List((4, "a"), (1, "b"), (2, "c"), (2, "a"), (1, "d"), (4, "e"))
+print(list.decode()) // ("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e")
+~~~
 
 ### <a name="p13"/>[P13](#p13) Run-length encoding of a list (direct solution).
 Difficulty: 🔨🔨
