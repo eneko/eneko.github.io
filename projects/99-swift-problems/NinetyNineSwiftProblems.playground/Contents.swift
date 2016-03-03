@@ -78,30 +78,19 @@ List(1).isPalindrome
 List<Int>().isPalindrome
 
 //: ### P07 (\*\*) Flatten a nested list structure.
-List<Any>(List(1, 1), 2, List<Any>(3, List(5, 8))).flatten()
-//List(1, 1, 2, 3, 5, 8).flatten()
-//List(List(List(List(List(1), List(2), List(3, 4))))).flatten()
+List<Any>(List<Any>(1, 1), 2, List<Any>(3, List<Any>(5, 8))).flatten()
+List(1, 1, 2, 3, 5, 8).flatten()
+List<Any>(List<Any>(List<Any>(List<Any>(List<Any>(1), List<Any>(2), List<Any>(3, 4))))).flatten()
+
+//: ### P08 (\*\*) Eliminate consecutive duplicates of list elements.
+//: If a list contains repeated elements they should be replaced with a single copy
+//: of the element. The order of the elements should not be changed.
+List("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e").compress()
+List(1, 1, 2, 3, 5, 8).compress()
+List("a").flatten()
+List<String>().flatten()
 
 /*
-
-
-Example:
-
-~~~swift
-let list = List<AnyObject>(List(1, 1), 2, List<AnyObject>(3, List(5, 8)))
-print(list.flatten()) // (1, 1, 2, 3, 5, 8)
-~~~
-
-### <a name="p08"/>[P08](#p08) (\*\*) Eliminate consecutive duplicates of list elements.
-If a list contains repeated elements they should be replaced with a single copy
-of the element. The order of the elements should not be changed.
-
-Example:
-
-~~~swift
-let list = List("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e")
-print(list.compress()) // ("a", "b", "c", "a", "d", "e")
-~~~
 
 ### <a name="p09"/>[P09](#p09) (\*\*) Pack consecutive duplicates of list elements into sublists.
 If a list contains repeated elements they should be placed in separate sublists.

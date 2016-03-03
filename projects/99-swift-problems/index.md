@@ -139,7 +139,7 @@ print(list.isPalindrome) // true
 Example:
 
 ~~~swift
-let list = List<AnyObject>(List(1, 1), 2, List<AnyObject>(3, List(5, 8)))
+let list = List<Any>(List<Any>(1, 1), 2, List<Any>(3, List<Any>(5, 8)))
 print(list.flatten()) // (1, 1, 2, 3, 5, 8)
 ~~~
 

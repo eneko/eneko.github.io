@@ -14,12 +14,7 @@ extension ListItem: CustomStringConvertible {
     }
 }
 
-protocol Listable {
-    typealias A
-    func flatten() -> A
-}
-
-public class List<T>: Listable {
+public class List<T> {
 
     var head: ListItem<T>?
 
@@ -94,7 +89,7 @@ public class List<T>: Listable {
     }
 
     /// Problem 5
-    public func reverseInPlace() -> List<T> {
+    public func reverseInPlace() -> List {
         let current = head
         if current == nil || current?.next == nil {
             return self
@@ -107,48 +102,6 @@ public class List<T>: Listable {
         return self
     }
 
-    /// Problem 7
-    public func flatten() -> List<T> {
-        print("Start -----------------")
-        print("List: \(self)")
-        let resultList = List<T>()
-        print("resultList: \(resultList)")
-        var current = head
-        while let value = current?.value {
-            print("value: \(value), \(value.dynamicType)")
-            switch value {
-            case let list as Listable:
-                print("value is listable!")
-                let flattened = list.flatten()
-                print("flattened: \(flattened)")
-                var currentChild = flattened.head
-                while let innerValue = currentChild?.value {
-                    print("innervalue: \(innerValue)")
-                    resultList.append(innerValue)
-                    print("resultList: \(resultList)")
-                    currentChild = currentChild?.next
-                }
-            default:
-                resultList.append(value)
-            }
-//            if value is Listable {
-//                let flattened = (value as! Listable).flatten()
-//                print("flattened: \(flattened)")
-//                var currentChild = flattened.head
-//                while let innerValue = currentChild?.value {
-//                    print("innervalue: \(innerValue)")
-//                    resultList.append(innerValue)
-//                    print("resultList: \(resultList)")
-//                    currentChild = currentChild?.next
-//                }
-//            } else {
-//                //resultList.append(value)
-//            }
-            print("resultList: \(resultList)")
-            current = current?.next
-        }
-        return resultList
-    }
 
 }
 
@@ -187,6 +140,48 @@ extension List where T:Equatable {
             current = current?.next
         }
         return stack.count == 0
+    }
+
+}
+
+/// Problem 7
+extension List {
+    
+    public func flatten() -> List {
+        let resultList = List()
+        var current = head
+        while let value = current?.value {
+            switch value {
+            case let list as List:
+                let flattened = list.flatten()
+                var currentChild = flattened.head
+                while let innerValue = currentChild?.value {
+                    resultList.append(innerValue)
+                    currentChild = currentChild?.next
+                }
+            default:
+                resultList.append(value)
+            }
+            current = current?.next
+        }
+        return resultList
+    }
+
+}
+
+/// Problem 8
+extension List where T: Equatable {
+
+    public func compress() -> List {
+        var current = head
+        while let value = current?.value {
+            if value == current?.next?.value {
+                current?.next = current?.next?.next
+            } else {
+                current = current?.next
+            }
+        }
+        return self
     }
 
 }
