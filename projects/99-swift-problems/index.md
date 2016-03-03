@@ -7,7 +7,7 @@ keywords: swift, problems, programming, computer, science, cs, swiftlang
 image: /media/99-swift-problems/screenshot.jpg
 ---
 
-Ninety-Nine Swift Problems is an adaptation to the
+Ninety-Nine Swift Problems is an adaptation of the
 [Ninety-Nine Scala Problems](http://aperiodic.net/phil/scala/s-99/) written by
 [Phil Gold](http://aperiodic.net/phil/), which in turn was an adaptation of the
 original [Ninety-Nine Prolog Problems](https://prof.ti.bfh.ch/hew1/informatik3/prolog/p-99/)
@@ -20,9 +20,7 @@ From the 99 Scala Problems:
 > Your goal should be to find the most elegant solution of the given problems. Efficiency is important, but clarity is even more crucial. Some of the (easy) problems can be trivially solved using built-in functions. However, in these cases, you learn more if you try to find your own solution.
 
 Most of the above also applies to Swift, since both Swift and Scala are high-level
-modern languages. In this case, I have indicated the difficulty
-with 🔨, 🔨🔨 and 🔨🔨🔨. The hammer is a reference to brute force, which
-shouldn't be used to solve any of these problems.
+modern languages.
 
 Solutions for these problems can be written in Swift by creating a
 Playground in Xcode. Classes and structures can be placed on the source files
@@ -57,7 +55,7 @@ public class List<T> {
 ~~~
 
 Items of the linked list will have a value and a pointer to the next element in
-the list.
+the list:
 
 ~~~swift
 class ListItem<T> {
@@ -70,13 +68,11 @@ class ListItem<T> {
 }
 ~~~
 
-Then, individual methods or computed properties can be added to the `List` class
-to solve each problem.
+Individual methods or computed properties can then be added to the `List<T>`
+class to solve each of the following problems.
 
 
-### <a name="p01"/>[P01](#p01) Find the last element of a list.
-Difficulty: 🔨
-
+### <a name="p01"/>[P01](#p01) (\*) Find the last element of a list.
 Example:
 
 ~~~swift
@@ -270,7 +266,7 @@ let list = List("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k")
 print(list.split(3)) // (("a", "b", "c"), ("d", "e", "f", "g", "h", "i", "j", "k"))
 ~~~
 
-### <a name="p18"/>[P18](#p18) (\*\*) Extract a slice from a list.
+### <a name="p18"/>[P18](#p18) Extract a slice from a list.
 Difficulty: 🔨🔨
 
 Given two indices, I and K, the slice is the list containing the elements from
@@ -279,20 +275,27 @@ original list. Start counting the elements with 0.
 
 Example:
 
-scala> slice(3, 7, List('a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'i, 'j, 'k))
-res0: List[Symbol] = List('d, 'e, 'f, 'g)
+~~~swift
+let list = List("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k")
+print(list.slice(3, 7)) // ("d", "e", "f", "g")
+~~~
 
-### <a name="p19"/>[P19](#p19) (\*\*) Rotate a list N places to the left.
+### <a name="p19"/>[P19](#p19) Rotate a list N places to the left.
 Difficulty: 🔨🔨
 
 Examples:
-scala> rotate(3, List('a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'i, 'j, 'k))
-res0: List[Symbol] = List('d, 'e, 'f, 'g, 'h, 'i, 'j, 'k, 'a, 'b, 'c)
 
-scala> rotate(-2, List('a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'i, 'j, 'k))
-res1: List[Symbol] = List('j, 'k, 'a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'i)
+~~~swift
+let list = List("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k")
+print(list.rotate(3)) // ("d", "e", "f", "g", "h", "i", "j", "k", "a", "b", "c")
+~~~
 
-### <a name="p20"/>[P20](#p20) (\*) Remove the Kth element from a list.
+~~~swift
+let list = List("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k")
+print(list.rotate(-2)) // ("j", "k", "a", "b", "c", "d", "e", "f", "g", "h", "i")
+~~~
+
+### <a name="p20"/>[P20](#p20) Remove the Kth element from a list.
 Difficulty: 🔨
 
 Return the list and the removed element in a Tuple. Elements are numbered
@@ -300,76 +303,102 @@ from 0.
 
 Example:
 
-scala> removeAt(1, List('a, 'b, 'c, 'd))
-res0: (List[Symbol], Symbol) = (List('a, 'c, 'd),'b)
+~~~swift
+let list = List("a", "b", "c", "d")
+print(list.removeAt(1)) // (("a", "c", "d"), "b")
+~~~
 
-### <a name="p21"/>[P21](#p21) (\*) Insert an element at a given position into a list.
+### <a name="p21"/>[P21](#p21) Insert an element at a given position into a list.
 Difficulty: 🔨
 
 Example:
-scala> insertAt('new, 1, List('a, 'b, 'c, 'd))
-res0: List[Symbol] = List('a, 'new, 'b, 'c, 'd)
 
-### <a name="p22"/>[P22](#p22) (\*) Create a list containing all integers within a given range.
+~~~swift
+let list = List("a", "b", "c", "d")
+print(list.insertAt(1, "new")) // ("a", "new", "b", "c", "d")
+~~~
+
+### <a name="p22"/>[P22](#p22) Create a list containing all integers within a given range.
 Difficulty: 🔨
 
 Example:
-scala> range(4, 9)
-res0: List[Int] = List(4, 5, 6, 7, 8, 9)
 
-### <a name="p23"/>[P23](#p23) (\*\*) Extract a given number of randomly selected elements from a list.
+~~~swift
+let list = List.range(4, 9)
+print(list) // (4, 5, 6, 7, 8, 9)
+~~~
+
+### <a name="p23"/>[P23](#p23) Extract a given number of randomly selected elements from a list.
 Difficulty: 🔨🔨
 
 Example:
-scala> randomSelect(3, List('a, 'b, 'c, 'd, 'f, 'g, 'h))
-res0: List[Symbol] = List('e, 'd, 'a)
+
+~~~swift
+let list = List("a", "b", "c", "d", "e", "f", "g", "h")
+print(list.randomSelect(3)) // ("e", "d", "a")
+~~~
+
 Hint: Use the solution to problem P20
 
-### <a name="p24"/>[P24](#p24) (\*) Lotto: Draw N different random numbers from the set 1..M.
+### <a name="p24"/>[P24](#p24) Lotto: Draw N different random numbers from the set 1..M.
 Difficulty: 🔨
 
 Example:
-scala> lotto(6, 49)
-res0: List[Int] = List(23, 1, 17, 33, 21, 37)
 
-### <a name="p25"/>[P25](#p25) (\*) Generate a random permutation of the elements of a list.
+~~~swift
+let list = List.lotto(6, 49)
+print(list) // (23, 1, 17, 33, 21, 37)
+~~~
+
+### <a name="p25"/>[P25](#p25) Generate a random permutation of the elements of a list.
 Difficulty: 🔨
 
 Hint: Use the solution of problem P23.
+
 Example:
 
-scala> randomPermute(List('a, 'b, 'c, 'd, 'e, 'f))
-res0: List[Symbol] = List('b, 'a, 'd, 'c, 'e, 'f)
+~~~swift
+let list = List("a", "b", "c", "d", "e", "f")
+print(list.randomPermute()) // ("b", "a", "d", "e", "f")
+~~~
 
-### <a name="p26"/>[P26](#p26) (\*\*) Generate the combinations of K distinct objects chosen from the N elements of a list.
+### <a name="p26"/>[P26](#p26) Generate the combinations of K distinct objects chosen from the N elements of a list.
 Difficulty: 🔨🔨
 
 In how many ways can a committee of 3 be chosen from a group of 12 people?
 We all know that there are C(12,3) = 220 possibilities (C(N,K) denotes the
 well-known binomial coefficient). For pure mathematicians, this result may
 be great. But we want to really generate all the possibilities.
+
 Example:
 
-scala> combinations(3, List('a, 'b, 'c, 'd, 'e, 'f))
-res0: List[List[Symbol]] = List(List('a, 'b, 'c), List('a, 'b, 'd), List('a, 'b, 'e), ...
+~~~swift
+let list = List("a", "b", "c", "d", "e", "f")
+print(list.combinations(3)) // (("a", "b", "c"), ("a", "b", "d"), ("a", "b", "e")...)
+~~~
 
 ### <a name="p27"/>[P27](#p27) (\*\*) Group the elements of a set into disjoint subsets.
 Difficulty: 🔨🔨
 
 a) In how many ways can a group of 9 people work in 3 disjoint subgroups of
 2, 3 and 4 persons? Write a function that generates all the possibilities.
+
 Example:
 
-scala> group3(List("Aldo", "Beat", "Carla", "David", "Evi", "Flip", "Gary", "Hugo", "Ida"))
-res0: List[List[List[String]]] = List(List(List(Aldo, Beat), List(Carla, David, Evi), List(Flip, Gary, Hugo, Ida)), ...
+~~~swift
+let list = List("Aldo", "Beat", "Carla", "David", "Evi", "Flip", "Gary", "Hugo", "Ida")
+print(list.group3()) // (((Aldo, Beat), (Carla, David, Evi), (Flip, Gary, Hugo, Ida)), ...
+~~~
 
 b) Generalize the above predicate in a way that we can specify a list of group
 sizes and the predicate will return a list of groups.
 
 Example:
 
-scala> group(List(2, 2, 5), List("Aldo", "Beat", "Carla", "David", "Evi", "Flip", "Gary", "Hugo", "Ida"))
-res0: List[List[List[String]]] = List(List(List(Aldo, Beat), List(Carla, David), List(Evi, Flip, Gary, Hugo, Ida)), ...
+~~~swift
+let list = List("Aldo", "Beat", "Carla", "David", "Evi", "Flip", "Gary", "Hugo", "Ida")
+print(list.group(List(2, 2, 5))) // (((Aldo, Beat), (Carla, David), (Evi, Flip, Gary, Hugo, Ida)), ...
+~~~
 
 Note that we do not want permutations of the group members;
 i.e. ((Aldo, Beat), ...) is the same solution as ((Beat, Aldo), ...).
@@ -379,7 +408,7 @@ and ((Carla, David), (Aldo, Beat), ...).
 You may find more about this combinatorial problem in a good book on discrete
 mathematics under the term "multinomial coefficients".
 
-### <a name="p28"/>[P28](#p28) (\*\*) Sorting a list of lists according to length of sublists.
+### <a name="p28"/>[P28](#p28) Sorting a list of lists according to length of sublists.
 Difficulty: 🔨🔨
 
 a) We suppose that a list contains elements that are lists themselves.
@@ -388,8 +417,10 @@ E.g. short lists first, longer lists later, or vice versa.
 
 Example:
 
-scala> lsort(List(List('a, 'b, 'c), List('d, 'e), List('f, 'g, 'h), List('d, 'e), List('i, 'j, 'k, 'l), List('m, 'n), List('o)))
-res0: List[List[Symbol]] = List(List('o), List('d, 'e), List('d, 'e), List('m, 'n), List('a, 'b, 'c), List('f, 'g, 'h), List('i, 'j, 'k, 'l))
+~~~swift
+let list = List(List("a", "b", "c"), List("d", "e"), List("f", "g", "h"), List("d", "e"), List("i", "j", "k", "l"), List("m", "n"), List("o"))
+print(list.lsort()) // (("o"), ("d", "e"), ("d", "e"), ("m", "n"), ("a", "b", "c"), ("f", "g", "h"), ("i", "j", "k", "l"))
+~~~
 
 b) Again, we suppose that a list contains elements that are lists themselves.
 But this time the objective is to sort the elements according to their length
@@ -398,8 +429,10 @@ lengths are placed, others with a more frequent length come later.
 
 Example:
 
-scala> lsortFreq(List(List('a, 'b, 'c), List('d, 'e), List('f, 'g, 'h), List('d, 'e), List('i, 'j, 'k, 'l), List('m, 'n), List('o)))
-res1: List[List[Symbol]] = List(List('i, 'j, 'k, 'l), List('o), List('a, 'b, 'c), List('f, 'g, 'h), List('d, 'e), List('d, 'e), List('m, 'n))
+~~~swift
+let list = List(List("a", "b", "c"), List("d", "e"), List("f", "g", "h"), List("d", "e"), List("i", "j", "k", "l"), List("m", "n"), List("o"))
+print(list.lsortFreq()) // (("i", "j", "k", "l"), ("o"), ("a", "b", "c"), ("f", "g", "h"), ("d", "e"), ("d", "e"), ("m", "n"))
+~~~
 
 Note that in the above example, the first two lists in the result have length
 4 and 1 and both lengths appear just once. The third and fourth lists have
