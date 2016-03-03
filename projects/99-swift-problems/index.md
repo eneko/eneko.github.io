@@ -81,9 +81,7 @@ print(list.last) // 8
 ~~~
 
 
-### <a name="p02"/>[P02](#p02) Find the last but one element of a list.
-Difficulty: 🔨
-
+### <a name="p02"/>[P02](#p02) (\*) Find the last but one element of a list.
 Example:
 
 ~~~swift
@@ -92,10 +90,8 @@ print(list.pennultimate) // 5
 ~~~
 
 
-### <a name="p03"/>[P03](#p03) Find the Kth element of a list.
-Difficulty: 🔨
-
-By convention, the first element in the list is element 0.
+### <a name="p03"/>[P03](#p03) (\*) Find the Kth element of a list.
+By convention, the first element in the list is element `0`.
 
 Example:
 
@@ -104,9 +100,7 @@ let list = List(1, 1, 2, 3, 5, 8)
 print(list.nth(2) // 2
 ~~~
 
-### <a name="p04"/>[P04](#p04) Find the number of elements of a list.
-Difficulty: 🔨
-
+### <a name="p04"/>[P04](#p04) (\*) Find the number of elements of a list.
 Example:
 
 ~~~swift
@@ -114,9 +108,7 @@ let list = List(1, 1, 2, 3, 5, 8)
 print(list.length) // 6
 ~~~
 
-### <a name="p05"/>[P05](#p05) Reverse a list.
-Difficulty: 🔨
-
+### <a name="p05"/>[P05](#p05) (\*) Reverse a list.
 Example:
 
 ~~~swift
@@ -124,9 +116,7 @@ let list = List(1, 1, 2, 3, 5, 8)
 print(list.reversed) // (8, 5, 3, 2, 1, 1)
 ~~~
 
-### <a name="p06"/>[P06](#p06) Find out whether a list is a palindrome.
-Difficulty: 🔨
-
+### <a name="p06"/>[P06](#p06) (\*) Find out whether a list is a palindrome.
 Example:
 
 ~~~swift
@@ -134,9 +124,7 @@ let list = List(1, 2, 3, 2, 1)
 print(list.isPalindrome) // true
 ~~~
 
-### <a name="p07"/>[P07](#p07) Flatten a nested list structure.
-Difficulty: 🔨🔨
-
+### <a name="p07"/>[P07](#p07) (\*\*) Flatten a nested list structure.
 Example:
 
 ~~~swift
@@ -144,9 +132,7 @@ let list = List<AnyObject>(List(1, 1), 2, List<AnyObject>(3, List(5, 8)))
 print(list.flatten()) // (1, 1, 2, 3, 5, 8)
 ~~~
 
-### <a name="p08"/>[P08](#p08) Eliminate consecutive duplicates of list elements.
-Difficulty: 🔨🔨
-
+### <a name="p08"/>[P08](#p08) (\*\*) Eliminate consecutive duplicates of list elements.
 If a list contains repeated elements they should be replaced with a single copy
 of the element. The order of the elements should not be changed.
 
@@ -157,9 +143,7 @@ let list = List("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e",
 print(list.compress()) // ("a", "b", "c", "a", "d", "e")
 ~~~
 
-### <a name="p09"/>[P09](#p09) Pack consecutive duplicates of list elements into sublists.
-Difficulty: 🔨🔨
-
+### <a name="p09"/>[P09](#p09) (\*\*) Pack consecutive duplicates of list elements into sublists.
 If a list contains repeated elements they should be placed in separate sublists.
 
 Example:
@@ -169,12 +153,11 @@ let list = List("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e",
 print(list.pack()) // (("a", "a", "a", "a"), ("b"), ("c", "c"), ("a", "a"), ("d"), ("e", "e", "e", "e"))
 ~~~
 
-### <a name="p10"/>[P10](#p10) Run-length encoding of a list.
-Difficulty: 🔨
-
-Use the result of problem P09 to implement the so-called run-length encoding
+### <a name="p10"/>[P10](#p10) (\*) Run-length encoding of a list.
+Use the result of problem [P09](#p09) to implement the so-called run-length
+encoding
 data compression method. Consecutive duplicates of elements are encoded as
-tuples (N, E) where N is the number of duplicates of the element E.
+tuples `(N, E)` where `N` is the number of duplicates of the element `E`.
 
 Example:
 
@@ -183,12 +166,10 @@ let list = List("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e",
 print(list.encode()) // ((4, "a"), (1, "b"), (2, "c"), (2, "a"), (1, "d"), (4, "e"))
 ~~~
 
-### <a name="p11"/>[P11](#p11) Modified run-length encoding.
-Difficulty: 🔨
-
-Modify the result of problem P10 in such a way that if an element has no
+### <a name="p11"/>[P11](#p11) (\*) Modified run-length encoding.
+Modify the result of problem [P10](#p10) in such a way that if an element has no
 duplicates it is simply copied into the result list. Only elements with
-duplicates are transferred as (N, E) terms.
+duplicates are transferred as `(N, E)` terms.
 
 Example:
 
@@ -197,11 +178,9 @@ let list = List("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e",
 print(list.encodeModified()) // ((4, "a"), "b", (2, "c"), (2, "a"), "d", (4, "e"))
 ~~~
 
-### <a name="p12"/>[P12](#p12) Decode a run-length encoded list.
-Difficulty: 🔨🔨
-
-Given a run-length code list generated as specified in problem P10, construct
-its uncompressed version.
+### <a name="p12"/>[P12](#p12) (\*\*) Decode a run-length encoded list.
+Given a run-length code list generated as specified in problem [P10](#p10),
+construct its uncompressed version.
 
 Example:
 
@@ -210,9 +189,7 @@ let list = List((4, "a"), (1, "b"), (2, "c"), (2, "a"), (1, "d"), (4, "e"))
 print(list.decode()) // ("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e")
 ~~~
 
-### <a name="p13"/>[P13](#p13) Run-length encoding of a list (direct solution).
-Difficulty: 🔨🔨
-
+### <a name="p13"/>[P13](#p13) (\*\*) Run-length encoding of a list (direct solution).
 Implement the so-called run-length encoding data compression method directly.
 I.e. don't use other methods you've written (like [P09](#p09)'s pack); do all
 the work directly.
@@ -224,9 +201,7 @@ let list = List("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e",
 print(list.encodeDirect()) // ((4, "a"), (1, "b"), (2, "c"), (2, "a"), (1, "d"), (4, "e"))
 ~~~
 
-### <a name="p14"/>[P14](#p14) Duplicate the elements of a list.
-Difficulty: 🔨
-
+### <a name="p14"/>[P14](#p14) (\*) Duplicate the elements of a list.
 Example:
 
 ~~~swift
@@ -234,9 +209,7 @@ let list = List("a", "b", "c", "c", "d")
 print(list.duplicate()) // ("a", "a", "b", "b", "c", "c", "c", "c", "d", "d")
 ~~~
 
-### <a name="p15"/>[P15](#p15) Duplicate the elements of a list a given number of times.
-Difficulty: 🔨🔨
-
+### <a name="p15"/>[P15](#p15) (\*\*) Duplicate the elements of a list a given number of times.
 Example:
 
 ~~~swift
@@ -244,9 +217,7 @@ let list = List("a", "b", "c", "c", "d")
 print(list.duplicate(3)) // ("a", "a", "a", "b", "b", "b", "c", "c", "c", "c", "c", "c", "d", "d", "d")
 ~~~
 
-### <a name="p16"/>[P16](#p16) Drop every Nth element from a list.
-Difficulty: 🔨🔨
-
+### <a name="p16"/>[P16](#p16) (\*\*) Drop every Nth element from a list.
 Example:
 
 ~~~swift
@@ -254,9 +225,7 @@ let list = List("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k")
 print(list.drop(3)) // ("a", "b", "d", "e", "g", "h", "j", "k")
 ~~~
 
-### <a name="p17"/>[P17](#p17) Split a list into two parts.
-Difficulty: 🔨
-
+### <a name="p17"/>[P17](#p17) (\*) Split a list into two parts.
 The length of the first part is given. Use a Tuple for your result.
 
 Example:
@@ -266,12 +235,10 @@ let list = List("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k")
 print(list.split(3)) // (("a", "b", "c"), ("d", "e", "f", "g", "h", "i", "j", "k"))
 ~~~
 
-### <a name="p18"/>[P18](#p18) Extract a slice from a list.
-Difficulty: 🔨🔨
-
-Given two indices, I and K, the slice is the list containing the elements from
-and including the Ith element up to but not including the Kth element of the
-original list. Start counting the elements with 0.
+### <a name="p18"/>[P18](#p18) (\*\*) Extract a slice from a list.
+Given two indices, `I` and `K`, the slice is the list containing the elements
+from and including the `Ith` element up to but not including the `Kth` element
+of the original list. Start counting the elements with `0`.
 
 Example:
 
@@ -280,9 +247,7 @@ let list = List("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k")
 print(list.slice(3, 7)) // ("d", "e", "f", "g")
 ~~~
 
-### <a name="p19"/>[P19](#p19) Rotate a list N places to the left.
-Difficulty: 🔨🔨
-
+### <a name="p19"/>[P19](#p19) (\*\*) Rotate a list N places to the left.
 Examples:
 
 ~~~swift
@@ -295,11 +260,9 @@ let list = List("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k")
 print(list.rotate(-2)) // ("j", "k", "a", "b", "c", "d", "e", "f", "g", "h", "i")
 ~~~
 
-### <a name="p20"/>[P20](#p20) Remove the Kth element from a list.
-Difficulty: 🔨
-
+### <a name="p20"/>[P20](#p20) (\*) Remove the Kth element from a list.
 Return the list and the removed element in a Tuple. Elements are numbered
-from 0.
+from `0`.
 
 Example:
 
@@ -308,9 +271,7 @@ let list = List("a", "b", "c", "d")
 print(list.removeAt(1)) // (("a", "c", "d"), "b")
 ~~~
 
-### <a name="p21"/>[P21](#p21) Insert an element at a given position into a list.
-Difficulty: 🔨
-
+### <a name="p21"/>[P21](#p21) (\*) Insert an element at a given position into a list.
 Example:
 
 ~~~swift
@@ -318,9 +279,7 @@ let list = List("a", "b", "c", "d")
 print(list.insertAt(1, "new")) // ("a", "new", "b", "c", "d")
 ~~~
 
-### <a name="p22"/>[P22](#p22) Create a list containing all integers within a given range.
-Difficulty: 🔨
-
+### <a name="p22"/>[P22](#p22) (\*) Create a list containing all integers within a given range.
 Example:
 
 ~~~swift
@@ -328,9 +287,7 @@ let list = List.range(4, 9)
 print(list) // (4, 5, 6, 7, 8, 9)
 ~~~
 
-### <a name="p23"/>[P23](#p23) Extract a given number of randomly selected elements from a list.
-Difficulty: 🔨🔨
-
+### <a name="p23"/>[P23](#p23) (\*\*) Extract a given number of randomly selected elements from a list.
 Example:
 
 ~~~swift
@@ -338,11 +295,9 @@ let list = List("a", "b", "c", "d", "e", "f", "g", "h")
 print(list.randomSelect(3)) // ("e", "d", "a")
 ~~~
 
-Hint: Use the solution to problem P20
+Hint: Use the solution to problem [P20](#p20)
 
-### <a name="p24"/>[P24](#p24) Lotto: Draw N different random numbers from the set 1..M.
-Difficulty: 🔨
-
+### <a name="p24"/>[P24](#p24) (\*) Lotto: Draw N different random numbers from the set 1..M.
 Example:
 
 ~~~swift
@@ -350,10 +305,8 @@ let list = List.lotto(6, 49)
 print(list) // (23, 1, 17, 33, 21, 37)
 ~~~
 
-### <a name="p25"/>[P25](#p25) Generate a random permutation of the elements of a list.
-Difficulty: 🔨
-
-Hint: Use the solution of problem P23.
+### <a name="p25"/>[P25](#p25) (\*) Generate a random permutation of the elements of a list.
+Hint: Use the solution of problem [P23](#p23).
 
 Example:
 
@@ -362,11 +315,9 @@ let list = List("a", "b", "c", "d", "e", "f")
 print(list.randomPermute()) // ("b", "a", "d", "e", "f")
 ~~~
 
-### <a name="p26"/>[P26](#p26) Generate the combinations of K distinct objects chosen from the N elements of a list.
-Difficulty: 🔨🔨
-
+### <a name="p26"/>[P26](#p26) (\*\*) Generate the combinations of K distinct objects chosen from the N elements of a list.
 In how many ways can a committee of 3 be chosen from a group of 12 people?
-We all know that there are C(12,3) = 220 possibilities (C(N,K) denotes the
+We all know that there are `C(12,3) = 220` possibilities (`C(N,K)` denotes the
 well-known binomial coefficient). For pure mathematicians, this result may
 be great. But we want to really generate all the possibilities.
 
@@ -378,8 +329,6 @@ print(list.combinations(3)) // (("a", "b", "c"), ("a", "b", "d"), ("a", "b", "e"
 ~~~
 
 ### <a name="p27"/>[P27](#p27) (\*\*) Group the elements of a set into disjoint subsets.
-Difficulty: 🔨🔨
-
 a) In how many ways can a group of 9 people work in 3 disjoint subgroups of
 2, 3 and 4 persons? Write a function that generates all the possibilities.
 
@@ -408,9 +357,7 @@ and ((Carla, David), (Aldo, Beat), ...).
 You may find more about this combinatorial problem in a good book on discrete
 mathematics under the term "multinomial coefficients".
 
-### <a name="p28"/>[P28](#p28) Sorting a list of lists according to length of sublists.
-Difficulty: 🔨🔨
-
+### <a name="p28"/>[P28](#p28) (\*\*) Sorting a list of lists according to length of sublists.
 a) We suppose that a list contains elements that are lists themselves.
 The objective is to sort the elements of the list according to their length.
 E.g. short lists first, longer lists later, or vice versa.
@@ -439,6 +386,8 @@ Note that in the above example, the first two lists in the result have length
 length 3 and there are two list of this length. Finally, the last three lists
 have length 2. This is the most frequent length.
 
+* * *
+
 ## Arithmetic
 
 For the next section, we're going to take a different tack with the solutions.
@@ -448,44 +397,32 @@ Each individual solution will show the relevant additions to the S99Int
 class. The full class will be given at the end of the section.
 
 P31 (\*\*) Determine whether a given integer number is prime.
-Difficulty: 🔨🔨
-
 scala> 7.isPrime
 res0: Boolean = true
 
 P32 (\*\*) Determine the greatest common divisor of two positive integer
 numbers.
-Difficulty: 🔨🔨
-
 Use Euclid's algorithm.
 scala> gcd(36, 63)
 res0: Int = 9
 
 P33 (\*) Determine whether two positive integer numbers are coprime.
-Difficulty: 🔨
-
 Two numbers are coprime if their greatest common divisor equals 1.
 scala> 35.isCoprimeTo(64)
 res0: Boolean = true
 
 P34 (\*\*) Calculate Euler's totient function phi(m).
-Difficulty: 🔨🔨
-
 Euler's so-called totient function phi(m) is defined as the number of positive
 integers r (1 <= r <= m) that are coprime to m.
 scala> 10.totient
 res0: Int = 4
 
 P35 (\*\*) Determine the prime factors of a given positive integer.
-Difficulty: 🔨🔨
-
 Construct a flat list containing the prime factors in ascending order.
 scala> 315.primeFactors
 res0: List[Int] = List(3, 3, 5, 7)
 
 P36 (\*\*) Determine the prime factors of a given positive integer (2).
-Difficulty: 🔨🔨
-
 Construct a list containing the prime factors and their multiplicity.
 scala> 315.primeFactorMultiplicity
 res0: List[(Int, Int)] = List((3,2), (5,1), (7,1))
@@ -495,14 +432,13 @@ scala> 315.primeFactorMultiplicity
 res0: Map[Int,Int] = Map(3 -> 2, 5 -> 1, 7 -> 1)
 
 P37 (\*\*) Calculate Euler's totient function phi(m) (improved).
-Difficulty: 🔨🔨
-
-See problem P34 for the definition of Euler's totient function. If the list of
-the prime factors of a number m is known in the form of problem P36 then the
-function phi(m>) can be efficiently calculated as follows:
-Let [[p1, m1], [p2, m2], [p3, m3], ...] be the list of prime factors
-(and their multiplicities) of a given number m. Then phi(m) can be calculated
-with the following formula:
+See problem [P34](#p34) for the definition of Euler's totient function.
+If the list of
+the prime factors of a number m is known in the form of problem [P36](#p36)
+then the function `phi(m>)` can be efficiently calculated as follows:
+Let `[[p1, m1], [p2, m2], [p3, m3], ...]` be the list of prime factors
+(and their multiplicities) of a given number `m`. Then `phi(m)` can be
+calculated with the following formula:
 
 ~~~
 phi(m) = (p1-1)*p1(m1-1) * (p2-1)*p2(m2-1) * (p3-1)*p3(m3-1) * ...
@@ -510,22 +446,16 @@ phi(m) = (p1-1)*p1(m1-1) * (p2-1)*p2(m2-1) * (p3-1)*p3(m3-1) * ...
 Note that ab stands for the bth power of a.
 
 P38 (\*) Compare the two methods of calculating Euler's totient function.
-Difficulty: 🔨
-
-Use the solutions of problems P34 and P37 to compare the algorithms. Try to
-calculate phi(10090) as an example.
+Use the solutions of problems [P34](#p38) and [P37](#p37) to compare the
+algorithms. Try to calculate `phi(10090)` as an example.
 
 P39 (\*) A list of prime numbers.
-Difficulty: 🔨
-
 Given a range of integers by its lower and upper limit, construct a list of
 all prime numbers in that range.
 scala> listPrimesinRange(7 to 31)
 res0: List[Int] = List(7, 11, 13, 17, 19, 23, 29, 31)
 
 P40 (\*\*) Goldbach's conjecture.
-Difficulty: 🔨🔨
-
 Goldbach's conjecture says that every positive even number greater than 2
 is the sum of two prime numbers. E.g. 28 = 5 + 23. It is one of the most
 famous facts in number theory that has not been proved to be correct in the
@@ -536,8 +466,6 @@ scala> 28.goldbach
 res0: (Int, Int) = (5,23)
 
 P41 (\*\*) A list of Goldbach compositions.
-Difficulty: 🔨🔨
-
 Given a range of integers by its lower and upper limit, print a list of all
 even numbers and their Goldbach composition.
 scala> printGoldbachList(9 to 20)
@@ -560,15 +488,15 @@ scala> printGoldbachListLimited(1 to 2000, 50)
 1928 = 61 + 1867
 The file containing the full class for this section is arithmetic.scala.
 
-Logic and Codes
+* * *
+
+## Logic and Codes
 
 As in the previous section, we will start with a skeleton file, logic1.scala,
 and add code to it for each problem. The difference here is that the file
 starts out almost empty.
 
 P46 (\*\*) Truth tables for logical expressions.
-Difficulty: 🔨🔨
-
 Define functions and, or, nand, nor, xor, impl, and equ (for logical
     equivalence) which return true or false according to the result of
     their respective operations; e.g. and(A, B) is true if and only if
@@ -592,8 +520,6 @@ false true  false
 false false false
 
 P47 (\*) Truth tables for logical expressions (2).
-Difficulty: 🔨🔨
-
 Continue problem P46 by redefining and, or, etc as operators. (i.e. make them
     methods of a new class with an implicit conversion from Boolean.) not will
     have to be left as a object method.
@@ -605,14 +531,10 @@ false true  false
 false false false
 
 P48 (\*\*) Truth tables for logical expressions (3).
-Difficulty: 🔨🔨
-
 Omitted for now.
 
 
 P49 (\*\*) Gray code.
-Difficulty: 🔨🔨
-
 An n-bit Gray code is a sequence of n-bit strings constructed according to
 certain rules. For example,
 n = 1: C(1) = ("0", "1").
@@ -626,8 +548,6 @@ See if you can use memoization to make the function more efficient.
 
 
 P50 (\*\*\*) Huffman code.
-Difficulty: 🔨🔨
-
 First of all, consult a good book on discrete mathematics or algorithms for
 a detailed description of Huffman codes!
 We suppose a set of symbols with their frequencies, given as a list of (S, F)
@@ -637,7 +557,10 @@ code word for the symbol S.
 
 scala> huffman(List(("a", 45), ("b", 13), ("c", 12), ("d", 16), ("e", 9), ("f", 5)))
 res0: List[String, String] = List((a,0), (b,101), (c,100), (d,111), (e,1101), (f,1100))
-Binary Trees
+
+* * *
+
+## Binary Trees
 
 A binary tree is either empty or it is composed of a root element and two
 successors, which are binary trees themselves.
@@ -682,8 +605,6 @@ Score one for static typing.
 
 
 P55 (\*\*) Construct completely balanced binary trees.
-Difficulty: 🔨🔨
-
 In a completely balanced binary tree, the following property holds for every
 node: The number of nodes in its left subtree and the number of nodes in its
 right subtree are almost equal, which means their difference is not greater
@@ -697,8 +618,6 @@ scala> Tree.cBalanced(4, "x")
 res0: List(Node[String]) = List(T(x T(x . .) T(x . T(x . .))), T(x T(x . .) T(x T(x . .) .)), ...
 
 P56 (\*\*) Symmetric binary trees.
-Difficulty: 🔨🔨
-
 Let us call a binary tree symmetric if you can draw a vertical line through
 the root node and then the right subtree is the mirror image of the left
 subtree. Add an isSymmetric method to the Tree class to check whether a given
@@ -710,8 +629,6 @@ scala> Node('a', Node('b'), Node('c')).isSymmetric
 res0: Boolean = true
 
 P57 (\*\*) Binary search trees (dictionaries).
-Difficulty: 🔨🔨
-
 Write a function to add an element to a binary search tree.
 scala> End.addValue(2)
 res0: Node[Int] = T(2 . .)
@@ -741,16 +658,12 @@ scala> Tree.fromList(List(3, 2, 5, 7, 4)).isSymmetric
 res5: Boolean = false
 
 P58 (\*\*) Generate-and-test paradigm.
-Difficulty: 🔨🔨
-
 Apply the generate-and-test paradigm to construct all symmetric, completely
 balanced binary trees with a given number of nodes.
 scala> Tree.symmetricBalancedTrees(5, "x")
 res0: List[Node[String]] = List(T(x T(x . T(x . .)) T(x T(x . .) .)), T(x T(x T(x . .) .) T(x . T(x . .))))
 
 P59 (\*\*) Construct height-balanced binary trees.
-Difficulty: 🔨🔨
-
 In a height-balanced binary tree, the following property holds for every node:
 The height of its left subtree and the height of its right subtree are almost
 equal, which means their difference is not greater than one.
@@ -762,8 +675,6 @@ scala> Tree.hbalTrees(3, "x")
 res0: List[Node[String]] = List(T(x T(x T(x . .) T(x . .)) T(x T(x . .) T(x . .))), T(x T(x T(x . .) T(x . .)) T(x T(x . .) .)), ...
 
 P60 (\*\*) Construct height-balanced binary trees with a given number of nodes.
-Difficulty: 🔨🔨
-
 Consider a height-balanced binary tree of height H. What is the maximum number
 of nodes it can contain? Clearly, MaxN = 2H - 1. However, what is the minimum
 number MinN? This question is more difficult. Try to find a recursive
@@ -785,14 +696,14 @@ Find out how many height-balanced trees exist for N = 15.
 
 
 P61 (\*) Count the leaves of a binary tree.
-Difficulty: 🔨
+
 
 A leaf is a node with no successors. Write a method leafCount to count them.
 scala> Node('x', Node('x'), End).leafCount
 res0: Int = 1
 
 61A (\*) Collect the leaves of a binary tree in a list.
-Difficulty: 🔨
+
 
 A leaf is a node with no successors. Write a method leafList to collect them
 in a list.
@@ -800,7 +711,7 @@ scala> Node('a', Node('b'), Node('c', Node('d'), Node('e'))).leafList
 res0: List[Char] = List(b, d, e)
 
 P62 (\*) Collect the internal nodes of a binary tree in a list.
-Difficulty: 🔨
+
 
 An internal node of a binary tree has either one or two non-empty successors.
 Write a method internalList to collect them in a list.
@@ -808,7 +719,7 @@ scala> Node('a', Node('b'), Node('c', Node('d'), Node('e'))).internalList
 res0: List[Char] = List(a, c)
 
 P62B (\*) Collect the nodes at a given level in a list.
-Difficulty: 🔨
+
 
 A node of a binary tree is at level N if the path from the root to the node
 has length N-1. The root node is at level 1. Write a method atLevel to collect
@@ -820,8 +731,6 @@ level-order sequence of the nodes. However, there are more efficient ways to
 do that.
 
 P63 (\*\*) Construct a complete binary tree.
-Difficulty: 🔨🔨
-
 A complete binary tree with height H is defined as follows: The levels
 1,2,3,...,H-1 contain the maximum number of nodes (i.e 2(i-1) at the level i,
 note that we start counting the levels from 1 at the root). In level H, which
@@ -845,8 +754,6 @@ scala> Tree.completeBinaryTree(6, "x")
 res0: Node[String] = T(x T(x T(x . .) T(x . .)) T(x T(x . .) .))
 
 P64 (\*\*) Layout a binary tree (1).
-Difficulty: 🔨🔨
-
 As a preparation for drawing a tree, a layout algorithm is required to
 determine the position of each node in a rectangular grid. Several layout
 methods are conceivable, one of them is shown in the illustration on the right.
@@ -872,8 +779,6 @@ res0: PositionedNode[Char] = T[3,1](a T[1,2](b . T[2,3](c . .)) T[4,2](d . .))
 The tree at right may be constructed with Tree.fromList(List('n','k','m','c','a','h','g','e','u','p','s','q')). Use it to check your code.
 
 P65 (\*\*) Layout a binary tree (2).
-Difficulty: 🔨🔨
-
 An alternative layout method is depicted in the illustration opposite. Find
 out the rules and write the corresponding method. Hint: On a given level,
 the horizontal distance between neighboring nodes is constant.
@@ -884,8 +789,6 @@ res0: PositionedNode[Char] = T[3,1]('a T[1,2]('b . T[2,3]('c . .)) T[5,2]('d . .
 The tree at right may be constructed with Tree.fromList(List('n','k','m','c','a','e','d','g','u','p','q')). Use it to check your code.
 
 P66 (\*\*\*) Layout a binary tree (3).
-Difficulty: 🔨🔨🔨
-
 Yet another layout strategy is shown in the illustration opposite. The method
 yields a very compact layout while maintaining a certain symmetry in every
 node. Find out the rules and write the corresponding method. Hint: Consider
@@ -899,8 +802,6 @@ res0: PositionedNode[Char] = T[2,1]('a T[1,2]('b . T[2,3]('c . .)) T[3,2]('d . .
 Which layout do you like most?
 
 P67 (\*\*) A string representation of binary trees.
-Difficulty: 🔨🔨
-
 Somebody represents binary trees as strings of the following type
 (see example opposite):
 a(b(d,e),c(,f(g,)))
@@ -920,8 +821,6 @@ scala> Tree.fromString("a(b(d,e),c(,f(g,)))")
 res1: Node[Char] = a(b(d,e),c(,f(g,)))
 
 P68 (\*\*) Preorder and inorder sequences of binary trees.
-Difficulty: 🔨🔨
-
 We consider binary trees with nodes that are identified by single lower-case
 letters, as in the example of problem P67.
 a) Write methods preorder and inorder that construct the preorder and inorder
@@ -944,8 +843,6 @@ What happens if the same character appears in more than one node? Try, for
 instance, Tree.preInTree(List('a', 'b', 'a'), List('b', 'a', 'a')).
 
 P69 (\*\*) Dotstring representation of binary trees.
-Difficulty: 🔨🔨
-
 We consider again binary trees with nodes that are identified by single
 lower-case letters, as in the example of problem P67. Such a tree can be
 represented by the preorder sequence of its nodes in which dots (.) are
@@ -989,23 +886,19 @@ MTree('a', List(MTree('f', List(MTree('g'))), MTree('c'), MTree('b', List(MTree(
 The starting code skeleton for this section is mtree1.scala.
 
 P70B Omitted; we can only create well-formed trees.
-Difficulty: 🔨🔨
-
 
 P70C (\*) Count the nodes of a multiway tree.
-Difficulty: 🔨🔨
-
 Write a method nodeCount which counts the nodes of a given multiway tree.
+
 scala> MTree('a', List(MTree('f'))).nodeCount
 res0: Int = 2
 
 P70 (\*\*) Tree construction from a node string.
-Difficulty: 🔨🔨
-
 We suppose that the nodes of a multiway tree contain single characters.
 In the depth-first order sequence of its nodes, a special character ^ has
 been inserted whenever, during the tree traversal, the move is a backtrack
 to the previous level.
+
 By this rule, the tree in the figure opposite is represented as:
 
 afg^^c^bd^e^^^
@@ -1017,8 +910,6 @@ scala> MTree('a', List(MTree('f', List(MTree('g'))), MTree('c'), MTree('b', List
 res0: String = afg^^c^bd^e^^^
 
 P71 (\*) Determine the internal path length of a tree.
-Difficulty: 🔨🔨
-
 We define the internal path length of a multiway tree as the total sum of the
 path lengths from the root to all nodes of the tree. By this definition, the
 tree in the figure of problem P70 has an internal path length of 9. Write a
@@ -1027,16 +918,12 @@ scala> "afg^^c^bd^e^^^".internalPathLength
 res0: Int = 9
 
 P72 (\*) Construct the postorder sequence of the tree nodes.
-Difficulty: 🔨🔨
-
 Write a method postorder which constructs the postorder sequence of the
 nodes of a multiway tree. The result should be a List.
 scala> "afg^^c^bd^e^^^".postorder
 res0: List[Char] = List(g, f, c, d, e, b, a)
 
 P73 (\*\*) Lisp-like tree representation.
-Difficulty: 🔨🔨
-
 There is a particular notation for multiway trees in Lisp. Lisp is a
 prominent functional programming language. In Lisp almost everything is a list.
 Our example tree would be represented in Lisp as (a (f g) c (b d e)).
@@ -1214,8 +1101,6 @@ The notation for labeled graphs can also be used for so-called multi-graphs,
 where more than one edge (or arc) is allowed between two given nodes.
 
 P80 (\*\*\*) Conversions.
-Difficulty: 🔨🔨
-
 Write methods to generate the graph-term and adjacency-list forms from a Graph.
  Write another method to output the human-friendly form for a graph. Make it
  the toString method for Graph. Write more functions to create graphs from
@@ -1229,8 +1114,6 @@ scala> Digraph.fromStringLabel("[p>q/9, m>q/7, k, p>m/5]").toAdjacentForm
 res1: List[(String, List[(String, Int)])] = List((m,List((q,7))), (p,List((m,5), (q,9))), (k,List()), (q,List()))
 
 P81 (\*\*) Path from one node to another one.
-Difficulty: 🔨🔨
-
 Write a method named findPaths to find acyclic paths from one node to another
 in a graph. The method should return all paths.
 scala> Digraph.fromStringLabel("[p>q/9, m>q/7, k, p>m/5]").findPaths("p", "q")
@@ -1240,16 +1123,12 @@ scala> Digraph.fromStringLabel("[p>q/9, m>q/7, k, p>m/5]").findPaths("p", "k")
 res1: List[List[String]] = List()
 
 P82 (\*) Cycle from a given node.
-Difficulty: 🔨🔨
-
 Write a method named findCycles to find closed paths (cycles) starting at a
 given node in a graph. The method should return all cycles.
 scala> Graph.fromString("[b-c, f-c, g-h, d, f-b, k-f, h-g]").findCycles("f")
 res0: List[List[String]] = List(List(f, c, b, f), List(f, b, c, f))
 
 P83 (\*\*) Construct all spanning trees.
-Difficulty: 🔨🔨
-
 Write a method spanningTrees to construct all spanning trees of a given graph.
 With this method, find out how many spanning trees there are for the graph
 depicted to the right. The data of this example graph can be found below. When
@@ -1266,8 +1145,6 @@ scala> Graph.fromString("[a-b, b-c, a-c]").spanningTrees
 res0: List[Graph[String,Unit]] = List([a-b, b-c], [a-c, b-c], [a-b, a-c])
 
 P84 (\*\*) Construct the minimal spanning tree.
-Difficulty: 🔨🔨
-
 Write a method minimalSpanningTree to construct the minimal spanning tree of a
 given labeled graph. Hint: Use Prim's Algorithm. A small modification of the
 solution of P83 does the trick. The data of the example graph to the right can
@@ -1283,8 +1160,6 @@ scala> Graph.fromStringLabel("[a-b/1, b-c/2, a-c/3]").minimalSpanningTree
 res0: Graph[String,Int] = [a-b/1, b-c/2]
 
 P85 (\*\*) Graph isomorphism.
-Difficulty: 🔨🔨
-
 Two graphs G1(N1,E1) and G2(N2,E2) are isomorphic if there is a bijection f:
 N1 â†’ N2 such that for any nodes X,Y of N1, X and Y are adjacent if and only
 if f(X) and f(Y) are adjacent.
@@ -1294,8 +1169,6 @@ scala> Graph.fromString("[a-b]").isIsomorphicTo(Graph.fromString("[5-7]"))
 res0: Boolean = true
 
 P86 (\*\*) Node degree and graph coloration.
-Difficulty: 🔨🔨
-
 a) Write a method Node.degree that determines the degree of a given node.
 scala> Graph.fromString("[a-b, b-c, a-c, a-d]").nodes("a").degree
 res0: Int = 3
@@ -1313,8 +1186,6 @@ scala> Graph.fromString("[a-b, b-c, a-c, a-d]").colorNodes
 res2: List[(Graph[String,Unit]#Node,Int)] = List((Node(a),1), (Node(b),2), (Node(c), 3), (Node(d), 2))
 
 P87 (\*\*) Depth-first order graph traversal.
-Difficulty: 🔨🔨
-
 Write a method that generates a depth-first order graph traversal sequence.
 The starting point should be specified, and the output should be a list of
 nodes that are reachable from this starting point (in depth-first order).
@@ -1322,15 +1193,11 @@ scala> Graph.fromString("[a-b, b-c, e, a-c, a-d]").nodesByDepthFrom("d")
 res0: List[String] = List(c, b, a, d)
 
 P88 (\*\*) Connected components.
-Difficulty: 🔨🔨
-
 Write a function that splits a graph into its connected components.
 scala> Graph.fromString("[a-b, c]").splitGraph
 res0: List[Graph[String,Unit]] = List([a-b], [c])
 
 P89 (\*\*) Bipartite graphs.
-Difficulty: 🔨🔨
-
 Write a function that determines whether a given graph is bipartite.
 scala> Digraph.fromString("[a>b, c>a, d>b]").isBipartite
 res0: Boolean = true
@@ -1348,8 +1215,6 @@ The complete source file for this section is graph.scala.
 ## Miscellaneous Problems
 
 P90 (\*\*) Eight queens problem
-Difficulty: 🔨🔨
-
 This is a classical problem in computer science. The objective is to place
 eight queens on a chessboard so that no two queens are attacking each other;
 i.e., no two queens are in the same row, the same column, or on the same
@@ -1360,8 +1225,6 @@ List(4, 2, 7, 3, 6, 8, 5, 1) means that the queen in the first column is in row
 paradigm.
 
 P91 (\*\*) Knight's tour.
-Difficulty: 🔨🔨
-
 Another famous problem is this one: How can a knight jump on an NÃ—N chessboard
 in such a way that it visits every square exactly once?
 Hints: Represent the squares by pairs of their coordinates of the form (X, Y),
@@ -1379,8 +1242,6 @@ Can you find only "closed tours", where the knight can jump from its final
 position back to its starting position?
 
 P92 (\*\*\*) Von Koch's conjecture.
-Difficulty: 🔨🔨🔨
-
 Several years ago I met a mathematician who was intrigued by a problem for
 which he didn't know a solution. His name was Von Koch, and I don't know
 whether the problem has been solved since. [The "I" here refers to the author
@@ -1404,31 +1265,23 @@ What is the solution for the larger tree pictured below?
 
 
 P93 (\*\*\*) An arithmetic puzzle.
-Difficulty: 🔨🔨🔨
-
 Given a list of integer numbers, find a correct way of inserting arithmetic
 signs (operators) such that the result is a correct equation. Example: With
 the list of numbers List(2,3,5,7,11) we can form the equations 2-3+5+7 = 11
 or 2 = (3*5+7)/11 (and ten others!).
 
 P94 (\*\*\*) Generate K-regular simple graphs with N nodes.
-Difficulty: 🔨🔨🔨
-
 In a K-regular graph all nodes have a degree of K; i.e. the number of edges
 incident in each node is K. How many (non-isomorphic!) 3-regular graphs with
 6 nodes are there? See also a table of results and a Java applet that can
 represent graphs geometrically.
 
 P95 (\*\*) English number words.
-Difficulty: 🔨🔨
-
 On financial documents, like checks, numbers must sometimes be written in full
 words. Example: 175 must be written as one-seven-five. Write a function
 fullWords(num: Int) to print (non-negative) integer numbers in full words.
 
 P96 (\*\*) Syntax checker.
-Difficulty: 🔨🔨
-
 In a certain programming language (Ada) identifiers are defined by the syntax
 diagram (railroad chart) opposite. Transform the syntax diagram into a system
 of syntax diagrams which do not contain loops; i.e. which are purely recursive.
@@ -1436,8 +1289,6 @@ Using these modified diagrams, write a function isIdentifier that can check
 whether or not a given string is a legal identifier.
 
 P97 (\*\*) Sudoku. (alternate solution)
-Difficulty: 🔨🔨
-
 Sudoku puzzles go like this:
 
    Problem statement                 Solution
@@ -1469,8 +1320,6 @@ such a way that every number between 1 and 9 appears exactly once in each
 row, in each column, and in each square.
 
 P98 (\*\*\*) Nonograms.
-Difficulty: 🔨🔨🔨
-
 Around 1994, a certain kind of puzzles was very popular in England. The
 "Sunday Telegraph" newspaper wrote: "Nonograms are puzzles from Japan and are
 currently published each week only in The Sunday Telegraph. Simply use your
@@ -1506,8 +1355,6 @@ Published puzzles are larger than this example, e.g. 25Ã—20, and apparently
 always have unique solutions.
 
 P99 (\*\*\*) Crossword puzzle.
-Difficulty: 🔨🔨🔨
-
 Given an empty (or almost empty) framework of a crossword puzzle and a set of
 words. The problem is to place the words into the framework.
 The particular crossword puzzle is specified in a text file which first lists
