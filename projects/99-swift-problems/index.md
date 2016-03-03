@@ -15,9 +15,20 @@ written by Werner Hett at Berne University of Applied Sciences in Berne, Switzer
 
 From the 99 Scala Problems:
 
-> The problems have different levels of difficulty. Those marked with a single asterisk (\*) are easy. If you have successfully solved the preceding problems you should be able to solve them within a few (say 15) minutes. Problems marked with two asterisks (\*\*) are of intermediate difficulty. If you are a skilled Scala programmer it shouldn't take you more than 30-90 minutes to solve them. Problems marked with three asterisks (\*\*\*) are more difficult. You may need more time (i.e. a few hours or more) to find a good solution. The difficulties were all assigned for the Prolog problems, but the Scala versions seem to be of roughly similar difficulty.
+> The problems have different levels of difficulty. Those marked with a single
+asterisk (\*) are easy. If you have successfully solved the preceding problems
+you should be able to solve them within a few (say 15) minutes. Problems marked
+with two asterisks (\*\*) are of intermediate difficulty. If you are a skilled
+Scala programmer it shouldn't take you more than 30-90 minutes to solve them.
+Problems marked with three asterisks (\*\*\*) are more difficult. You may need
+more time (i.e. a few hours or more) to find a good solution. The difficulties
+were all assigned for the Prolog problems, but the Scala versions seem to be
+of roughly similar difficulty.
 
-> Your goal should be to find the most elegant solution of the given problems. Efficiency is important, but clarity is even more crucial. Some of the (easy) problems can be trivially solved using built-in functions. However, in these cases, you learn more if you try to find your own solution.
+> Your goal should be to find the most elegant solution of the given problems.
+Efficiency is important, but clarity is even more crucial. Some of the (easy)
+problems can be trivially solved using built-in functions. However, in these
+cases, you learn more if you try to find your own solution.
 
 Most of the above also applies to Swift, since both Swift and Scala are high-level
 modern languages.
@@ -113,7 +124,7 @@ Example:
 
 ~~~swift
 let list = List(1, 1, 2, 3, 5, 8)
-print(list.reversed) // (8, 5, 3, 2, 1, 1)
+print(list.reversed()) // (8, 5, 3, 2, 1, 1)
 ~~~
 
 ### <a name="p06"/>[P06](#p06) (\*) Find out whether a list is a palindrome.
