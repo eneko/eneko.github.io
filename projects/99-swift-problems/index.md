@@ -295,7 +295,9 @@ res1: List[Symbol] = List('j, 'k, 'a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'i)
 ### <a name="p20"/>[P20](#p20) (\*) Remove the Kth element from a list.
 Difficulty: 🔨
 
-Return the list and the removed element in a Tuple. Elements are numbered from 0.
+Return the list and the removed element in a Tuple. Elements are numbered
+from 0.
+
 Example:
 
 scala> removeAt(1, List('a, 'b, 'c, 'd))
@@ -418,7 +420,8 @@ Difficulty: 🔨🔨
 scala> 7.isPrime
 res0: Boolean = true
 
-P32 (\*\*) Determine the greatest common divisor of two positive integer numbers.
+P32 (\*\*) Determine the greatest common divisor of two positive integer
+numbers.
 Difficulty: 🔨🔨
 
 Use Euclid's algorithm.
@@ -527,7 +530,8 @@ The file containing the full class for this section is arithmetic.scala.
 Logic and Codes
 
 As in the previous section, we will start with a skeleton file, logic1.scala,
-and add code to it for each problem. The difference here is that the file starts out almost empty.
+and add code to it for each problem. The difference here is that the file
+starts out almost empty.
 
 P46 (\*\*) Truth tables for logical expressions.
 Difficulty: 🔨🔨
@@ -1112,21 +1116,36 @@ class Digraph[T, U] extends GraphBase[T, U] {
 The full initial Graph code, which also includes objects for creating graphs,
 is in graph1.scala.
 
-There are a few ways to create a graph from primitives. The graph-term form lists the nodes and edges separately:
+There are a few ways to create a graph from primitives. The graph-term form
+lists the nodes and edges separately:
 
 Graph.term(List('b', 'c', 'd', 'f', 'g', 'h', 'k'),
            List(('b', 'c'), ('b', 'f'), ('c', 'f'), ('f', 'k'), ('g', 'h')))
-The adjacency-list form associates each node with its adjacent nodes. In an undirected graph, care must be taken to ensure that all links are symmetric--if b is adjacent to c, c must also be adjacent to b.
+The adjacency-list form associates each node with its adjacent nodes. In an
+undirected graph, care must be taken to ensure that all links are
+symmetric--if b is adjacent to c, c must also be adjacent to b.
 
 Graph.adjacent(List(('b', List('c', 'f')), ('c', List('b', 'f')), ('d', Nil),
                     ('f', List('b', 'c', 'k')), ('g', List('h')), ('h', List('g')),
                     ('k', List('f'))))
-The representations we introduced so far are bound to our implementation and therefore well suited for automated processing, but their syntax is not very user-friendly. Typing the terms by hand is cumbersome and error-prone. We can define a more compact and "human-friendly" notation as follows: A graph is represented by a string of terms of the type X or Y-Z separated by commas. The standalone terms stand for isolated nodes, the Y-Z terms describe edges. If an X appears as an endpoint of an edge, it is automatically defined as a node. Our example could be written as:
+The representations we introduced so far are bound to our implementation and
+therefore well suited for automated processing, but their syntax is not very
+user-friendly. Typing the terms by hand is cumbersome and error-prone. We can
+define a more compact and "human-friendly" notation as follows: A graph is
+represented by a string of terms of the type X or Y-Z separated by commas.
+The standalone terms stand for isolated nodes, the Y-Z terms describe edges.
+If an X appears as an endpoint of an edge, it is automatically defined as a
+node. Our example could be written as:
 
 [b-c, f-c, g-h, d, f-b, k-f, h-g]
-We call this the human-friendly form. As the example shows, the list does not have to be sorted and may even contain the same edge multiple times. Notice the isolated node d.
+We call this the human-friendly form. As the example shows, the list does not
+have to be sorted and may even contain the same edge multiple times. Notice
+the isolated node d.
 
-When the edges of a graph are directed, we call them arcs. These are represented by ordered pairs. Such a graph is called directed graph. To represent a directed graph, the forms discussed above are slightly modified. The example graph opposite is represented as follows:
+When the edges of a graph are directed, we call them arcs. These are
+represented by ordered pairs. Such a graph is called directed graph.
+To represent a directed graph, the forms discussed above are slightly
+modified. The example graph opposite is represented as follows:
 
 graph-term form:
 
@@ -1141,7 +1160,10 @@ Digraph.adjacent(List(('r', Nil), ('s', List('r', 'u')), ('t', Nil),
 human-friendly form:
 
 [s>r, t, u>r, s>u, u>s, v>u]
-Finally, graphs and digraphs may have additional information attached to nodes and edges (arcs). For the nodes, this is no problem, as we can put any type into them. On the other hand, for edges we have to extend our notation. Graphs with additional information attached to edges are called labeled graphs.
+Finally, graphs and digraphs may have additional information attached to nodes
+and edges (arcs). For the nodes, this is no problem, as we can put any type
+into them. On the other hand, for edges we have to extend our notation. Graphs
+with additional information attached to edges are called labeled graphs.
 
 graph-term form:
 
@@ -1155,12 +1177,16 @@ Digraph.adjacentLabel(
 human-friendly form:
 
 [p>q/9, m>q/7, k, p>m/5]
-The notation for labeled graphs can also be used for so-called multi-graphs, where more than one edge (or arc) is allowed between two given nodes.
+The notation for labeled graphs can also be used for so-called multi-graphs,
+where more than one edge (or arc) is allowed between two given nodes.
 
 P80 (\*\*\*) Conversions.
 Difficulty: 🔨🔨
 
-Write methods to generate the graph-term and adjacency-list forms from a Graph. Write another method to output the human-friendly form for a graph. Make it the toString method for Graph. Write more functions to create graphs from strings.
+Write methods to generate the graph-term and adjacency-list forms from a Graph.
+ Write another method to output the human-friendly form for a graph. Make it
+ the toString method for Graph. Write more functions to create graphs from
+ strings.
 Hint: You might need separate functions for labeled and unlabeled graphs.
 
 scala> Graph.fromString("[b-c, f-c, g-h, d, f-b, k-f, h-g]").toTermForm
@@ -1172,7 +1198,8 @@ res1: List[(String, List[(String, Int)])] = List((m,List((q,7))), (p,List((m,5),
 P81 (\*\*) Path from one node to another one.
 Difficulty: 🔨🔨
 
-Write a method named findPaths to find acyclic paths from one node to another in a graph. The method should return all paths.
+Write a method named findPaths to find acyclic paths from one node to another
+in a graph. The method should return all paths.
 scala> Digraph.fromStringLabel("[p>q/9, m>q/7, k, p>m/5]").findPaths("p", "q")
 res0: List[List[String]] = List(List(p, q), List(p, m, q))
 
@@ -1182,14 +1209,20 @@ res1: List[List[String]] = List()
 P82 (\*) Cycle from a given node.
 Difficulty: 🔨🔨
 
-Write a method named findCycles to find closed paths (cycles) starting at a given node in a graph. The method should return all cycles.
+Write a method named findCycles to find closed paths (cycles) starting at a
+given node in a graph. The method should return all cycles.
 scala> Graph.fromString("[b-c, f-c, g-h, d, f-b, k-f, h-g]").findCycles("f")
 res0: List[List[String]] = List(List(f, c, b, f), List(f, b, c, f))
 
 P83 (\*\*) Construct all spanning trees.
 Difficulty: 🔨🔨
 
-Write a method spanningTrees to construct all spanning trees of a given graph. With this method, find out how many spanning trees there are for the graph depicted to the right. The data of this example graph can be found below. When you have a correct solution for the spanningTrees method, use it to define two other useful methods: isTree and isConnected. Both are five-minute tasks!
+Write a method spanningTrees to construct all spanning trees of a given graph.
+With this method, find out how many spanning trees there are for the graph
+depicted to the right. The data of this example graph can be found below. When
+you have a correct solution for the spanningTrees method, use it to define two
+other useful methods: isTree and isConnected. Both are five-minute tasks!
+
 Graph:
 
 Graph.term(List('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'),
@@ -1202,7 +1235,10 @@ res0: List[Graph[String,Unit]] = List([a-b, b-c], [a-c, b-c], [a-b, a-c])
 P84 (\*\*) Construct the minimal spanning tree.
 Difficulty: 🔨🔨
 
-Write a method minimalSpanningTree to construct the minimal spanning tree of a given labeled graph. Hint: Use Prim's Algorithm. A small modification of the solution of P83 does the trick. The data of the example graph to the right can be found below.
+Write a method minimalSpanningTree to construct the minimal spanning tree of a
+given labeled graph. Hint: Use Prim's Algorithm. A small modification of the
+solution of P83 does the trick. The data of the example graph to the right can
+be found below.
 Graph:
 
 Graph.termLabel(
@@ -1216,7 +1252,9 @@ res0: Graph[String,Int] = [a-b/1, b-c/2]
 P85 (\*\*) Graph isomorphism.
 Difficulty: 🔨🔨
 
-Two graphs G1(N1,E1) and G2(N2,E2) are isomorphic if there is a bijection f: N1 â†’ N2 such that for any nodes X,Y of N1, X and Y are adjacent if and only if f(X) and f(Y) are adjacent.
+Two graphs G1(N1,E1) and G2(N2,E2) are isomorphic if there is a bijection f:
+N1 â†’ N2 such that for any nodes X,Y of N1, X and Y are adjacent if and only
+if f(X) and f(Y) are adjacent.
 Write a method that determines whether two graphs are isomorphic.
 
 scala> Graph.fromString("[a-b]").isIsomorphicTo(Graph.fromString("[5-7]"))
@@ -1228,11 +1266,15 @@ Difficulty: 🔨🔨
 a) Write a method Node.degree that determines the degree of a given node.
 scala> Graph.fromString("[a-b, b-c, a-c, a-d]").nodes("a").degree
 res0: Int = 3
-b) Write a method that lists all nodes of a graph sorted according to decreasing degree.
+b) Write a method that lists all nodes of a graph sorted according to
+decreasing degree.
 
 scala> Graph.fromString("[a-b, b-c, a-c, a-d]").nodesByDegree
 res1: List[Graph[String,Unit]#Node] = List(Node(a), Node(c), Node(b), Node(d))
-c) Use Welsh-Powell's algorithm to paint the nodes of a graph in such a way that adjacent nodes have different colors. Make a method colorNodes that returns a list of tuples, each of which contains a node and an integer representing its color.
+c) Use Welsh-Powell's algorithm to paint the nodes of a graph in such a way
+that adjacent nodes have different colors. Make a method colorNodes that
+returns a list of tuples, each of which contains a node and an integer
+representing its color.
 
 scala> Graph.fromString("[a-b, b-c, a-c, a-d]").colorNodes
 res2: List[(Graph[String,Unit]#Node,Int)] = List((Node(a),1), (Node(b),2), (Node(c), 3), (Node(d), 2))
@@ -1240,7 +1282,9 @@ res2: List[(Graph[String,Unit]#Node,Int)] = List((Node(a),1), (Node(b),2), (Node
 P87 (\*\*) Depth-first order graph traversal.
 Difficulty: 🔨🔨
 
-Write a method that generates a depth-first order graph traversal sequence. The starting point should be specified, and the output should be a list of nodes that are reachable from this starting point (in depth-first order).
+Write a method that generates a depth-first order graph traversal sequence.
+The starting point should be specified, and the output should be a list of
+nodes that are reachable from this starting point (in depth-first order).
 scala> Graph.fromString("[a-b, b-c, e, a-c, a-d]").nodesByDepthFrom("d")
 res0: List[String] = List(c, b, a, d)
 
@@ -1273,62 +1317,101 @@ The complete source file for this section is graph.scala.
 P90 (\*\*) Eight queens problem
 Difficulty: 🔨🔨
 
-This is a classical problem in computer science. The objective is to place eight queens on a chessboard so that no two queens are attacking each other; i.e., no two queens are in the same row, the same column, or on the same diagonal.
-Hint: Represent the positions of the queens as a list of numbers 1..N. Example: List(4, 2, 7, 3, 6, 8, 5, 1) means that the queen in the first column is in row 4, the queen in the second column is in row 2, etc. Use the generate-and-test paradigm.
+This is a classical problem in computer science. The objective is to place
+eight queens on a chessboard so that no two queens are attacking each other;
+i.e., no two queens are in the same row, the same column, or on the same
+diagonal.
+Hint: Represent the positions of the queens as a list of numbers 1..N. Example:
+List(4, 2, 7, 3, 6, 8, 5, 1) means that the queen in the first column is in row
+4, the queen in the second column is in row 2, etc. Use the generate-and-test
+paradigm.
 
 P91 (\*\*) Knight's tour.
 Difficulty: 🔨🔨
 
-Another famous problem is this one: How can a knight jump on an NÃ—N chessboard in such a way that it visits every square exactly once?
-Hints: Represent the squares by pairs of their coordinates of the form (X, Y), where both X and Y are integers between 1 and N. (Alternately, define a Point class for the same purpose.) Write a function jumps(N, (X, Y)) to list the squares that a knight can jump to from (X, Y) on a NÃ—N chessboard. And finally, represent the solution of our problem as a list of knight positions (the knight's tour).
+Another famous problem is this one: How can a knight jump on an NÃ—N chessboard
+in such a way that it visits every square exactly once?
+Hints: Represent the squares by pairs of their coordinates of the form (X, Y),
+where both X and Y are integers between 1 and N. (Alternately, define a Point
+    class for the same purpose.) Write a function jumps(N, (X, Y)) to list the
+    squares that a knight can jump to from (X, Y) on a NÃ—N chessboard. And
+    finally, represent the solution of our
+problem as a list of knight positions (the knight's tour).
 
-It might be nice to find more than one tour, but a computer will take a long time trying to find them all at once. Can you make a lazy list that only calculates the tours as needed?
+It might be nice to find more than one tour, but a computer will take a long
+time trying to find them all at once. Can you make a lazy list that only
+calculates the tours as needed?
 
-Can you find only "closed tours", where the knight can jump from its final position back to its starting position?
+Can you find only "closed tours", where the knight can jump from its final
+position back to its starting position?
 
 P92 (\*\*\*) Von Koch's conjecture.
 Difficulty: 🔨🔨🔨
 
-Several years ago I met a mathematician who was intrigued by a problem for which he didn't know a solution. His name was Von Koch, and I don't know whether the problem has been solved since. [The "I" here refers to the author of the Prolog problems. <PMG>]
+Several years ago I met a mathematician who was intrigued by a problem for
+which he didn't know a solution. His name was Von Koch, and I don't know
+whether the problem has been solved since. [The "I" here refers to the author
+of the Prolog problems. <PMG>]
 
 
-Anyway the puzzle goes like this: Given a tree with N nodes (and hence N-1 edges), find a way to enumerate the nodes from 1 to N and, accordingly, the edges from 1 to N-1 in such a way, that for each edge K the difference of its node numbers is equal to K. The conjecture is that this is always possible.
+Anyway the puzzle goes like this: Given a tree with N nodes (and hence N-1
+    edges), find a way to enumerate the nodes from 1 to N and, accordingly,
+    the edges from 1 to N-1 in such a way, that for each edge K the
+    difference of its node numbers is equal to K. The conjecture is that
+    this is always possible.
 
-For small trees the problem is easy to solve by hand. However, for larger trees, and 14 is already very large, it is extremely difficult to find a solution. And remember, we don't know for sure whether there is always a solution!
+For small trees the problem is easy to solve by hand. However, for larger
+trees, and 14 is already very large, it is extremely difficult to find a
+solution. And remember, we don't know for sure whether there is always a
+solution!
 
-Write a function that calculates a numbering scheme for a given tree. What is the solution for the larger tree pictured below?
+Write a function that calculates a numbering scheme for a given tree.
+What is the solution for the larger tree pictured below?
 
 
 
 P93 (\*\*\*) An arithmetic puzzle.
 Difficulty: 🔨🔨🔨
 
-Given a list of integer numbers, find a correct way of inserting arithmetic signs (operators) such that the result is a correct equation. Example: With the list of numbers List(2,3,5,7,11) we can form the equations 2-3+5+7 = 11 or 2 = (3*5+7)/11 (and ten others!).
+Given a list of integer numbers, find a correct way of inserting arithmetic
+signs (operators) such that the result is a correct equation. Example: With
+the list of numbers List(2,3,5,7,11) we can form the equations 2-3+5+7 = 11
+or 2 = (3*5+7)/11 (and ten others!).
 
 P94 (\*\*\*) Generate K-regular simple graphs with N nodes.
 Difficulty: 🔨🔨🔨
 
-In a K-regular graph all nodes have a degree of K; i.e. the number of edges incident in each node is K. How many (non-isomorphic!) 3-regular graphs with 6 nodes are there? See also a table of results and a Java applet that can represent graphs geometrically.
+In a K-regular graph all nodes have a degree of K; i.e. the number of edges
+incident in each node is K. How many (non-isomorphic!) 3-regular graphs with
+6 nodes are there? See also a table of results and a Java applet that can
+represent graphs geometrically.
 
 P95 (\*\*) English number words.
 Difficulty: 🔨🔨
 
-On financial documents, like checks, numbers must sometimes be written in full words. Example: 175 must be written as one-seven-five. Write a function fullWords(num: Int) to print (non-negative) integer numbers in full words.
+On financial documents, like checks, numbers must sometimes be written in full
+words. Example: 175 must be written as one-seven-five. Write a function
+fullWords(num: Int) to print (non-negative) integer numbers in full words.
 
 P96 (\*\*) Syntax checker.
 Difficulty: 🔨🔨
 
-In a certain programming language (Ada) identifiers are defined by the syntax diagram (railroad chart) opposite. Transform the syntax diagram into a system of syntax diagrams which do not contain loops; i.e. which are purely recursive. Using these modified diagrams, write a function isIdentifier that can check whether or not a given string is a legal identifier.
+In a certain programming language (Ada) identifiers are defined by the syntax
+diagram (railroad chart) opposite. Transform the syntax diagram into a system
+of syntax diagrams which do not contain loops; i.e. which are purely recursive.
+Using these modified diagrams, write a function isIdentifier that can check
+whether or not a given string is a legal identifier.
 
 P97 (\*\*) Sudoku. (alternate solution)
 Difficulty: 🔨🔨
 
 Sudoku puzzles go like this:
+
    Problem statement                 Solution
 
-    .  .  4 | 8  .  . | .  1  7	     9  3  4 | 8  2  5 | 6  1  7	     
+    .  .  4 | 8  .  . | .  1  7      9  3  4 | 8  2  5 | 6  1  7	     
             |         |                      |         |
-    6  7  . | 9  .  . | .  .  .	     6  7  2 | 9  1  4 | 8  5  3
+    6  7  . | 9  .  . | .  .  .      6  7  2 | 9  1  4 | 8  5  3
             |         |                      |         |
     5  .  8 | .  3  . | .  .  4      5  1  8 | 6  3  7 | 9  2  4
     --------+---------+--------      --------+---------+--------
@@ -1338,18 +1421,33 @@ Sudoku puzzles go like this:
             |         |                      |         |
     .  .  1 | .  6  9 | .  .  5      7  8  1 | 2  6  9 | 4  3  5
     --------+---------+--------      --------+---------+--------
-    1  .  . | .  8  . | 3  .  6	     1  9  7 | 5  8  2 | 3  4  6
+    1  .  . | .  8  . | 3  .  6      1  9  7 | 5  8  2 | 3  4  6
             |         |                      |         |
-    .  .  . | .  .  6 | .  9  1	     8  5  3 | 4  7  6 | 2  9  1
+    .  .  . | .  .  6 | .  9  1      8  5  3 | 4  7  6 | 2  9  1
             |         |                      |         |
     2  4  . | .  .  1 | 5  .  .      2  4  6 | 3  9  1 | 5  7  8
-Every spot in the puzzle belongs to a (horizontal) row and a (vertical) column, as well as to one single 3Ã—3 square (which we call "square" for short). At the beginning, some of the spots carry a single-digit number between 1 and 9. The problem is to fill the missing spots with digits in such a way that every number between 1 and 9 appears exactly once in each row, in each column, and in each square.
+
+
+Every spot in the puzzle belongs to a (horizontal) row and a (vertical)
+column, as well as to one single 3Ã—3 square (which we call "square" for
+short). At the beginning, some of the spots carry a single-digit number
+between 1 and 9. The problem is to fill the missing spots with digits in
+such a way that every number between 1 and 9 appears exactly once in each
+row, in each column, and in each square.
 
 P98 (\*\*\*) Nonograms.
 Difficulty: 🔨🔨🔨
 
-Around 1994, a certain kind of puzzles was very popular in England. The "Sunday Telegraph" newspaper wrote: "Nonograms are puzzles from Japan and are currently published each week only in The Sunday Telegraph. Simply use your logic and skill to complete the grid and reveal a picture or diagram." As a programmer, you are in a better situation: you can have your computer do the work! Just write a little program ;-).
-The puzzle goes like this: Essentially, each row and column of a rectangular bitmap is annotated with the respective lengths of its distinct strings of occupied cells. The person who solves the puzzle must complete the bitmap given only these lengths.
+Around 1994, a certain kind of puzzles was very popular in England. The
+"Sunday Telegraph" newspaper wrote: "Nonograms are puzzles from Japan and are
+currently published each week only in The Sunday Telegraph. Simply use your
+logic and skill to complete the grid and reveal a picture or diagram." As a
+programmer, you are in a better situation:
+you can have your computer do the work! Just write a little program ;-).
+The puzzle goes like this: Essentially, each row and column of a rectangular
+bitmap is annotated with the respective lengths of its distinct strings of
+occupied cells. The person who solves the puzzle must complete the bitmap
+given only these lengths.
 
 ~~~
   Problem statement:          Solution:
@@ -1367,16 +1465,35 @@ The puzzle goes like this: Essentially, each row and column of a rectangular bit
    2 1 5 1                     2 1 5 1                      
 ~~~
 
-For the example above, the problem can be stated as the two lists [[3],[2,1],[3,2],[2,2],[6],[1,5],[6],[1],[2]] and [[1,2],[3,1],[1,5],[7,1],[5],[3],[4],[3]] which give the "solid" lengths of the rows and columns, top-to-bottom and left-to-right, respectively. Published puzzles are larger than this example, e.g. 25Ã—20, and apparently always have unique solutions.
+For the example above, the problem can be stated as the two lists
+[[3],[2,1],[3,2],[2,2],[6],[1,5],[6],[1],[2]] and
+[[1,2],[3,1],[1,5],[7,1],[5],[3],[4],[3]] which give the "solid" lengths of
+the rows and columns, top-to-bottom and left-to-right, respectively.
+Published puzzles are larger than this example, e.g. 25Ã—20, and apparently
+always have unique solutions.
 
 P99 (\*\*\*) Crossword puzzle.
 Difficulty: 🔨🔨🔨
 
-Given an empty (or almost empty) framework of a crossword puzzle and a set of words. The problem is to place the words into the framework.
-The particular crossword puzzle is specified in a text file which first lists the words (one word per line) in an arbitrary order. Then, after an empty line, the crossword framework is defined. In this framework specification, an empty character location is represented by a dot (.). In order to make the solution easier, character locations can also contain predefined character values. The puzzle opposite is defined in the file p99a.dat, other examples are p99b.dat and p99d.dat. There is also an example of a puzzle (p99c.dat) which does not have a solution.
+Given an empty (or almost empty) framework of a crossword puzzle and a set of
+words. The problem is to place the words into the framework.
+The particular crossword puzzle is specified in a text file which first lists
+the words (one word per line) in an arbitrary order. Then, after an empty line,
+the crossword framework is defined. In this framework specification, an empty
+character location is represented by a dot (.). In order to make the solution
+easier, character locations can also contain predefined character values.
+The puzzle opposite is defined in
+the file p99a.dat, other examples are p99b.dat and p99d.dat. There is also an
+example of a puzzle (p99c.dat) which does not have a solution.
 
-Words are strings of at least two characters. A horizontal or vertical sequence of character places in the crossword puzzle framework is called a site. Our problem is to find a compatible way of placing words onto sites.
+Words are strings of at least two characters. A horizontal or vertical
+sequence of character places in the crossword puzzle framework is called
+a site. Our problem is to find a compatible way of placing words onto sites.
 
-Hints: (1) The problem is not easy. You will need some time to thoroughly understand it. So, don't give up too early! And remember that the objective is a clean solution, not just a quick-and-dirty hack!
+Hints: (1) The problem is not easy. You will need some time to thoroughly
+understand it. So, don't give up too early! And remember that the objective
+is a clean solution, not just a quick-and-dirty hack!
 
-(2) For efficiency reasons it is important, at least for larger puzzles, to sort the words and the sites in a particular order. For this part of the problem, the solution of P28 may be very helpful.
+(2) For efficiency reasons it is important, at least for larger puzzles, to
+sort the words and the sites in a particular order. For this part of the
+problem, the solution of P28 may be very helpful.

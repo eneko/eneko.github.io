@@ -1,14 +1,18 @@
 
-class ListItem<T> {
+class ListItem<T>: CustomStringConvertible {
     var value: T
     var next: ListItem<T>?
 
     init(value: T) {
         self.value = value
     }
+
+    var description: String {
+        return String(value)
+    }
 }
 
-public class List<T> {
+public class List<T>: CustomStringConvertible {
 
     var head: ListItem<T>?
 
@@ -38,6 +42,19 @@ public class List<T> {
             current = next
         }
         return current.value
+    }
+
+    public var description: String {
+        var buffer: [String] = []
+        guard var current = head else {
+            return "()"
+        }
+        buffer.append(String(current))
+        while let next = current.next {
+            current = next
+            buffer.append(String(current))
+        }
+        return "(" + buffer.joinWithSeparator(", ") + ")"
     }
 
 }
