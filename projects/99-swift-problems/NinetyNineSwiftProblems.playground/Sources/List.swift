@@ -8,12 +8,6 @@ class ListItem<T> {
     }
 }
 
-extension ListItem: CustomStringConvertible {
-    var description: String {
-        return String(value)
-    }
-}
-
 public class List<T> {
 
     var head: ListItem<T>?
@@ -23,8 +17,15 @@ public class List<T> {
     }
 
     public init(_ values: T...) {
+        var current: ListItem<T>?
         for value in values {
-            append(value)
+            let newItem = ListItem<T>(value: value)
+            if head == nil {
+                head = newItem
+            } else {
+                current?.next = newItem
+            }
+            current = newItem
         }
     }
 
@@ -40,71 +41,16 @@ public class List<T> {
         current.next = newItem
     }
 
-    /// Problem 1
-    public var last: T? {
-        guard var current = head else {
-            return nil
-        }
-        while let next = current.next {
-            current = next
-        }
-        return current.value
-    }
-
-    /// Problem 2
-    public var pennultimate: T? {
-        var current = head
-        while current?.next != nil {
-            if current?.next?.next == nil {
-                return current?.value
-            }
-            current = current?.next
-        }
-        return nil
-    }
-
-    /// Problem 3
-    public func nth(index: Int) -> T? {
-        var count = 0
-        var current = head
-        while count < index {
-            count++
-            current = current?.next
-            if current == nil {
-                break
-            }
-        }
-        return current?.value
-    }
-
-    /// Problem 4
-    public var length: Int {
-        var count = 0
-        var current = head
-        while current != nil {
-            count++
-            current = current?.next
-        }
-        return count
-    }
-
-    /// Problem 5
-    public func reverseInPlace() -> List {
-        let current = head
-        if current == nil || current?.next == nil {
-            return self
-        }
-        while let next = current?.next {
-            current?.next = next.next
-            next.next = head
-            head = next
-        }
-        return self
-    }
-
-
 }
 
+/// Pretty print list item values
+extension ListItem: CustomStringConvertible {
+    var description: String {
+        return String(value)
+    }
+}
+
+/// Pretty print lists (array syntax)
 extension List: CustomStringConvertible {
 
     public var description: String {
@@ -119,12 +65,83 @@ extension List: CustomStringConvertible {
         }
         return "[" + buffer.joinWithSeparator(", ") + "]"
     }
-
+    
 }
 
-extension List where T:Equatable {
+/// Problem 1
+extension List {
+    public var last: T? {
+        guard var current = head else {
+            return nil
+        }
+        while let next = current.next {
+            current = next
+        }
+        return current.value
+    }
+}
 
-    /// Problem 6
+/// Problem 2
+extension List {
+    public var pennultimate: T? {
+        var current = head
+        while current?.next != nil {
+            if current?.next?.next == nil {
+                return current?.value
+            }
+            current = current?.next
+        }
+        return nil
+    }
+}
+
+/// Problem 3
+extension List {
+    public func nth(index: Int) -> T? {
+        var count = 0
+        var current = head
+        while count < index {
+            count++
+            current = current?.next
+            if current == nil {
+                break
+            }
+        }
+        return current?.value
+    }
+}
+
+/// Problem 4
+extension List {
+    public var length: Int {
+        var count = 0
+        var current = head
+        while current != nil {
+            count++
+            current = current?.next
+        }
+        return count
+    }
+}
+
+/// Problem 5
+extension List {
+    public func reverseInPlace() -> List {
+        let current = head
+        if current == nil || current?.next == nil {
+            return self
+        }
+        while let next = current?.next {
+            current?.next = next.next
+            next.next = head
+            head = next
+        }
+        return self
+    }
+}
+
+/// Problem 6
+extension List where T:Equatable {
     public var isPalindrome: Bool {
         var stack: [T] = []
         var current = head
@@ -141,12 +158,10 @@ extension List where T:Equatable {
         }
         return stack.count == 0
     }
-
 }
 
 /// Problem 7
 extension List {
-    
     public func flatten() -> List {
         let resultList = List()
         var current = head
@@ -166,12 +181,10 @@ extension List {
         }
         return resultList
     }
-
 }
 
 /// Problem 8
 extension List where T: Equatable {
-
     public func compress() -> List {
         var current = head
         while let value = current?.value {
@@ -183,5 +196,10 @@ extension List where T: Equatable {
         }
         return self
     }
+}
+
+/// Problem 9
+extension List where T: Equatable {
 
 }
+

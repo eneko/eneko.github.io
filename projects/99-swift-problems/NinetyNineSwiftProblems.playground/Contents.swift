@@ -90,17 +90,13 @@ List(1, 1, 2, 3, 5, 8).compress()
 List("a").flatten()
 List<String>().flatten()
 
+//: ### P09 (\*\*) Pack consecutive duplicates of list elements into sublists.
+//: If a list contains repeated elements they should be placed in separate sublists.
+List("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e").pack()
+
+
 /*
 
-### <a name="p09"/>[P09](#p09) (\*\*) Pack consecutive duplicates of list elements into sublists.
-If a list contains repeated elements they should be placed in separate sublists.
-
-Example:
-
-~~~swift
-let list = List("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e")
-print(list.pack()) // (("a", "a", "a", "a"), ("b"), ("c", "c"), ("a", "a"), ("d"), ("e", "e", "e", "e"))
-~~~
 
 ### <a name="p10"/>[P10](#p10) (\*) Run-length encoding of a list.
 Use the result of problem [P09](#p09) to implement the so-called run-length
