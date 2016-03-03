@@ -217,46 +217,66 @@ print(list.decode()) // ("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", 
 ### <a name="p13"/>[P13](#p13) Run-length encoding of a list (direct solution).
 Difficulty: 🔨🔨
 
-Implement the so-called run-length encoding data compression method directly. I.e. don't use other methods you've written (like [P09](#p09)'s pack); do all the work directly.
+Implement the so-called run-length encoding data compression method directly.
+I.e. don't use other methods you've written (like [P09](#p09)'s pack); do all
+the work directly.
+
 Example:
 
-scala> encodeDirect(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e))
-res0: List[(Int, Symbol)] = List((4,'a), (1,'b), (2,'c), (2,'a), (1,'d), (4,'e))
+~~~swift
+let list = List("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e")
+print(list.encodeDirect()) // ((4, "a"), (1, "b"), (2, "c"), (2, "a"), (1, "d"), (4, "e"))
+~~~
 
 ### <a name="p14"/>[P14](#p14) Duplicate the elements of a list.
 Difficulty: 🔨
 
 Example:
-scala> duplicate(List('a, 'b, 'c, 'c, 'd))
-res0: List[Symbol] = List('a, 'a, 'b, 'b, 'c, 'c, 'c, 'c, 'd, 'd)
 
-### <a name="p15"/>[P15](#p15) (\*\*) Duplicate the elements of a list a given number of times.
+~~~swift
+let list = List("a", "b", "c", "c", "d")
+print(list.duplicate()) // ("a", "a", "b", "b", "c", "c", "c", "c", "d", "d")
+~~~
+
+### <a name="p15"/>[P15](#p15) Duplicate the elements of a list a given number of times.
 Difficulty: 🔨🔨
 
 Example:
-scala> duplicateN(3, List('a, 'b, 'c, 'c, 'd))
-res0: List[Symbol] = List('a, 'a, 'a, 'b, 'b, 'b, 'c, 'c, 'c, 'c, 'c, 'c, 'd, 'd, 'd)
 
-### <a name="p16"/>[P16](#p16) (\*\*) Drop every Nth element from a list.
+~~~swift
+let list = List("a", "b", "c", "c", "d")
+print(list.duplicate(3)) // ("a", "a", "a", "b", "b", "b", "c", "c", "c", "c", "c", "c", "d", "d", "d")
+~~~
+
+### <a name="p16"/>[P16](#p16) Drop every Nth element from a list.
 Difficulty: 🔨🔨
 
 Example:
-scala> drop(3, List('a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'i, 'j, 'k))
-res0: List[Symbol] = List('a, 'b, 'd, 'e, 'g, 'h, 'j, 'k)
 
-### <a name="p17"/>[P17](#p17) (\*) Split a list into two parts.
+~~~swift
+let list = List("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k")
+print(list.drop(3)) // ("a", "b", "d", "e", "g", "h", "j", "k")
+~~~
+
+### <a name="p17"/>[P17](#p17) Split a list into two parts.
 Difficulty: 🔨
 
 The length of the first part is given. Use a Tuple for your result.
+
 Example:
 
-scala> split(3, List('a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'i, 'j, 'k))
-res0: (List[Symbol], List[Symbol]) = (List('a, 'b, 'c),List('d, 'e, 'f, 'g, 'h, 'i, 'j, 'k))
+~~~swift
+let list = List("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k")
+print(list.split(3)) // (("a", "b", "c"), ("d", "e", "f", "g", "h", "i", "j", "k"))
+~~~
 
 ### <a name="p18"/>[P18](#p18) (\*\*) Extract a slice from a list.
 Difficulty: 🔨🔨
 
-Given two indices, I and K, the slice is the list containing the elements from and including the Ith element up to but not including the Kth element of the original list. Start counting the elements with 0.
+Given two indices, I and K, the slice is the list containing the elements from
+and including the Ith element up to but not including the Kth element of the
+original list. Start counting the elements with 0.
+
 Example:
 
 scala> slice(3, 7, List('a, 'b, 'c, 'd, 'e, 'f, 'g, 'h, 'i, 'j, 'k))
@@ -322,7 +342,10 @@ res0: List[Symbol] = List('b, 'a, 'd, 'c, 'e, 'f)
 ### <a name="p26"/>[P26](#p26) (\*\*) Generate the combinations of K distinct objects chosen from the N elements of a list.
 Difficulty: 🔨🔨
 
-In how many ways can a committee of 3 be chosen from a group of 12 people? We all know that there are C(12,3) = 220 possibilities (C(N,K) denotes the well-known binomial coefficient). For pure mathematicians, this result may be great. But we want to really generate all the possibilities.
+In how many ways can a committee of 3 be chosen from a group of 12 people?
+We all know that there are C(12,3) = 220 possibilities (C(N,K) denotes the
+well-known binomial coefficient). For pure mathematicians, this result may
+be great. But we want to really generate all the possibilities.
 Example:
 
 scala> combinations(3, List('a, 'b, 'c, 'd, 'e, 'f))
@@ -331,40 +354,63 @@ res0: List[List[Symbol]] = List(List('a, 'b, 'c), List('a, 'b, 'd), List('a, 'b,
 ### <a name="p27"/>[P27](#p27) (\*\*) Group the elements of a set into disjoint subsets.
 Difficulty: 🔨🔨
 
-a) In how many ways can a group of 9 people work in 3 disjoint subgroups of 2, 3 and 4 persons? Write a function that generates all the possibilities.
+a) In how many ways can a group of 9 people work in 3 disjoint subgroups of
+2, 3 and 4 persons? Write a function that generates all the possibilities.
 Example:
 
 scala> group3(List("Aldo", "Beat", "Carla", "David", "Evi", "Flip", "Gary", "Hugo", "Ida"))
 res0: List[List[List[String]]] = List(List(List(Aldo, Beat), List(Carla, David, Evi), List(Flip, Gary, Hugo, Ida)), ...
-b) Generalize the above predicate in a way that we can specify a list of group sizes and the predicate will return a list of groups.
+
+b) Generalize the above predicate in a way that we can specify a list of group
+sizes and the predicate will return a list of groups.
 
 Example:
 
 scala> group(List(2, 2, 5), List("Aldo", "Beat", "Carla", "David", "Evi", "Flip", "Gary", "Hugo", "Ida"))
 res0: List[List[List[String]]] = List(List(List(Aldo, Beat), List(Carla, David), List(Evi, Flip, Gary, Hugo, Ida)), ...
-Note that we do not want permutations of the group members; i.e. ((Aldo, Beat), ...) is the same solution as ((Beat, Aldo), ...). However, we make a difference between ((Aldo, Beat), (Carla, David), ...) and ((Carla, David), (Aldo, Beat), ...).
 
-You may find more about this combinatorial problem in a good book on discrete mathematics under the term "multinomial coefficients".
+Note that we do not want permutations of the group members;
+i.e. ((Aldo, Beat), ...) is the same solution as ((Beat, Aldo), ...).
+However, we make a difference between ((Aldo, Beat), (Carla, David), ...)
+and ((Carla, David), (Aldo, Beat), ...).
+
+You may find more about this combinatorial problem in a good book on discrete
+mathematics under the term "multinomial coefficients".
 
 ### <a name="p28"/>[P28](#p28) (\*\*) Sorting a list of lists according to length of sublists.
 Difficulty: 🔨🔨
 
-a) We suppose that a list contains elements that are lists themselves. The objective is to sort the elements of the list according to their length. E.g. short lists first, longer lists later, or vice versa.
+a) We suppose that a list contains elements that are lists themselves.
+The objective is to sort the elements of the list according to their length.
+E.g. short lists first, longer lists later, or vice versa.
+
 Example:
 
 scala> lsort(List(List('a, 'b, 'c), List('d, 'e), List('f, 'g, 'h), List('d, 'e), List('i, 'j, 'k, 'l), List('m, 'n), List('o)))
 res0: List[List[Symbol]] = List(List('o), List('d, 'e), List('d, 'e), List('m, 'n), List('a, 'b, 'c), List('f, 'g, 'h), List('i, 'j, 'k, 'l))
-b) Again, we suppose that a list contains elements that are lists themselves. But this time the objective is to sort the elements according to their length frequency; i.e. in the default, sorting is done ascendingly, lists with rare lengths are placed, others with a more frequent length come later.
+
+b) Again, we suppose that a list contains elements that are lists themselves.
+But this time the objective is to sort the elements according to their length
+frequency; i.e. in the default, sorting is done ascendingly, lists with rare
+lengths are placed, others with a more frequent length come later.
 
 Example:
 
 scala> lsortFreq(List(List('a, 'b, 'c), List('d, 'e), List('f, 'g, 'h), List('d, 'e), List('i, 'j, 'k, 'l), List('m, 'n), List('o)))
 res1: List[List[Symbol]] = List(List('i, 'j, 'k, 'l), List('o), List('a, 'b, 'c), List('f, 'g, 'h), List('d, 'e), List('d, 'e), List('m, 'n))
-Note that in the above example, the first two lists in the result have length 4 and 1 and both lengths appear just once. The third and fourth lists have length 3 and there are two list of this length. Finally, the last three lists have length 2. This is the most frequent length.
+
+Note that in the above example, the first two lists in the result have length
+4 and 1 and both lengths appear just once. The third and fourth lists have
+length 3 and there are two list of this length. Finally, the last three lists
+have length 2. This is the most frequent length.
 
 ## Arithmetic
 
-For the next section, we're going to take a different tack with the solutions. We'll declare a new class, S99Int, and an implicit conversion from regular Ints. The arithmetic1 file contains the starting definitions for this section. Each individual solution will show the relevant additions to the S99Int class. The full class will be given at the end of the section.
+For the next section, we're going to take a different tack with the solutions.
+We'll declare a new class, S99Int, and an implicit conversion from regular
+Ints. The arithmetic1 file contains the starting definitions for this section.
+Each individual solution will show the relevant additions to the S99Int
+class. The full class will be given at the end of the section.
 
 P31 (\*\*) Determine whether a given integer number is prime.
 Difficulty: 🔨🔨
@@ -389,7 +435,8 @@ res0: Boolean = true
 P34 (\*\*) Calculate Euler's totient function phi(m).
 Difficulty: 🔨🔨
 
-Euler's so-called totient function phi(m) is defined as the number of positive integers r (1 <= r <= m) that are coprime to m.
+Euler's so-called totient function phi(m) is defined as the number of positive
+integers r (1 <= r <= m) that are coprime to m.
 scala> 10.totient
 res0: Int = 4
 
@@ -414,7 +461,13 @@ res0: Map[Int,Int] = Map(3 -> 2, 5 -> 1, 7 -> 1)
 P37 (\*\*) Calculate Euler's totient function phi(m) (improved).
 Difficulty: 🔨🔨
 
-See problem P34 for the definition of Euler's totient function. If the list of the prime factors of a number m is known in the form of problem P36 then the function phi(m>) can be efficiently calculated as follows: Let [[p1, m1], [p2, m2], [p3, m3], ...] be the list of prime factors (and their multiplicities) of a given number m. Then phi(m) can be calculated with the following formula:
+See problem P34 for the definition of Euler's totient function. If the list of
+the prime factors of a number m is known in the form of problem P36 then the
+function phi(m>) can be efficiently calculated as follows:
+Let [[p1, m1], [p2, m2], [p3, m3], ...] be the list of prime factors
+(and their multiplicities) of a given number m. Then phi(m) can be calculated
+with the following formula:
+
 ~~~
 phi(m) = (p1-1)*p1(m1-1) * (p2-1)*p2(m2-1) * (p3-1)*p3(m3-1) * ...
 ~~~
@@ -423,26 +476,34 @@ Note that ab stands for the bth power of a.
 P38 (\*) Compare the two methods of calculating Euler's totient function.
 Difficulty: 🔨
 
-Use the solutions of problems P34 and P37 to compare the algorithms. Try to calculate phi(10090) as an example.
+Use the solutions of problems P34 and P37 to compare the algorithms. Try to
+calculate phi(10090) as an example.
 
 P39 (\*) A list of prime numbers.
 Difficulty: 🔨
 
-Given a range of integers by its lower and upper limit, construct a list of all prime numbers in that range.
+Given a range of integers by its lower and upper limit, construct a list of
+all prime numbers in that range.
 scala> listPrimesinRange(7 to 31)
 res0: List[Int] = List(7, 11, 13, 17, 19, 23, 29, 31)
 
 P40 (\*\*) Goldbach's conjecture.
 Difficulty: 🔨🔨
 
-Goldbach's conjecture says that every positive even number greater than 2 is the sum of two prime numbers. E.g. 28 = 5 + 23. It is one of the most famous facts in number theory that has not been proved to be correct in the general case. It has been numerically confirmed up to very large numbers (much larger than Scala's Int can represent). Write a function to find the two prime numbers that sum up to a given even integer.
+Goldbach's conjecture says that every positive even number greater than 2
+is the sum of two prime numbers. E.g. 28 = 5 + 23. It is one of the most
+famous facts in number theory that has not been proved to be correct in the
+general case. It has been numerically confirmed up to very large numbers
+(much larger than Scala's Int can represent). Write a function to find the
+two prime numbers that sum up to a given even integer.
 scala> 28.goldbach
 res0: (Int, Int) = (5,23)
 
 P41 (\*\*) A list of Goldbach compositions.
 Difficulty: 🔨🔨
 
-Given a range of integers by its lower and upper limit, print a list of all even numbers and their Goldbach composition.
+Given a range of integers by its lower and upper limit, print a list of all
+even numbers and their Goldbach composition.
 scala> printGoldbachList(9 to 20)
 10 = 3 + 7
 12 = 5 + 7
@@ -450,7 +511,9 @@ scala> printGoldbachList(9 to 20)
 16 = 3 + 13
 18 = 5 + 13
 20 = 3 + 17
-In most cases, if an even number is written as the sum of two prime numbers, one of them is very small. Very rarely, the primes are both bigger than, say, 50. Try to find out how many such cases there are in the range 2..3000.
+In most cases, if an even number is written as the sum of two prime numbers,
+one of them is very small. Very rarely, the primes are both bigger than, say,
+50. Try to find out how many such cases there are in the range 2..3000.
 
 Example (minimum value of 50 for the primes):
 
@@ -463,20 +526,26 @@ The file containing the full class for this section is arithmetic.scala.
 
 Logic and Codes
 
-As in the previous section, we will start with a skeleton file, logic1.scala, and add code to it for each problem. The difference here is that the file starts out almost empty.
+As in the previous section, we will start with a skeleton file, logic1.scala,
+and add code to it for each problem. The difference here is that the file starts out almost empty.
 
 P46 (\*\*) Truth tables for logical expressions.
 Difficulty: 🔨🔨
 
-Define functions and, or, nand, nor, xor, impl, and equ (for logical equivalence) which return true or false according to the result of their respective operations; e.g. and(A, B) is true if and only if both A and B are true.
+Define functions and, or, nand, nor, xor, impl, and equ (for logical
+    equivalence) which return true or false according to the result of
+    their respective operations; e.g. and(A, B) is true if and only if
+    both A and B are true.
 scala> and(true, true)
 res0: Boolean = true
 
 scala> xor(true. true)
 res1: Boolean = false
-A logical expression in two variables can then be written as an function of two variables, e.g: (a: Boolean, b: Boolean) => and(or(a, b), nand(a, b))
+A logical expression in two variables can then be written as an function of
+two variables, e.g: (a: Boolean, b: Boolean) => and(or(a, b), nand(a, b))
 
-Now, write a function called table2 which prints the truth table of a given logical expression in two variables.
+Now, write a function called table2 which prints the truth table of a given
+logical expression in two variables.
 
 scala> table2((a: Boolean, b: Boolean) => and(a, or(a, b)))
 A     B     result
@@ -488,7 +557,9 @@ false false false
 P47 (\*) Truth tables for logical expressions (2).
 Difficulty: 🔨🔨
 
-Continue problem P46 by redefining and, or, etc as operators. (i.e. make them methods of a new class with an implicit conversion from Boolean.) not will have to be left as a object method.
+Continue problem P46 by redefining and, or, etc as operators. (i.e. make them
+    methods of a new class with an implicit conversion from Boolean.) not will
+    have to be left as a object method.
 scala> table2((a: Boolean, b: Boolean) => a and (a or not(b)))
 A     B     result
 true  true  true
@@ -505,7 +576,8 @@ Omitted for now.
 P49 (\*\*) Gray code.
 Difficulty: 🔨🔨
 
-An n-bit Gray code is a sequence of n-bit strings constructed according to certain rules. For example,
+An n-bit Gray code is a sequence of n-bit strings constructed according to
+certain rules. For example,
 n = 1: C(1) = ("0", "1").
 n = 2: C(2) = ("00", "01", "11", "10").
 n = 3: C(3) = ("000", "001", "011", "010", "110", "111", "101", "100").
@@ -519,16 +591,28 @@ See if you can use memoization to make the function more efficient.
 P50 (\*\*\*) Huffman code.
 Difficulty: 🔨🔨
 
-First of all, consult a good book on discrete mathematics or algorithms for a detailed description of Huffman codes!
-We suppose a set of symbols with their frequencies, given as a list of (S, F) Tuples. E.g. (("a", 45), ("b", 13), ("c", 12), ("d", 16), ("e", 9), ("f", 5)). Our objective is to construct a list of (S, C) Tuples, where C is the Huffman code word for the symbol S.
+First of all, consult a good book on discrete mathematics or algorithms for
+a detailed description of Huffman codes!
+We suppose a set of symbols with their frequencies, given as a list of (S, F)
+Tuples. E.g. (("a", 45), ("b", 13), ("c", 12), ("d", 16), ("e", 9), ("f", 5)).
+Our objective is to construct a list of (S, C) Tuples, where C is the Huffman
+code word for the symbol S.
 
 scala> huffman(List(("a", 45), ("b", 13), ("c", 12), ("d", 16), ("e", 9), ("f", 5)))
 res0: List[String, String] = List((a,0), (b,101), (c,100), (d,111), (e,1101), (f,1100))
 Binary Trees
 
-A binary tree is either empty or it is composed of a root element and two successors, which are binary trees themselves.
+A binary tree is either empty or it is composed of a root element and two
+successors, which are binary trees themselves.
 
-We shall use the following classes to represent binary trees. (Also available in tree1.scala.) An End is equivalent to an empty tree. A Branch has a value, and two descendant trees. The toString functions are relatively arbitrary, but they yield a more compact output than Scala's default. Putting a plus in front of the T makes the class covariant; it will be able to hold subtypes of whatever type it's created for. (This is important so that End can be a singleton object; as a singleton, it must have a specific type, so we give it type Nothing, which is a subtype of every other type.)
+We shall use the following classes to represent binary trees. (Also available
+in tree1.scala.) An End is equivalent to an empty tree. A Branch has a
+value, and two descendant trees. The toString functions are relatively
+arbitrary, but they yield a more compact output than Scala's default.
+Putting a plus in front of the T makes the class covariant; it will be
+able to hold subtypes of whatever type it's created for. (This is important
+so that End can be a singleton object; as a singleton, it must have a specific
+type, so we give it type Nothing, which is a subtype of every other type.)
 
 ~~~
 sealed abstract class Tree[+T]
@@ -553,7 +637,8 @@ Node('a',
 
 A tree with only a root node would be Node('a') and an empty tree would be End.
 
-Throughout this section, we will be adding methods to the classes above, mostly to Tree.
+Throughout this section, we will be adding methods to the classes above, mostly
+to Tree.
 
 P54 Omitted; our tree representation will only allow well-formed trees.
 Score one for static typing.
@@ -562,8 +647,14 @@ Score one for static typing.
 P55 (\*\*) Construct completely balanced binary trees.
 Difficulty: 🔨🔨
 
-In a completely balanced binary tree, the following property holds for every node: The number of nodes in its left subtree and the number of nodes in its right subtree are almost equal, which means their difference is not greater than one.
-Define an object named Tree. Write a function Tree.cBalanced to construct completely balanced binary trees for a given number of nodes. The function should generate all solutions. The function should take as parameters the number of nodes and a single value to put in all of them.
+In a completely balanced binary tree, the following property holds for every
+node: The number of nodes in its left subtree and the number of nodes in its
+right subtree are almost equal, which means their difference is not greater
+than one.
+Define an object named Tree. Write a function Tree.cBalanced to construct
+completely balanced binary trees for a given number of nodes. The function
+should generate all solutions. The function should take as parameters the
+number of nodes and a single value to put in all of them.
 
 scala> Tree.cBalanced(4, "x")
 res0: List(Node[String]) = List(T(x T(x . .) T(x . T(x . .))), T(x T(x . .) T(x T(x . .) .)), ...
@@ -571,7 +662,13 @@ res0: List(Node[String]) = List(T(x T(x . .) T(x . T(x . .))), T(x T(x . .) T(x 
 P56 (\*\*) Symmetric binary trees.
 Difficulty: 🔨🔨
 
-Let us call a binary tree symmetric if you can draw a vertical line through the root node and then the right subtree is the mirror image of the left subtree. Add an isSymmetric method to the Tree class to check whether a given binary tree is symmetric. Hint: Write an isMirrorOf method first to check whether one tree is the mirror image of another. We are only interested in the structure, not in the contents of the nodes.
+Let us call a binary tree symmetric if you can draw a vertical line through
+the root node and then the right subtree is the mirror image of the left
+subtree. Add an isSymmetric method to the Tree class to check whether a given
+binary tree is symmetric. Hint: Write an isMirrorOf method first to check
+whether one tree is the mirror image of another. We are only interested in
+the structure, not in the contents of the nodes.
+
 scala> Node('a', Node('b'), Node('c')).isSymmetric
 res0: Boolean = true
 
@@ -587,7 +684,12 @@ res1: Node[Int] = T(2 . T(3 . .))
 
 scala> res1.addValue(0)
 res2: Node[Int] = T(2 T(0 . .) T(3 . .))
-Hint: The abstract definition of addValue in Tree should be def addValue[U >: T <% Ordered[U]](x: U): Tree[U]. The >: T is because addValue's parameters need to be contravariant in T. (Conceptually, we're adding nodes above existing nodes. In order for the subnodes to be of type T or any subtype, the upper nodes must be of type T or any supertype.) The <% Ordered[U] allows us to use the < operator on the values in the tree.
+Hint: The abstract definition of addValue in Tree should be
+def addValue[U >: T <% Ordered[U]](x: U): Tree[U]. The >: T is because
+addValue's parameters need to be contravariant in T. (Conceptually, we're
+adding nodes above existing nodes. In order for the subnodes to be of type
+T or any subtype, the upper nodes must be of type T or any supertype.)
+The <% Ordered[U] allows us to use the < operator on the values in the tree.
 
 Use that function to construct a binary tree from a list of integers.
 
@@ -604,15 +706,20 @@ res5: Boolean = false
 P58 (\*\*) Generate-and-test paradigm.
 Difficulty: 🔨🔨
 
-Apply the generate-and-test paradigm to construct all symmetric, completely balanced binary trees with a given number of nodes.
+Apply the generate-and-test paradigm to construct all symmetric, completely
+balanced binary trees with a given number of nodes.
 scala> Tree.symmetricBalancedTrees(5, "x")
 res0: List[Node[String]] = List(T(x T(x . T(x . .)) T(x T(x . .) .)), T(x T(x T(x . .) .) T(x . T(x . .))))
 
 P59 (\*\*) Construct height-balanced binary trees.
 Difficulty: 🔨🔨
 
-In a height-balanced binary tree, the following property holds for every node: The height of its left subtree and the height of its right subtree are almost equal, which means their difference is not greater than one.
-Write a method Tree.hbalTrees to construct height-balanced binary trees for a given height with a supplied value for the nodes. The function should generate all solutions.
+In a height-balanced binary tree, the following property holds for every node:
+The height of its left subtree and the height of its right subtree are almost
+equal, which means their difference is not greater than one.
+Write a method Tree.hbalTrees to construct height-balanced binary trees for a
+given height with a supplied value for the nodes. The function should generate
+all solutions.
 
 scala> Tree.hbalTrees(3, "x")
 res0: List[Node[String]] = List(T(x T(x T(x . .) T(x . .)) T(x T(x . .) T(x . .))), T(x T(x T(x . .) T(x . .)) T(x T(x . .) .)), ...
@@ -620,14 +727,20 @@ res0: List[Node[String]] = List(T(x T(x T(x . .) T(x . .)) T(x T(x . .) T(x . .)
 P60 (\*\*) Construct height-balanced binary trees with a given number of nodes.
 Difficulty: 🔨🔨
 
-Consider a height-balanced binary tree of height H. What is the maximum number of nodes it can contain? Clearly, MaxN = 2H - 1. However, what is the minimum number MinN? This question is more difficult. Try to find a recursive statement and turn it into a function minHbalNodes that takes a height and returns MinN.
+Consider a height-balanced binary tree of height H. What is the maximum number
+of nodes it can contain? Clearly, MaxN = 2H - 1. However, what is the minimum
+number MinN? This question is more difficult. Try to find a recursive
+statement and turn it into a function minHbalNodes that takes a height and
+returns MinN.
 scala> minHbalNodes(3)
 res0: Int = 4
-On the other hand, we might ask: what is the maximum height H a height-balanced binary tree with N nodes can have? Write a maxHbalHeight function.
+On the other hand, we might ask: what is the maximum height H a height-balanced
+binary tree with N nodes can have? Write a maxHbalHeight function.
 
 scala> maxHbalHeight(4)
 res1: Int = 3
-Now, we can attack the main problem: construct all the height-balanced binary trees with a given nuber of nodes.
+Now, we can attack the main problem: construct all the height-balanced binary
+trees with a given nuber of nodes.
 
 scala> Tree.hbalTreesWithNodes(4, "x")
 res2: List[Node[String]] = List(T(x T(x T(x . .) .) T(x . .)), T(x T(x . T(x . .)) T(x . .)), ...
@@ -644,32 +757,52 @@ res0: Int = 1
 61A (\*) Collect the leaves of a binary tree in a list.
 Difficulty: 🔨
 
-A leaf is a node with no successors. Write a method leafList to collect them in a list.
+A leaf is a node with no successors. Write a method leafList to collect them
+in a list.
 scala> Node('a', Node('b'), Node('c', Node('d'), Node('e'))).leafList
 res0: List[Char] = List(b, d, e)
 
 P62 (\*) Collect the internal nodes of a binary tree in a list.
 Difficulty: 🔨
 
-An internal node of a binary tree has either one or two non-empty successors. Write a method internalList to collect them in a list.
+An internal node of a binary tree has either one or two non-empty successors.
+Write a method internalList to collect them in a list.
 scala> Node('a', Node('b'), Node('c', Node('d'), Node('e'))).internalList
 res0: List[Char] = List(a, c)
 
 P62B (\*) Collect the nodes at a given level in a list.
 Difficulty: 🔨
 
-A node of a binary tree is at level N if the path from the root to the node has length N-1. The root node is at level 1. Write a method atLevel to collect all nodes at a given level in a list.
+A node of a binary tree is at level N if the path from the root to the node
+has length N-1. The root node is at level 1. Write a method atLevel to collect
+all nodes at a given level in a list.
 scala> Node('a', Node('b'), Node('c', Node('d'), Node('e'))).atLevel(2)
 res0: List[Char] = List(b, c)
-Using atLevel it is easy to construct a method levelOrder which creates the level-order sequence of the nodes. However, there are more efficient ways to do that.
+Using atLevel it is easy to construct a method levelOrder which creates the
+level-order sequence of the nodes. However, there are more efficient ways to
+do that.
 
 P63 (\*\*) Construct a complete binary tree.
 Difficulty: 🔨🔨
 
-A complete binary tree with height H is defined as follows: The levels 1,2,3,...,H-1 contain the maximum number of nodes (i.e 2(i-1) at the level i, note that we start counting the levels from 1 at the root). In level H, which may contain less than the maximum possible number of nodes, all the nodes are "left-adjusted". This means that in a levelorder tree traversal all internal nodes come first, the leaves come second, and empty successors (the Ends which are not really nodes!) come last.
-Particularly, complete binary trees are used as data structures (or addressing schemes) for heaps.
+A complete binary tree with height H is defined as follows: The levels
+1,2,3,...,H-1 contain the maximum number of nodes (i.e 2(i-1) at the level i,
+note that we start counting the levels from 1 at the root). In level H, which
+may contain less than the maximum possible number of nodes, all the nodes are
+"left-adjusted". This means that in a levelorder tree traversal all internal
+nodes come first, the leaves come second, and empty successors (the Ends which
+are not really nodes!) come last.
+Particularly, complete binary trees are used as data structures (or addressing
+schemes) for heaps.
 
-We can assign an address number to each node in a complete binary tree by enumerating the nodes in levelorder, starting at the root with number 1. In doing so, we realize that for every node X with address A the following property holds: The address of X's left and right successors are 2*A and 2*A+1, respectively, supposed the successors do exist. This fact can be used to elegantly construct a complete binary tree structure. Write a method completeBinaryTree that takes as parameters the number of nodes and the value to put in each node.
+We can assign an address number to each node in a complete binary tree by
+enumerating the nodes in levelorder, starting at the root with number 1.
+In doing so, we realize that for every node X with address A the following
+property holds: The address of X's left and right successors are 2*A and
+2*A+1, respectively, supposed the successors do exist. This fact can be
+used to elegantly construct a complete binary tree structure. Write a
+method completeBinaryTree that takes as parameters the number of nodes
+and the value to put in each node.
 
 scala> Tree.completeBinaryTree(6, "x")
 res0: Node[String] = T(x T(x T(x . .) T(x . .)) T(x T(x . .) .))
@@ -677,12 +810,16 @@ res0: Node[String] = T(x T(x T(x . .) T(x . .)) T(x T(x . .) .))
 P64 (\*\*) Layout a binary tree (1).
 Difficulty: 🔨🔨
 
-As a preparation for drawing a tree, a layout algorithm is required to determine the position of each node in a rectangular grid. Several layout methods are conceivable, one of them is shown in the illustration on the right.
-In this layout strategy, the position of a node v is obtained by the following two rules:
+As a preparation for drawing a tree, a layout algorithm is required to
+determine the position of each node in a rectangular grid. Several layout
+methods are conceivable, one of them is shown in the illustration on the right.
+In this layout strategy, the position of a node v is obtained by the
+following two rules:
 
 x(v) is equal to the position of the node v in the inorder sequence
 y(v) is equal to the depth of the node v in the tree
-In order to store the position of the nodes, we add a new class with the additional information.
+In order to store the position of the nodes, we add a new class with the
+additional information.
 
 ~~~
 case class PositionedNode[+T](override val value: T, override val left: Tree[T], override val right: Tree[T], x: Int, y: Int) extends Node[T](value, left, right) {
@@ -690,7 +827,8 @@ case class PositionedNode[+T](override val value: T, override val left: Tree[T],
 }
 ~~~
 
-Write a method layoutBinaryTree that turns a tree of normal Nodes into a tree of PositionedNodes.
+Write a method layoutBinaryTree that turns a tree of normal Nodes into a
+tree of PositionedNodes.
 
 scala> Node('a', Node('b', End, Node('c')), Node('d')).layoutBinaryTree
 res0: PositionedNode[Char] = T[3,1](a T[1,2](b . T[2,3](c . .)) T[4,2](d . .))
@@ -699,7 +837,9 @@ The tree at right may be constructed with Tree.fromList(List('n','k','m','c','a'
 P65 (\*\*) Layout a binary tree (2).
 Difficulty: 🔨🔨
 
-An alternative layout method is depicted in the illustration opposite. Find out the rules and write the corresponding method. Hint: On a given level, the horizontal distance between neighboring nodes is constant.
+An alternative layout method is depicted in the illustration opposite. Find
+out the rules and write the corresponding method. Hint: On a given level,
+the horizontal distance between neighboring nodes is constant.
 Use the same conventions as in problem P64.
 
 scala> Node('a', Node('b', End, Node('c')), Node('d')).layoutBinaryTree2
@@ -709,8 +849,13 @@ The tree at right may be constructed with Tree.fromList(List('n','k','m','c','a'
 P66 (\*\*\*) Layout a binary tree (3).
 Difficulty: 🔨🔨🔨
 
-Yet another layout strategy is shown in the illustration opposite. The method yields a very compact layout while maintaining a certain symmetry in every node. Find out the rules and write the corresponding method. Hint: Consider the horizontal distance between a node and its successor nodes. How tight can you pack together two subtrees to construct the combined binary tree?
-Use the same conventions as in problem P64 and P65. Note: This is a difficult problem. Don't give up too early!
+Yet another layout strategy is shown in the illustration opposite. The method
+yields a very compact layout while maintaining a certain symmetry in every
+node. Find out the rules and write the corresponding method. Hint: Consider
+the horizontal distance between a node and its successor nodes. How tight
+can you pack together two subtrees to construct the combined binary tree?
+Use the same conventions as in problem P64 and P65. Note: This is a difficult
+problem. Don't give up too early!
 
 scala> Node('a', Node('b', End, Node('c')), Node('d')).layoutBinaryTree3
 res0: PositionedNode[Char] = T[2,1]('a T[1,2]('b . T[2,3]('c . .)) T[3,2]('d . .))
@@ -719,11 +864,17 @@ Which layout do you like most?
 P67 (\*\*) A string representation of binary trees.
 Difficulty: 🔨🔨
 
-Somebody represents binary trees as strings of the following type (see example opposite):
+Somebody represents binary trees as strings of the following type
+(see example opposite):
 a(b(d,e),c(,f(g,)))
-Write a method which generates this string representation, if the tree is given as usual (in Nodes and Ends). Use that method for the Tree class's and subclass's toString methods. Then write a method (on the Tree object) which does this inverse; i.e. given the string representation, construct the tree in the usual form.
+Write a method which generates this string representation, if the tree is
+given as usual (in Nodes and Ends). Use that method for the Tree class's and
+subclass's toString methods. Then write a method (on the Tree object) which
+does this inverse; i.e. given the string representation, construct the tree
+in the usual form.
 
-For simplicity, suppose the information in the nodes is a single letter and there are no spaces in the string.
+For simplicity, suppose the information in the nodes is a single letter and
+there are no spaces in the string.
 
 scala> Node('a', Node('b', Node('d'), Node('e')), Node('c', End, Node('f', Node('g'), End))).toString
 res0: String = a(b(d,e),c(,f(g,)))
@@ -734,24 +885,38 @@ res1: Node[Char] = a(b(d,e),c(,f(g,)))
 P68 (\*\*) Preorder and inorder sequences of binary trees.
 Difficulty: 🔨🔨
 
-We consider binary trees with nodes that are identified by single lower-case letters, as in the example of problem P67.
-a) Write methods preorder and inorder that construct the preorder and inorder sequence of a given binary tree, respectively. The results should be lists, e.g. List('a','b','d','e','c','f','g') for the preorder sequence of the example in problem P67.
+We consider binary trees with nodes that are identified by single lower-case
+letters, as in the example of problem P67.
+a) Write methods preorder and inorder that construct the preorder and inorder
+sequence of a given binary tree, respectively. The results should be lists,
+e.g. List('a','b','d','e','c','f','g') for the preorder sequence of the
+example in problem P67.
 
 scala> Tree.string2Tree("a(b(d,e),c(,f(g,)))").preorder
 res0: List[Char] = List(a, b, d, e, c, f, g)
 
 scala> Tree.string2Tree("a(b(d,e),c(,f(g,)))").inorder
 res1: List[Char] = List(d, b, e, a, c, g, f)
-b) If both the preorder sequence and the inorder sequence of the nodes of a binary tree are given, then the tree is determined unambiguously. Write a method preInTree that does the job.
+b) If both the preorder sequence and the inorder sequence of the nodes of a
+binary tree are given, then the tree is determined unambiguously. Write a
+method preInTree that does the job.
 
 scala> Tree.preInTree(List('a', 'b', 'd', 'e', 'c', 'f', 'g'), List('d', 'b', 'e', 'a', 'c', 'g', 'f'))
 res2: Node[Char] = a(b(d,e),c(,f(g,)))
-What happens if the same character appears in more than one node? Try, for instance, Tree.preInTree(List('a', 'b', 'a'), List('b', 'a', 'a')).
+What happens if the same character appears in more than one node? Try, for
+instance, Tree.preInTree(List('a', 'b', 'a'), List('b', 'a', 'a')).
 
 P69 (\*\*) Dotstring representation of binary trees.
 Difficulty: 🔨🔨
 
-We consider again binary trees with nodes that are identified by single lower-case letters, as in the example of problem P67. Such a tree can be represented by the preorder sequence of its nodes in which dots (.) are inserted where an empty subtree (End) is encountered during the tree traversal. For example, the tree shown in problem P67 is represented as "abd..e..c.fg...". First, try to establish a syntax (BNF or syntax diagrams) and then write two methods, toDotstring and fromDotstring, which do the conversion in both directions.
+We consider again binary trees with nodes that are identified by single
+lower-case letters, as in the example of problem P67. Such a tree can be
+represented by the preorder sequence of its nodes in which dots (.) are
+inserted where an empty subtree (End) is encountered during the tree
+traversal. For example, the tree shown in problem P67 is represented as
+"abd..e..c.fg...". First, try to establish a syntax (BNF or syntax diagrams)
+and then write two methods, toDotstring and fromDotstring, which do the
+conversion in both directions.
 scala> Tree.string2Tree("a(b(d,e),c(,f(g,)))").toDotstring
 res0: String = abd..e..c.fg...
 
@@ -761,9 +926,13 @@ The file containing the full class definitions for this section is tree.scala.
 
 ## Multiway Trees
 
-A multiway tree is composed of a root element and a (possibly empty) set of successors which are multiway trees themselves. A multiway tree is never empty. The set of successor trees is sometimes called a forest.
+A multiway tree is composed of a root element and a (possibly empty) set of
+successors which are multiway trees themselves. A multiway tree is never empty.
+The set of successor trees is sometimes called a forest.
 
-The code to represent these is somewhat simpler than the code for binary trees, partly because we don't separate classes for nodes and terminators, and partly because we don't need the restriction that the value type be ordered.
+The code to represent these is somewhat simpler than the code for binary
+trees, partly because we don't separate classes for nodes and terminators,
+and partly because we don't need the restriction that the value type be ordered.
 
 ~~~
 case class MTree[+T](value: T, children: List[MTree[T]]) {
@@ -796,11 +965,16 @@ res0: Int = 2
 P70 (\*\*) Tree construction from a node string.
 Difficulty: 🔨🔨
 
-We suppose that the nodes of a multiway tree contain single characters. In the depth-first order sequence of its nodes, a special character ^ has been inserted whenever, during the tree traversal, the move is a backtrack to the previous level.
+We suppose that the nodes of a multiway tree contain single characters.
+In the depth-first order sequence of its nodes, a special character ^ has
+been inserted whenever, during the tree traversal, the move is a backtrack
+to the previous level.
 By this rule, the tree in the figure opposite is represented as:
 
 afg^^c^bd^e^^^
-Define the syntax of the string and write a function string2MTree to construct an MTree from a String. Make the function an implicit conversion from String. Write the reverse function, and make it the toString method of MTree.
+Define the syntax of the string and write a function string2MTree to construct
+an MTree from a String. Make the function an implicit conversion from String.
+Write the reverse function, and make it the toString method of MTree.
 
 scala> MTree('a', List(MTree('f', List(MTree('g'))), MTree('c'), MTree('b', List(MTree('d'), MTree('e'))))).toString
 res0: String = afg^^c^bd^e^^^
@@ -808,42 +982,65 @@ res0: String = afg^^c^bd^e^^^
 P71 (\*) Determine the internal path length of a tree.
 Difficulty: 🔨🔨
 
-We define the internal path length of a multiway tree as the total sum of the path lengths from the root to all nodes of the tree. By this definition, the tree in the figure of problem P70 has an internal path length of 9. Write a method internalPathLength to return that sum.
+We define the internal path length of a multiway tree as the total sum of the
+path lengths from the root to all nodes of the tree. By this definition, the
+tree in the figure of problem P70 has an internal path length of 9. Write a
+method internalPathLength to return that sum.
 scala> "afg^^c^bd^e^^^".internalPathLength
 res0: Int = 9
 
 P72 (\*) Construct the postorder sequence of the tree nodes.
 Difficulty: 🔨🔨
 
-Write a method postorder which constructs the postorder sequence of the nodes of a multiway tree. The result should be a List.
+Write a method postorder which constructs the postorder sequence of the
+nodes of a multiway tree. The result should be a List.
 scala> "afg^^c^bd^e^^^".postorder
 res0: List[Char] = List(g, f, c, d, e, b, a)
 
 P73 (\*\*) Lisp-like tree representation.
 Difficulty: 🔨🔨
 
-There is a particular notation for multiway trees in Lisp. Lisp is a prominent functional programming language. In Lisp almost everything is a list.
-Our example tree would be represented in Lisp as (a (f g) c (b d e)). The following pictures give some more examples.
+There is a particular notation for multiway trees in Lisp. Lisp is a
+prominent functional programming language. In Lisp almost everything is a list.
+Our example tree would be represented in Lisp as (a (f g) c (b d e)).
+The following pictures give some more examples.
 
 
 
-Note that in the "lispy" notation a node with successors (children) in the tree is always the first element in a list, followed by its children. The "lispy" representation of a multiway tree is a sequence of atoms and parentheses '(' and ')', with the atoms separated by spaces. We can represent this syntax as a Scala String. Write a method lispyTree which constructs a "lispy string" from an MTree.
+Note that in the "lispy" notation a node with successors (children) in the
+tree is always the first element in a list, followed by its children.
+The "lispy" representation of a multiway tree is a sequence of atoms and
+parentheses '(' and ')', with the atoms separated by spaces. We can
+represent this syntax as a Scala String. Write a method lispyTree which
+constructs a "lispy string" from an MTree.
 
 scala> MTree("a", List(MTree("b", List(MTree("c"))))).lispyTree
 res0: String = (a (b c))
-As a second, even more interesting, exercise try to write a method that takes a "lispy" string and turns it into a multiway tree.
+As a second, even more interesting, exercise try to write a method that
+takes a "lispy" string and turns it into a multiway tree.
 
-[Note: Much of this problem is taken from the wording of the same problem in the Prolog set. This is certainly one way of looking at Lisp notation, but it's not how the language actually represents that syntax internally. I can elaborate more on this, if requested. <PMG>]
+[Note: Much of this problem is taken from the wording of the same problem
+in the Prolog set. This is certainly one way of looking at Lisp notation,
+but it's not how the language actually represents that syntax internally.
+I can elaborate more on this, if requested. <PMG>]
 
 The complete source file for this section is mtree.scala.
 
 ## Graphs
 
-A graph is defined as a set of nodes and a set of edges, where each edge is a pair of nodes.
+A graph is defined as a set of nodes and a set of edges, where each edge is
+a pair of nodes.
 
-The class to represent a graph is mutable, which isn't in keeping with pure functional programming, but a pure functional data structure would make things much, much more complicated. [Pure functional graphs with cycles require laziness; I think Scala can handle it, but I think that would add too much of a barrier to the following questions. <PMG>]
+The class to represent a graph is mutable, which isn't in keeping with pure
+functional programming, but a pure functional data structure would make
+things much, much more complicated. [Pure functional graphs with cycles
+require laziness; I think Scala can handle it, but I think that would add
+too much of a barrier to the following questions. <PMG>]
 
-Our Graphs use an incidence list internally. Each has a list of nodes and a list of edges. Each node also has a list of edges that connect it to other nodes. In a directed graph, nodes that are the target of arcs do not have references to those arcs in their adjacency list.
+Our Graphs use an incidence list internally. Each has a list of nodes and a
+list of edges. Each node also has a list of edges that connect it to other
+nodes. In a directed graph, nodes that are the target of arcs do not have
+references to those arcs in their adjacency list.
 
 ~~~
 abstract class GraphBase[T, U] {
@@ -912,7 +1109,8 @@ class Digraph[T, U] extends GraphBase[T, U] {
 }
 ~~~
 
-The full initial Graph code, which also includes objects for creating graphs, is in graph1.scala.
+The full initial Graph code, which also includes objects for creating graphs,
+is in graph1.scala.
 
 There are a few ways to create a graph from primitives. The graph-term form lists the nodes and edges separately:
 
