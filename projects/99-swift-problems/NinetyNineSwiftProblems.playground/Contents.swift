@@ -87,41 +87,37 @@ List<Any>(List<Any>(List<Any>(List<Any>(List<Any>(1), List<Any>(2), List<Any>(3,
 //: of the element. The order of the elements should not be changed.
 List("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e").compress()
 List(1, 1, 2, 3, 5, 8).compress()
-List("a").flatten()
-List<String>().flatten()
+List("a").compress()
+List<String>().compress()
 
 //: ### P09 (\*\*) Pack consecutive duplicates of list elements into sublists.
 //: If a list contains repeated elements they should be placed in separate sublists.
 List("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e").pack()
+List(1, 1, 2, 3, 5, 8).pack()
+List("a").pack()
+List<String>().pack()
+
+//: ### [P10] (\*) Run-length encoding of a list.
+//: Use the result of problem P09 to implement the so-called run-length encoding
+//: data compression method. Consecutive duplicates of elements are encoded as
+//: tuples `(N, E)` where `N` is the number of duplicates of the element `E`.
+List("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e").encode()
+List(1, 1, 2, 3, 5, 8).encode()
+List("a").encode()
+List<String>().encode()
+
+//: ### [P11] (\*) Modified run-length encoding.
+//: Modify the result of problem P10 in such a way that if an element has no
+//: duplicates it is simply copied into the result list. Only elements with
+//: duplicates are transferred as `(N, E)` terms.
+List("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e").encodeModified()
+List(1, 1, 2, 3, 5, 8).encodeModified()
+List("a").encodeModified()
+List<String>().encodeModified()
+
 
 
 /*
-
-
-### <a name="p10"/>[P10](#p10) (\*) Run-length encoding of a list.
-Use the result of problem [P09](#p09) to implement the so-called run-length
-encoding
-data compression method. Consecutive duplicates of elements are encoded as
-tuples `(N, E)` where `N` is the number of duplicates of the element `E`.
-
-Example:
-
-~~~swift
-let list = List("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e")
-print(list.encode()) // ((4, "a"), (1, "b"), (2, "c"), (2, "a"), (1, "d"), (4, "e"))
-~~~
-
-### <a name="p11"/>[P11](#p11) (\*) Modified run-length encoding.
-Modify the result of problem [P10](#p10) in such a way that if an element has no
-duplicates it is simply copied into the result list. Only elements with
-duplicates are transferred as `(N, E)` terms.
-
-Example:
-
-~~~swift
-let list = List("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e")
-print(list.encodeModified()) // ((4, "a"), "b", (2, "c"), (2, "a"), "d", (4, "e"))
-~~~
 
 ### <a name="p12"/>[P12](#p12) (\*\*) Decode a run-length encoded list.
 Given a run-length code list generated as specified in problem [P10](#p10),

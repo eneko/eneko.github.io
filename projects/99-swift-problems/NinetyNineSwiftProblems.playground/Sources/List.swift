@@ -1,4 +1,7 @@
 
+import Foundation
+
+
 class ListItem<T> {
     var value: T
     var next: ListItem<T>?
@@ -39,6 +42,10 @@ public class List<T> {
             current = next
         }
         current.next = newItem
+    }
+
+    public func removeAll() {
+        head = nil
     }
 
 }
@@ -200,6 +207,55 @@ extension List where T: Equatable {
 
 /// Problem 9
 extension List where T: Equatable {
+    public func pack() -> List<List<T>> {
+        let resultList = List<List<T>>()
+        var current = head
+        var innerList = List<T>()
+        while let value = current?.value {
+            innerList.append(value)
+            if value != current?.next?.value {
+                resultList.append(innerList)
+                innerList = List<T>()
+            }
+            current = current?.next
+        }
+        return resultList
+    }
+}
 
+/// Problem 10
+extension List where T: Equatable {
+    public func encode() -> List<(Int, T)> {
+        let packed = self.pack()
+        let resultList = List<(Int, T)>()
+        var current = packed.head
+        while let sublist = current?.value {
+            let count = sublist.length
+            let value = sublist.head!.value
+            resultList.append((count, value))
+            current = current?.next
+        }
+        return resultList
+    }
+}
+
+/// Problem 11
+extension List where T: Any, T: Equatable {
+    public func encodeModified() -> List<Any> {
+        let packed = self.pack()
+        let resultList = List<Any>()
+        var current = packed.head
+        while let sublist = current?.value {
+            let count = sublist.length
+            let value = sublist.head!.value
+//            if count == 1 {
+//                resultList.append(value)
+//            } else {
+//                resultList.append((count, value))
+//            }
+            current = current?.next
+        }
+        return resultList
+    }
 }
 
