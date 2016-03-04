@@ -115,48 +115,36 @@ List(1, 1, 2, 3, 5, 8).encodeModified()
 List("a").encodeModified()
 List<String>().encodeModified()
 
+//: ### [P12] (\*\*) Decode a run-length encoded list.
+//: Given a run-length code list generated as specified in problem [P10](#p10),
+//: construct its uncompressed version.
+List((4, "a"), (1, "b"), (2, "c"), (2, "a"), (1, "d"), (4, "e")).decode()
+List<(Int, String)>().decode()
+
+//: ### [P13] (\*\*) Run-length encoding of a list (direct solution).
+//: Implement the so-called run-length encoding data compression method directly.
+//: I.e. don't use other methods you've written (like P09's pack); do all
+//: the work directly.
+List("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e").encodeDirect()
+List(1, 1, 2, 3, 5, 8).encodeDirect()
+List("a").encodeDirect()
+List<String>().encodeDirect()
+
+//: ### [P14] (\*) Duplicate the elements of a list.
+List("a", "b", "c", "c", "d").duplicate()
+List(1, 1, 2, 3, 5, 8).duplicate()
+List("a").duplicate()
+List<String>().duplicate()
+
+//: ### [P15] (\*\*) Duplicate the elements of a list a given number of times.
+List("a", "b", "c", "c", "d").duplicateN(3)
+List(1, 1, 2, 3, 5, 8).duplicateN(3)
+List("a").duplicateN(3)
+List<String>().duplicateN(3)
 
 
 /*
 
-### <a name="p12"/>[P12](#p12) (\*\*) Decode a run-length encoded list.
-Given a run-length code list generated as specified in problem [P10](#p10),
-construct its uncompressed version.
-
-Example:
-
-~~~swift
-let list = List((4, "a"), (1, "b"), (2, "c"), (2, "a"), (1, "d"), (4, "e"))
-print(list.decode()) // ("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e")
-~~~
-
-### <a name="p13"/>[P13](#p13) (\*\*) Run-length encoding of a list (direct solution).
-Implement the so-called run-length encoding data compression method directly.
-I.e. don't use other methods you've written (like [P09](#p09)'s pack); do all
-the work directly.
-
-Example:
-
-~~~swift
-let list = List("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e")
-print(list.encodeDirect()) // ((4, "a"), (1, "b"), (2, "c"), (2, "a"), (1, "d"), (4, "e"))
-~~~
-
-### <a name="p14"/>[P14](#p14) (\*) Duplicate the elements of a list.
-Example:
-
-~~~swift
-let list = List("a", "b", "c", "c", "d")
-print(list.duplicate()) // ("a", "a", "b", "b", "c", "c", "c", "c", "d", "d")
-~~~
-
-### <a name="p15"/>[P15](#p15) (\*\*) Duplicate the elements of a list a given number of times.
-Example:
-
-~~~swift
-let list = List("a", "b", "c", "c", "d")
-print(list.duplicate(3)) // ("a", "a", "a", "b", "b", "b", "c", "c", "c", "c", "c", "c", "d", "d", "d")
-~~~
 
 ### <a name="p16"/>[P16](#p16) (\*\*) Drop every Nth element from a list.
 Example:

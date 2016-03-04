@@ -240,7 +240,7 @@ extension List where T: Equatable {
 }
 
 /// Problem 11
-extension List where T: Any, T: Equatable {
+extension List where T: Equatable {
     public func encodeModified() -> List<Any> {
         let packed = self.pack()
         let resultList = List<Any>()
@@ -248,14 +248,79 @@ extension List where T: Any, T: Equatable {
         while let sublist = current?.value {
             let count = sublist.length
             let value = sublist.head!.value
-//            if count == 1 {
-//                resultList.append(value)
-//            } else {
-//                resultList.append((count, value))
-//            }
+            if count == 1 {
+                resultList.append(value)
+            } else {
+                let pack = List<Any>(count, value)
+                resultList.append(pack)
+            }
             current = current?.next
         }
         return resultList
     }
 }
 
+/// Problem 12
+extension List {
+    public func decode() -> List<String> {
+        let list = List<String>()
+        var current = head
+        while let value = current?.value as? (Int, String) {
+            for _ in 1...value.0 {
+                list.append(value.1)
+            }
+            current = current?.next
+        }
+        return list
+    }
+}
+
+/// Problem 13
+extension List where T: Equatable {
+    public func encodeDirect() -> List<(Int, T)> {
+        let resultList = List<(Int, T)>()
+        var current = head
+        var count = 1
+        while let value = current?.value {
+            if value == current?.next?.value {
+                count++
+            } else {
+                resultList.append((count, value))
+                count = 1
+            }
+            current = current?.next
+        }
+        return resultList
+    }
+}
+
+/// Problem 14
+extension List {
+    public func duplicate() -> List {
+        var current = head
+        while let value = current?.value {
+            let dupe = ListItem(value: value)
+            dupe.next = current?.next
+            current?.next = dupe
+            current = dupe.next
+        }
+        return self
+    }
+}
+
+/// Problem 15
+extension List {
+    public func duplicateN(times: Int) -> List {
+        var current = head
+        while let value = current?.value {
+            for _ in 1..<times {
+                let dupe = ListItem(value: value)
+                dupe.next = current?.next
+                current?.next = dupe
+                current = dupe
+            }
+            current = current?.next
+        }
+        return self
+    }
+}
