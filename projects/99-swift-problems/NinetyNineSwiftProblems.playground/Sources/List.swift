@@ -324,3 +324,20 @@ extension List {
         return self
     }
 }
+
+/// Problem 16
+extension List {
+    public func drop(each: Int) -> List {
+        var resultList = List()
+        var current = head
+        var index = 1
+        while let value = current?.value {
+            if index % each != 0 {
+                resultList.append(value)
+            }
+            index++
+            current = current?.next
+        }
+        return resultList
+    }
+}

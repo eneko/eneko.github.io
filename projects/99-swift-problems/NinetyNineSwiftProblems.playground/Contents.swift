@@ -142,11 +142,14 @@ List(1, 1, 2, 3, 5, 8).duplicateN(3)
 List("a").duplicateN(3)
 List<String>().duplicateN(3)
 
+//: ### [P16] (\*\*) Drop every Nth element from a list.
+List("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k").drop(3)
+List(1, 1, 2, 3, 5, 8).drop(3)
+List("a").drop(3)
+List<String>().drop(3)
 
 /*
 
-
-### <a name="p16"/>[P16](#p16) (\*\*) Drop every Nth element from a list.
 Example:
 
 ~~~swift

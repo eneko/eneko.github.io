@@ -82,6 +82,20 @@ class ListItem<T> {
 Individual methods or computed properties can then be added to the `List<T>`
 class to solve each of the following problems.
 
+For most of these problems, the solutions should return a new `List` or value.
+In some cases, however, it will make more sense to modify the current list.
+In these cases, the method can be made to return the list itself,
+which enables chaining and facilitates _printing_ the solution in the same line.
+
+When modifying the existing list, I like following the Swift Standard Library
+convention of suffixing the method name with `inPlace`
+(see [P05](#p05) `reverseInPlace()`).
+
+An additional challenge could be, perhaps, to implement a solution for each of
+these problems in both ways:
+
+1. Returning a new list
+2. Modifying the existing list.
 
 ### <a name="p01"/>[P01](#p01) (\*) Find the last element of a list.
 Example:
@@ -124,7 +138,7 @@ Example:
 
 ~~~swift
 let list = List(1, 1, 2, 3, 5, 8)
-print(list.reversed()) // (8, 5, 3, 2, 1, 1)
+print(list.reverseInPlace()) // (8, 5, 3, 2, 1, 1)
 ~~~
 
 ### <a name="p06"/>[P06](#p06) (\*) Find out whether a list is a palindrome.
@@ -225,7 +239,7 @@ Example:
 
 ~~~swift
 let list = List("a", "b", "c", "c", "d")
-print(list.duplicate(3)) // ("a", "a", "a", "b", "b", "b", "c", "c", "c", "c", "c", "c", "d", "d", "d")
+print(list.duplicateN(3)) // ("a", "a", "a", "b", "b", "b", "c", "c", "c", "c", "c", "c", "d", "d", "d")
 ~~~
 
 ### <a name="p16"/>[P16](#p16) (\*\*) Drop every Nth element from a list.
