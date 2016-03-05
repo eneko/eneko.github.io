@@ -1,7 +1,6 @@
 
 import Foundation
 
-
 class ListItem<T> {
     var value: T
     var next: ListItem<T>?
@@ -44,10 +43,6 @@ public class List<T> {
 //        }
 //        current.next = newItem
 //    }
-
-    public func removeAll() {
-        head = nil
-    }
 
 }
 
@@ -585,6 +580,75 @@ extension List {
             }
             resultListLast = newItem
             count++
+        }
+        return resultList
+    }
+}
+
+/// Problem 24
+extension List {
+    public class func lotto(numbers: Int, _ maximum: Int) -> List<Int> {
+        let numberList = List<Int>.range(1, maximum)
+        return numberList.randomSelect(numbers)
+    }
+}
+
+/// Problem 25
+extension List {
+    public func randomPermute() -> List {
+        return randomSelect(length)
+    }
+}
+
+/// Problem 26
+/// This is pretty hardcore with a linked list
+extension List {
+    public func combinations(group: Int) -> List<List<T>> {
+        let resultList = List<List<T>>()
+        var resultListLast = resultList.head
+        if group > 1 {
+            let itemCount = length
+            var current = head
+            var index = 0
+            while let value = current?.value {
+                let theOthers = self.removeAt(index).0
+                let theirCombinations = theOthers.combinations(group-1)
+                var innerCurrent = theirCombinations.head
+                while let innerList = innerCurrent?.value {
+                    let myCombinations = List(value)
+                    var myCombinationsLast = myCombinations.head
+                    var currentItem = innerList.head
+                    while let innerValue = currentItem?.value {
+                        let newCombinationItem = ListItem(value: innerValue)
+                        myCombinationsLast?.next = newCombinationItem
+                        myCombinationsLast = newCombinationItem
+                        currentItem = currentItem?.next
+                    }
+                    let newItem = ListItem(value: myCombinations)
+                    if resultList.head == nil {
+                        resultList.head = newItem
+                    } else {
+                        resultListLast?.next = newItem
+                    }
+                    resultListLast = newItem
+                    innerCurrent = innerCurrent?.next
+                }
+                index++
+                current = current?.next
+            }
+        } else {
+            // N groups of 1 item
+            var current = head
+            while let value = current?.value {
+                let newList = ListItem(value: List(value))
+                if resultList.head == nil {
+                    resultList.head = newList
+                } else {
+                    resultListLast?.next = newList
+                }
+                resultListLast = newList
+                current = current?.next
+            }
         }
         return resultList
     }

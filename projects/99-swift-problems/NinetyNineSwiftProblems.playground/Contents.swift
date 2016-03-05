@@ -39,7 +39,7 @@ For more information, see [Ninety-Nine Swift Problems](http://enekoalonso.com/99
   as instructed on the 
   [Ninety-Nine Swift Problems](http://enekoalonso.com/99-swift-problems) page.
 */
-//import Foundation
+
 //: ### P01 (\*) Find the last element of a list.
 List(1, 1, 2, 3, 5, 8).last
 List(1).last
@@ -97,7 +97,7 @@ List(1, 1, 2, 3, 5, 8).pack()
 List("a").pack()
 List<String>().pack()
 
-//: ### [P10] (\*) Run-length encoding of a list.
+//: ### P10 (\*) Run-length encoding of a list.
 //: Use the result of problem P09 to implement the so-called run-length encoding
 //: data compression method. Consecutive duplicates of elements are encoded as
 //: tuples `(N, E)` where `N` is the number of duplicates of the element `E`.
@@ -106,7 +106,7 @@ List(1, 1, 2, 3, 5, 8).encode()
 List("a").encode()
 List<String>().encode()
 
-//: ### [P11] (\*) Modified run-length encoding.
+//: ### P11 (\*) Modified run-length encoding.
 //: Modify the result of problem P10 in such a way that if an element has no
 //: duplicates it is simply copied into the result list. Only elements with
 //: duplicates are transferred as `(N, E)` terms.
@@ -115,13 +115,13 @@ List(1, 1, 2, 3, 5, 8).encodeModified()
 List("a").encodeModified()
 List<String>().encodeModified()
 
-//: ### [P12] (\*\*) Decode a run-length encoded list.
+//: ### P12 (\*\*) Decode a run-length encoded list.
 //: Given a run-length code list generated as specified in problem [P10](#p10),
 //: construct its uncompressed version.
 List((4, "a"), (1, "b"), (2, "c"), (2, "a"), (1, "d"), (4, "e")).decode()
 List<(Int, String)>().decode()
 
-//: ### [P13] (\*\*) Run-length encoding of a list (direct solution).
+//: ### P13 (\*\*) Run-length encoding of a list (direct solution).
 //: Implement the so-called run-length encoding data compression method directly.
 //: I.e. don't use other methods you've written (like P09's pack); do all
 //: the work directly.
@@ -130,25 +130,25 @@ List(1, 1, 2, 3, 5, 8).encodeDirect()
 List("a").encodeDirect()
 List<String>().encodeDirect()
 
-//: ### [P14] (\*) Duplicate the elements of a list.
+//: ### P14 (\*) Duplicate the elements of a list.
 List("a", "b", "c", "c", "d").duplicateInPlace()
 List(1, 1, 2, 3, 5, 8).duplicateInPlace()
 List("a").duplicateInPlace()
 List<String>().duplicateInPlace()
 
-//: ### [P15] (\*\*) Duplicate the elements of a list a given number of times.
+//: ### P15 (\*\*) Duplicate the elements of a list a given number of times.
 List("a", "b", "c", "c", "d").duplicateNInPlace(3)
 List(1, 1, 2, 3, 5, 8).duplicateNInPlace(3)
 List("a").duplicateNInPlace(3)
 List<String>().duplicateNInPlace(3)
 
-//: ### [P16] (\*\*) Drop every Nth element from a list.
+//: ### P16 (\*\*) Drop every Nth element from a list.
 List("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k").drop(3)
 List(1, 1, 2, 3, 5, 8).drop(3)
 List("a").drop(3)
 List<String>().drop(3)
 
-//: ### [P17] (\*) Split a list into two parts.
+//: ### P17 (\*) Split a list into two parts.
 //: The length of the first part is given. Use a Tuple for your result.
 List("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k").split(3).0
 List(1, 1, 2, 3, 5, 8).split(3).0
@@ -159,7 +159,7 @@ List(1, 1, 2, 3, 5, 8).split(3).1
 List("a").split(3).1
 List<String>().split(3).1
 
-//: ### [P18] (\*\*) Extract a slice from a list.
+//: ### P18 (\*\*) Extract a slice from a list.
 //: Given two indices, `I` and `K`, the slice is the list containing the elements
 //: from and including the `Ith` element up to but not including the `Kth` element
 //: of the original list. Start counting the elements with `0`.
@@ -168,7 +168,7 @@ List(1, 1, 2, 3, 5, 8).slice(3, 7)
 List("a").slice(3, 7)
 List<String>().slice(3, 7)
 
-//: ### [P19] (\*\*) Rotate a list N places to the left.
+//: ### P19 (\*\*) Rotate a list N places to the left.
 List("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k").rotate(3)
 List(1, 1, 2, 3, 5, 8).rotate(3)
 List("a").rotate(3)
@@ -178,7 +178,7 @@ List(1, 1, 2, 3, 5, 8).rotate(-2)
 List("a").rotate(-2)
 List<String>().rotate(-2)
 
-//: ### [P20] (\*) Remove the Kth element from a list.
+//: ### P20 (\*) Remove the Kth element from a list.
 //: Return the list and the removed element in a Tuple. Elements are numbered from `0`.
 List("a", "b", "c", "d").removeAt(1).0
 List(1, 1, 2, 3, 5, 8).removeAt(1).0
@@ -189,53 +189,42 @@ List(1, 1, 2, 3, 5, 8).removeAt(1).1
 List("a").removeAt(1).1
 List<String>().removeAt(1).1
 
-//: ### [P21] (\*) Insert an element at a given position into a list.
+//: ### P21 (\*) Insert an element at a given position into a list.
 List("a", "b", "c", "d").insertAt(1, "new")
 List(1, 1, 2, 3, 5, 8).insertAt(1, "new")
 List("a").insertAt(1, "new")
 List<String>().insertAt(1, "new")
 
-//: ### [P22] (\*) Create a list containing all integers within a given range.
+//: ### P22 (\*) Create a list containing all integers within a given range.
 List<Int>.range(4, 9)
 
-//: ### [P23] (\*\*) Extract a given number of randomly selected elements from a list.
+//: ### P23 (\*\*) Extract a given number of randomly selected elements from a list.
+//: Hint: Use the solution to problem P20
 List("a", "b", "c", "d", "e", "f", "g", "h").randomSelect(3)
 List(1, 1, 2, 3, 5, 8).randomSelect(3)
 List("a").randomSelect(3)
 List<String>().randomSelect(3)
 
+//: ### P24 (\*) Lotto: Draw N different random numbers from the set 1..M.
+List<Int>.lotto(6, 49)
+
+//: ### P25 (\*) Generate a random permutation of the elements of a list.
+//: Hint: Use the solution of problem P23.
+List("a", "b", "c", "d", "e", "f").randomPermute()
+List(1, 1, 2, 3, 5, 8).randomPermute()
+List("a").randomPermute()
+List<String>().randomPermute()
+
+//: ### P26 (\*\*) Generate the combinations of K distinct objects chosen from the N elements of a list.
+//: In how many ways can a committee of 3 be chosen from a group of 12 people?
+//: We all know that there are `C(12,3) = 220` possibilities (`C(N,K)` denotes the well-known binomial coefficient). For pure mathematicians, this result may be great. But we want to really generate all the possibilities.
+List("a", "b", "c", "d", "e", "f").combinations(3)
+List(1, 1, 2, 3, 5, 8).combinations(3)
+List("a").combinations(3)
+List<String>().combinations(3)
+
+
 /*
-
-### <a name="p24"/>[P24](#p24) (\*) Lotto: Draw N different random numbers from the set 1..M.
-Example:
-
-~~~swift
-let list = List.lotto(6, 49)
-print(list) // (23, 1, 17, 33, 21, 37)
-~~~
-
-### <a name="p25"/>[P25](#p25) (\*) Generate a random permutation of the elements of a list.
-Hint: Use the solution of problem [P23](#p23).
-
-Example:
-
-~~~swift
-let list = List("a", "b", "c", "d", "e", "f")
-print(list.randomPermute()) // ("b", "a", "d", "e", "f")
-~~~
-
-### <a name="p26"/>[P26](#p26) (\*\*) Generate the combinations of K distinct objects chosen from the N elements of a list.
-In how many ways can a committee of 3 be chosen from a group of 12 people?
-We all know that there are `C(12,3) = 220` possibilities (`C(N,K)` denotes the
-well-known binomial coefficient). For pure mathematicians, this result may
-be great. But we want to really generate all the possibilities.
-
-Example:
-
-~~~swift
-let list = List("a", "b", "c", "d", "e", "f")
-print(list.combinations(3)) // (("a", "b", "c"), ("a", "b", "d"), ("a", "b", "e")...)
-~~~
 
 ### <a name="p27"/>[P27](#p27) (\*\*) Group the elements of a set into disjoint subsets.
 a) In how many ways can a group of 9 people work in 3 disjoint subgroups of
@@ -297,10 +286,3 @@ have length 2. This is the most frequent length.
 
 
 */
-
-
-
-//
-//let nested2 = List<AnyObject>(1, List(2, 3))
-//
-//let list2 = List((4, "a"), (1, "b"), (2, "c"), (2, "a"), (1, "d"), (4, "e"))
