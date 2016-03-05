@@ -163,10 +163,10 @@ List<String>().split(3).1
 //: Given two indices, `I` and `K`, the slice is the list containing the elements
 //: from and including the `Ith` element up to but not including the `Kth` element
 //: of the original list. Start counting the elements with `0`.
-List("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k").slice(3, to: 7)
-List(1, 1, 2, 3, 5, 8).slice(3, to: 7)
-List("a").slice(3, to: 7)
-List<String>().slice(3, to: 7)
+List("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k").slice(3, 7)
+List(1, 1, 2, 3, 5, 8).slice(3, 7)
+List("a").slice(3, 7)
+List<String>().slice(3, 7)
 
 //: ### [P19] (\*\*) Rotate a list N places to the left.
 List("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k").rotate(3)
@@ -178,49 +178,33 @@ List(1, 1, 2, 3, 5, 8).rotate(-2)
 List("a").rotate(-2)
 List<String>().rotate(-2)
 
+//: ### [P20] (\*) Remove the Kth element from a list.
+//: Return the list and the removed element in a Tuple. Elements are numbered from `0`.
+List("a", "b", "c", "d").removeAt(1).0
+List(1, 1, 2, 3, 5, 8).removeAt(1).0
+List("a").removeAt(1).0
+List<String>().removeAt(1).0
+List("a", "b", "c", "d").removeAt(1).1
+List(1, 1, 2, 3, 5, 8).removeAt(1).1
+List("a").removeAt(1).1
+List<String>().removeAt(1).1
+
+//: ### [P21] (\*) Insert an element at a given position into a list.
+List("a", "b", "c", "d").insertAt(1, "new")
+List(1, 1, 2, 3, 5, 8).insertAt(1, "new")
+List("a").insertAt(1, "new")
+List<String>().insertAt(1, "new")
+
+//: ### [P22] (\*) Create a list containing all integers within a given range.
+List<Int>.range(4, 9)
+
+//: ### [P23] (\*\*) Extract a given number of randomly selected elements from a list.
+List("a", "b", "c", "d", "e", "f", "g", "h").randomSelect(3)
+List(1, 1, 2, 3, 5, 8).randomSelect(3)
+List("a").randomSelect(3)
+List<String>().randomSelect(3)
+
 /*
-
-    ~~~swift
-let list = List("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k")
-print(list.rotate(-2)) // ("j", "k", "a", "b", "c", "d", "e", "f", "g", "h", "i")
-~~~
-
-### <a name="p20"/>[P20](#p20) (\*) Remove the Kth element from a list.
-Return the list and the removed element in a Tuple. Elements are numbered
-from `0`.
-
-Example:
-
-~~~swift
-let list = List("a", "b", "c", "d")
-print(list.removeAt(1)) // (("a", "c", "d"), "b")
-~~~
-
-### <a name="p21"/>[P21](#p21) (\*) Insert an element at a given position into a list.
-Example:
-
-~~~swift
-let list = List("a", "b", "c", "d")
-print(list.insertAt(1, "new")) // ("a", "new", "b", "c", "d")
-~~~
-
-### <a name="p22"/>[P22](#p22) (\*) Create a list containing all integers within a given range.
-Example:
-
-~~~swift
-let list = List.range(4, 9)
-print(list) // (4, 5, 6, 7, 8, 9)
-~~~
-
-### <a name="p23"/>[P23](#p23) (\*\*) Extract a given number of randomly selected elements from a list.
-Example:
-
-~~~swift
-let list = List("a", "b", "c", "d", "e", "f", "g", "h")
-print(list.randomSelect(3)) // ("e", "d", "a")
-    ~~~
-
-Hint: Use the solution to problem [P20](#p20)
 
 ### <a name="p24"/>[P24](#p24) (\*) Lotto: Draw N different random numbers from the set 1..M.
 Example:

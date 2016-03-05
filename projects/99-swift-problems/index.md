@@ -87,14 +87,13 @@ In some cases, however, it will make more sense to modify the current list.
 In these cases, the method can be made to return the list itself,
 which enables chaining and facilitates _printing_ the solution in the same line.
 
-When modifying the existing list, I like following the Swift Standard Library
-convention of suffixing the method name with `inPlace`
-(see [P05](#p05) `reverseInPlace()`).
+When modifying the existing list, I've appended `inPlace` to the method name for
+proper distinction (see [P05](#p05) `reverseInPlace()`).
 
 An additional challenge could be, perhaps, to implement a solution for each of
 these problems in both ways:
 
-1. Returning a new list
+1. Returning a new list.
 2. Modifying the existing list.
 
 ### <a name="p01"/>[P01](#p01) (\*) Find the last element of a list.
@@ -269,7 +268,7 @@ Example:
 
 ~~~swift
 let list = List("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k")
-print(list.slice(3, 7)) // ("d", "e", "f", "g")
+print(list.slice(3, to: 7)) // ("d", "e", "f", "g")
 ~~~
 
 ### <a name="p19"/>[P19](#p19) (\*\*) Rotate a list N places to the left.
@@ -320,7 +319,7 @@ let list = List("a", "b", "c", "d", "e", "f", "g", "h")
 print(list.randomSelect(3)) // ("e", "d", "a")
 ~~~
 
-Hint: Use the solution to problem [P20](#p20)
+_Hint:_ Use the solution to problem [P20](#p20)
 
 ### <a name="p24"/>[P24](#p24) (\*) Lotto: Draw N different random numbers from the set 1..M.
 Example:
@@ -331,14 +330,14 @@ print(list) // (23, 1, 17, 33, 21, 37)
 ~~~
 
 ### <a name="p25"/>[P25](#p25) (\*) Generate a random permutation of the elements of a list.
-Hint: Use the solution of problem [P23](#p23).
-
 Example:
 
 ~~~swift
 let list = List("a", "b", "c", "d", "e", "f")
 print(list.randomPermute()) // ("b", "a", "d", "e", "f")
 ~~~
+
+_Hint:_ Use the solution of problem [P23](#p23).
 
 ### <a name="p26"/>[P26](#p26) (\*\*) Generate the combinations of K distinct objects chosen from the N elements of a list.
 In how many ways can a committee of 3 be chosen from a group of 12 people?
@@ -646,7 +645,7 @@ P56 (\*\*) Symmetric binary trees.
 Let us call a binary tree symmetric if you can draw a vertical line through
 the root node and then the right subtree is the mirror image of the left
 subtree. Add an isSymmetric method to the Tree class to check whether a given
-binary tree is symmetric. Hint: Write an isMirrorOf method first to check
+binary tree is symmetric. _Hint:_ Write an isMirrorOf method first to check
 whether one tree is the mirror image of another. We are only interested in
 the structure, not in the contents of the nodes.
 
@@ -663,7 +662,7 @@ res1: Node[Int] = T(2 . T(3 . .))
 
 scala> res1.addValue(0)
 res2: Node[Int] = T(2 T(0 . .) T(3 . .))
-Hint: The abstract definition of addValue in Tree should be
+_Hint:_ The abstract definition of addValue in Tree should be
 def addValue[U >: T <% Ordered[U]](x: U): Tree[U]. The >: T is because
 addValue's parameters need to be contravariant in T. (Conceptually, we're
 adding nodes above existing nodes. In order for the subnodes to be of type
@@ -805,7 +804,7 @@ The tree at right may be constructed with Tree.fromList(List('n','k','m','c','a'
 
 P65 (\*\*) Layout a binary tree (2).
 An alternative layout method is depicted in the illustration opposite. Find
-out the rules and write the corresponding method. Hint: On a given level,
+out the rules and write the corresponding method. _Hint:_ On a given level,
 the horizontal distance between neighboring nodes is constant.
 Use the same conventions as in problem P64.
 
@@ -816,7 +815,7 @@ The tree at right may be constructed with Tree.fromList(List('n','k','m','c','a'
 P66 (\*\*\*) Layout a binary tree (3).
 Yet another layout strategy is shown in the illustration opposite. The method
 yields a very compact layout while maintaining a certain symmetry in every
-node. Find out the rules and write the corresponding method. Hint: Consider
+node. Find out the rules and write the corresponding method. _Hint:_ Consider
 the horizontal distance between a node and its successor nodes. How tight
 can you pack together two subtrees to construct the combined binary tree?
 Use the same conventions as in problem P64 and P65. Note: This is a difficult
@@ -1130,7 +1129,7 @@ Write methods to generate the graph-term and adjacency-list forms from a Graph.
  Write another method to output the human-friendly form for a graph. Make it
  the toString method for Graph. Write more functions to create graphs from
  strings.
-Hint: You might need separate functions for labeled and unlabeled graphs.
+_Hint:_ You might need separate functions for labeled and unlabeled graphs.
 
 scala> Graph.fromString("[b-c, f-c, g-h, d, f-b, k-f, h-g]").toTermForm
 res0: (List[String], List[(String, String, Unit)]) = (List(d, k, h, c, f, g, b),List((h,g,()), (k,f,()), (f,b,()), (g,h,()), (f,c,()), (b,c,())))
@@ -1171,7 +1170,7 @@ res0: List[Graph[String,Unit]] = List([a-b, b-c], [a-c, b-c], [a-b, a-c])
 
 P84 (\*\*) Construct the minimal spanning tree.
 Write a method minimalSpanningTree to construct the minimal spanning tree of a
-given labeled graph. Hint: Use Prim's Algorithm. A small modification of the
+given labeled graph. _Hint:_ Use Prim's Algorithm. A small modification of the
 solution of P83 does the trick. The data of the example graph to the right can
 be found below.
 Graph:
@@ -1244,7 +1243,7 @@ This is a classical problem in computer science. The objective is to place
 eight queens on a chessboard so that no two queens are attacking each other;
 i.e., no two queens are in the same row, the same column, or on the same
 diagonal.
-Hint: Represent the positions of the queens as a list of numbers 1..N. Example:
+_Hint:_ Represent the positions of the queens as a list of numbers 1..N. Example:
 List(4, 2, 7, 3, 6, 8, 5, 1) means that the queen in the first column is in row
 4, the queen in the second column is in row 2, etc. Use the generate-and-test
 paradigm.

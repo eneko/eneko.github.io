@@ -442,7 +442,7 @@ extension List {
 
 /// Problem 18
 extension List {
-    public func slice(from: Int, to: Int) -> List {
+    public func slice(from: Int, _ to: Int) -> List {
         let resultList = List()
         var resultListLast = resultList.head
         var current = head
@@ -469,54 +469,20 @@ extension List {
 /// being lazy, let's use split and concatenate
 extension List {
     public func rotate(amount: Int) -> List {
-//        let resultList = List()
-//        var resultListLast = resultList.head
-//        var current = head
-//        var index = 0
-//        // first pass copies items after amount
-//        while let value = current?.value {
-//            if index >= amount {
-//                let newItem = ListItem(value: value)
-//                if resultList.head == nil {
-//                    resultList.head = newItem
-//                } else {
-//                    resultListLast?.next = newItem
-//                }
-//                resultListLast = newItem
-//            }
-//            index++
-//            current = current?.next
-//        }
-//        // second pass, add items before amount
-//        current = head
-//        index = 0
-//        while let value = current?.value {
-//            if index < amount {
-//                let newItem = ListItem(value: value)
-//                if resultList.head == nil {
-//                    resultList.head = newItem
-//                } else {
-//                    resultListLast?.next = newItem
-//                }
-//                resultListLast = newItem
-//            } else {
-//                break
-//            }
-//            index++
-//            current = current?.next
-//        }
-//        return resultList
-
-
+        // Split list in two pieces
         let listLength = self.length
         let splitIndex = listLength > 0 ? (listLength + amount) % listLength : 0
         let parts = split(splitIndex)
+
+        // Start with second piece
         let resultList = parts.1
         var current = resultList.head
         while current?.next != nil {
             current = current?.next
         }
         var resultListLast = current
+
+        // Append first piece
         current = parts.0.head
         while let value = current?.value {
             let newItem = ListItem(value: value)
@@ -527,6 +493,98 @@ extension List {
             }
             resultListLast = newItem
             current = current?.next
+        }
+        return resultList
+    }
+}
+
+/// Problem 20
+extension List {
+    public func removeAt(position: Int) -> (List, T?) {
+        let resultList = List()
+        var resultListLast = resultList.head
+        var current = head
+        var index = 0
+        var item: T?
+        while let value = current?.value {
+            if index == position {
+                item = value
+            } else {
+                let newItem = ListItem(value: value)
+                if resultList.head == nil {
+                    resultList.head = newItem
+                } else {
+                    resultListLast?.next = newItem
+                }
+                resultListLast = newItem
+            }
+            index++
+            current = current?.next
+        }
+        return (resultList, item)
+    }
+}
+
+/// Problem 21
+extension List {
+    public func insertAt(index: Int, _ value: T) -> List {
+        var current = head
+        var currentIndex = 1
+        while current != nil {
+            if currentIndex == index {
+                let newItem = ListItem(value: value)
+                newItem.next = current?.next
+                current?.next = newItem
+                break
+            }
+            currentIndex++
+            current = current?.next
+        }
+        return self
+    }
+}
+
+/// Problem 22
+extension List {
+    public class func range(from: Int, _ to: Int) -> List<Int> {
+        let resultList = List<Int>()
+        var resultListLast = resultList.head
+        for i in from...to {
+            let newItem = ListItem<Int>(value: i)
+            if resultList.head == nil {
+                resultList.head = newItem
+            } else {
+                resultListLast?.next = newItem
+            }
+            resultListLast = newItem
+        }
+        return resultList
+    }
+}
+
+/// Problem 23
+extension List {
+    public func randomSelect(amount: Int) -> List {
+        let resultList = List()
+        var resultListLast = resultList.head
+        var count = 0
+        var list = self
+        while count < amount {
+            let length = list.length
+            let index = Int(arc4random_uniform(UInt32(length)))
+            let result = list.removeAt(index)
+            list = result.0
+            guard let value = result.1 else {
+                break
+            }
+            let newItem = ListItem(value: value)
+            if resultList.head == nil {
+                resultList.head = newItem
+            } else {
+                resultListLast?.next = newItem
+            }
+            resultListLast = newItem
+            count++
         }
         return resultList
     }
