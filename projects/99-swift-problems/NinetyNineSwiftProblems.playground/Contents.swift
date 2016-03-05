@@ -85,10 +85,10 @@ List<Any>(List<Any>(List<Any>(List<Any>(List<Any>(1), List<Any>(2), List<Any>(3,
 //: ### P08 (\*\*) Eliminate consecutive duplicates of list elements.
 //: If a list contains repeated elements they should be replaced with a single copy
 //: of the element. The order of the elements should not be changed.
-List("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e").compress()
-List(1, 1, 2, 3, 5, 8).compress()
-List("a").compress()
-List<String>().compress()
+List("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e").compressInPlace()
+List(1, 1, 2, 3, 5, 8).compressInPlace()
+List("a").compressInPlace()
+List<String>().compressInPlace()
 
 //: ### P09 (\*\*) Pack consecutive duplicates of list elements into sublists.
 //: If a list contains repeated elements they should be placed in separate sublists.
@@ -131,16 +131,16 @@ List("a").encodeDirect()
 List<String>().encodeDirect()
 
 //: ### [P14] (\*) Duplicate the elements of a list.
-List("a", "b", "c", "c", "d").duplicate()
-List(1, 1, 2, 3, 5, 8).duplicate()
-List("a").duplicate()
-List<String>().duplicate()
+List("a", "b", "c", "c", "d").duplicateInPlace()
+List(1, 1, 2, 3, 5, 8).duplicateInPlace()
+List("a").duplicateInPlace()
+List<String>().duplicateInPlace()
 
 //: ### [P15] (\*\*) Duplicate the elements of a list a given number of times.
-List("a", "b", "c", "c", "d").duplicateN(3)
-List(1, 1, 2, 3, 5, 8).duplicateN(3)
-List("a").duplicateN(3)
-List<String>().duplicateN(3)
+List("a", "b", "c", "c", "d").duplicateNInPlace(3)
+List(1, 1, 2, 3, 5, 8).duplicateNInPlace(3)
+List("a").duplicateNInPlace(3)
+List<String>().duplicateNInPlace(3)
 
 //: ### [P16] (\*\*) Drop every Nth element from a list.
 List("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k").drop(3)
@@ -148,44 +148,37 @@ List(1, 1, 2, 3, 5, 8).drop(3)
 List("a").drop(3)
 List<String>().drop(3)
 
+//: ### [P17] (\*) Split a list into two parts.
+//: The length of the first part is given. Use a Tuple for your result.
+List("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k").split(3).0
+List(1, 1, 2, 3, 5, 8).split(3).0
+List("a").split(3).0
+List<String>().split(3).0
+List("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k").split(3).1
+List(1, 1, 2, 3, 5, 8).split(3).1
+List("a").split(3).1
+List<String>().split(3).1
+
+//: ### [P18] (\*\*) Extract a slice from a list.
+//: Given two indices, `I` and `K`, the slice is the list containing the elements
+//: from and including the `Ith` element up to but not including the `Kth` element
+//: of the original list. Start counting the elements with `0`.
+List("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k").slice(3, to: 7)
+List(1, 1, 2, 3, 5, 8).slice(3, to: 7)
+List("a").slice(3, to: 7)
+List<String>().slice(3, to: 7)
+
+//: ### [P19] (\*\*) Rotate a list N places to the left.
+List("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k").rotate(3)
+List(1, 1, 2, 3, 5, 8).rotate(3)
+List("a").rotate(3)
+List<String>().rotate(3)
+List("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k").rotate(-2)
+List(1, 1, 2, 3, 5, 8).rotate(-2)
+List("a").rotate(-2)
+List<String>().rotate(-2)
+
 /*
-
-Example:
-
-~~~swift
-let list = List("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k")
-print(list.drop(3)) // ("a", "b", "d", "e", "g", "h", "j", "k")
-~~~
-
-### <a name="p17"/>[P17](#p17) (\*) Split a list into two parts.
-The length of the first part is given. Use a Tuple for your result.
-
-Example:
-
-~~~swift
-let list = List("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k")
-print(list.split(3)) // (("a", "b", "c"), ("d", "e", "f", "g", "h", "i", "j", "k"))
-~~~
-
-### <a name="p18"/>[P18](#p18) (\*\*) Extract a slice from a list.
-Given two indices, `I` and `K`, the slice is the list containing the elements
-from and including the `Ith` element up to but not including the `Kth` element
-of the original list. Start counting the elements with `0`.
-
-Example:
-
-~~~swift
-let list = List("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k")
-print(list.slice(3, 7)) // ("d", "e", "f", "g")
-~~~
-
-### <a name="p19"/>[P19](#p19) (\*\*) Rotate a list N places to the left.
-Examples:
-
-~~~swift
-let list = List("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k")
-print(list.rotate(3)) // ("d", "e", "f", "g", "h", "i", "j", "k", "a", "b", "c")
-    ~~~
 
     ~~~swift
 let list = List("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k")
