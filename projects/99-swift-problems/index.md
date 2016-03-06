@@ -65,7 +65,7 @@ terminal to run the code. Use `swift build` if you have Swift 2.2 installed.
 * * *
 
 
-## <a name="linked-lists"/>Working with _Linked_ Lists
+## <a name="linked-lists"/>Working with Linked Lists
 
 While most of these problems can be solved using an Array and built-in methods,
 I would like to challenge you to solve these problems by
@@ -97,7 +97,7 @@ class ListItem<T> {
 ~~~
 
 The gist [List.swift](https://gist.github.com/eneko/98b0313fa2e7bb529ecf)
-contains the basis of the `List` and `ListItem` classes to get you started,
+contains the basics of the `List` and `ListItem` classes to get you started,
 including implementations of the `CustomStringConvertible` protocol.
 
 Individual methods or computed properties should be added to the `List<T>`
@@ -169,7 +169,7 @@ By convention, the first element in the list is element `0`.
 Example:
 
 ~~~swift
-List(1, 1, 2, 3, 5, 8).nth(2)
+List(1, 1, 2, 3, 5, 8).elementAtIndex(2)
 ~~~
 
 Result:
@@ -182,7 +182,7 @@ Implementation:
 
 ~~~swift
 extension List {
-    public func nth(index: Int) -> T? {
+    public func elementAtIndex(index: Int) -> T? {
         ...
     }
 }
@@ -201,6 +201,16 @@ Result:
 6
 ~~~
 
+Implementation:
+
+~~~swift
+extension List {
+    public var length: Int {
+        ...
+    }
+}
+~~~
+
 ### <a name="p05"/>[P05](#p05) (\*) Reverse a linked list in place.
 Example:
 
@@ -212,6 +222,16 @@ Result:
 
 ~~~swift
 List(8, 5, 3, 2, 1, 1)
+~~~
+
+Implementation:
+
+~~~swift
+extension List {
+    public func reverseInPlace() {
+        ...
+    }
+}
 ~~~
 
 ### <a name="p06"/>[P06](#p06) (\*) Find out whether a linked list is a palindrome.
@@ -227,6 +247,18 @@ Result:
 true
 ~~~
 
+Implementation:
+
+~~~swift
+extension List where T:Equatable {
+    public func isPalindrome() -> Bool {
+        ...
+    }
+}
+~~~
+
+_Note: Requires list elements to conform to `Equatable`._
+
 ### <a name="p07"/>[P07](#p07) (\*\*) Flatten a nested linked list structure.
 Example:
 
@@ -240,6 +272,16 @@ Result:
 List(1, 1, 2, 3, 5, 8)
 ~~~
 
+Implementation:
+
+~~~swift
+extension List {
+    public func flatten() -> List {
+        ...
+    }
+}
+~~~
+
 ### <a name="p08"/>[P08](#p08) (\*\*) Eliminate consecutive duplicates of linked list elements.
 If a linked list contains repeated elements they should be replaced with a single copy
 of the element. The order of the elements should not be changed.
@@ -248,7 +290,7 @@ Example:
 
 ~~~swift
 let list = List("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e")
-list.compress()
+list.compressInPlace()
 ~~~
 
 Result:
@@ -257,6 +299,18 @@ Result:
 List("a", "b", "c", "a", "d", "e")
 ~~~
 
+Implementation:
+
+~~~swift
+extension List where T: Equatable {
+    public func compressInPlace() {
+        ...
+    }
+}
+~~~
+
+_Note: Requires list elements to conform to `Equatable`._
+
 ### <a name="p09"/>[P09](#p09) (\*\*) Pack consecutive duplicates of linked list elements into sub linked lists.
 If a list contains repeated elements they should be placed in separate sub linked lists.
 
@@ -264,7 +318,7 @@ Example:
 
 ~~~swift
 let list = List("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e")
-list.pack() //
+list.pack()
 ~~~
 
 Result:
@@ -272,6 +326,18 @@ Result:
 ~~~swift
 List(List("a", "a", "a", "a"), List("b"), List("c", "c"), List("a", "a"), List("d"), List("e", "e", "e", "e"))
 ~~~
+
+Implementation:
+
+~~~swift
+extension List where T: Equatable {
+    public func pack() -> List<List<T>> {
+        ...
+    }
+}
+~~~
+
+_Note: Requires list elements to conform to `Equatable`._
 
 ### <a name="p10"/>[P10](#p10) (\*) Run-length encoding of a linked list.
 Use the result of problem [P09](#p09) to implement the so-called run-length
@@ -292,6 +358,18 @@ Result:
 List((4, "a"), (1, "b"), (2, "c"), (2, "a"), (1, "d"), (4, "e"))
 ~~~
 
+Implementation:
+
+~~~swift
+extension List where T: Equatable {
+    public func encode() -> List<(Int, T)> {
+        ...
+    }
+}
+~~~
+
+_Note: Requires list elements to conform to `Equatable`._
+
 ### <a name="p11"/>[P11](#p11) (\*) Modified run-length encoding.
 Modify the result of problem [P10](#p10) in such a way that if an element has no
 duplicates it is simply copied into the result linked list. Only elements with
@@ -301,8 +379,26 @@ Example:
 
 ~~~swift
 let list = List("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e")
-print(list.encodeModified()) // ((4, "a"), "b", (2, "c"), (2, "a"), "d", (4, "e"))
+list.encodeModified()
 ~~~
+
+Result:
+
+~~~swift
+List((4, "a"), "b", (2, "c"), (2, "a"), "d", (4, "e"))
+~~~
+
+Implementation:
+
+~~~swift
+extension List where T: Equatable {
+    public func encodeModified() -> List<Any> {
+        ...
+    }
+}
+~~~
+
+_Note: Requires list elements to conform to `Equatable`._
 
 ### <a name="p12"/>[P12](#p12) (\*\*) Decode a run-length encoded linked list.
 Given a run-length code linked list generated as specified in problem [P10](#p10),
@@ -312,8 +408,26 @@ Example:
 
 ~~~swift
 let list = List((4, "a"), (1, "b"), (2, "c"), (2, "a"), (1, "d"), (4, "e"))
-print(list.decode()) // ("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e")
+list.decode()
 ~~~
+
+Result:
+
+~~~swift
+List("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e")
+~~~
+
+Implementation:
+
+~~~swift
+extension List {
+    public func decode() -> List<String> {
+        ...
+    }
+}
+~~~
+
+_Note: Implement for `String` only._
 
 ### <a name="p13"/>[P13](#p13) (\*\*) Run-length encoding of a linked list (direct solution).
 Implement the so-called run-length encoding data compression method directly.
@@ -324,15 +438,49 @@ Example:
 
 ~~~swift
 let list = List("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e")
-print(list.encodeDirect()) // ((4, "a"), (1, "b"), (2, "c"), (2, "a"), (1, "d"), (4, "e"))
+list.encodeDirect()
 ~~~
+
+Result:
+
+~~~swift
+List((4, "a"), (1, "b"), (2, "c"), (2, "a"), (1, "d"), (4, "e"))
+~~~
+
+Implementation:
+
+~~~swift
+extension List where T: Equatable {
+    public func encodeDirect() -> List<(Int, T)> {
+        ...
+    }
+}
+~~~
+
+_Note: Requires list elements to conform to `Equatable`._
 
 ### <a name="p14"/>[P14](#p14) (\*) Duplicate the elements of a linked list.
 Example:
 
 ~~~swift
 let list = List("a", "b", "c", "c", "d")
-print(list.duplicate()) // ("a", "a", "b", "b", "c", "c", "c", "c", "d", "d")
+list.duplicateInPlace()
+~~~
+
+Result:
+
+~~~swift
+List("a", "a", "b", "b", "c", "c", "c", "c", "d", "d")
+~~~
+
+Implementation:
+
+~~~swift
+extension List {
+    public func duplicateInPlace() -> List {
+        ...
+    }
+}
 ~~~
 
 ### <a name="p15"/>[P15](#p15) (\*\*) Duplicate the elements of a linked list a given number of times.
@@ -340,7 +488,23 @@ Example:
 
 ~~~swift
 let list = List("a", "b", "c", "c", "d")
-print(list.duplicateN(3)) // ("a", "a", "a", "b", "b", "b", "c", "c", "c", "c", "c", "c", "d", "d", "d")
+list.duplicateInPlace(3)
+~~~
+
+Result:
+
+~~~swift
+List("a", "a", "a", "b", "b", "b", "c", "c", "c", "c", "c", "c", "d", "d", "d")
+~~~
+
+Implementation:
+
+~~~swift
+extension List {
+    public func duplicateInPlace(times: Int) -> List {
+        ...
+    }
+}
 ~~~
 
 ### <a name="p16"/>[P16](#p16) (\*\*) Drop every Nth element from a linked list.
@@ -348,7 +512,23 @@ Example:
 
 ~~~swift
 let list = List("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k")
-print(list.drop(3)) // ("a", "b", "d", "e", "g", "h", "j", "k")
+list.drop(3)
+~~~
+
+Result:
+
+~~~swift
+List("a", "b", "d", "e", "g", "h", "j", "k")
+~~~
+
+Implementation:
+
+~~~swift
+extension List {
+    public func drop(every: Int) -> List {
+        ...
+    }
+}
 ~~~
 
 ### <a name="p17"/>[P17](#p17) (\*) Split a linked list into two parts.
@@ -358,7 +538,23 @@ Example:
 
 ~~~swift
 let list = List("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k")
-print(list.split(3)) // (("a", "b", "c"), ("d", "e", "f", "g", "h", "i", "j", "k"))
+list.split(3)
+~~~
+
+Result:
+
+~~~swift
+(List("a", "b", "c"), List("d", "e", "f", "g", "h", "i", "j", "k"))
+~~~
+
+Implementation:
+
+~~~swift
+extension List {
+    public func split(atIndex: Int) -> (List, List) {
+        ...
+    }
+}
 ~~~
 
 ### <a name="p18"/>[P18](#p18) (\*\*) Extract a slice from a linked list.
@@ -370,20 +566,60 @@ Example:
 
 ~~~swift
 let list = List("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k")
-print(list.slice(3, to: 7)) // ("d", "e", "f", "g")
+list.slice(3, 7)
+~~~
+
+Result:
+
+~~~swift
+List("d", "e", "f", "g")
+~~~
+
+Implementation:
+
+~~~swift
+extension List {
+    public func slice(from: Int, _ to: Int) -> List {
+        ...
+    }
+}
 ~~~
 
 ### <a name="p19"/>[P19](#p19) (\*\*) Rotate a list N places to the left.
-Examples:
+Example #1:
 
 ~~~swift
 let list = List("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k")
-print(list.rotate(3)) // ("d", "e", "f", "g", "h", "i", "j", "k", "a", "b", "c")
+list.rotate(3)
 ~~~
 
+Result:
+
+~~~swift
+List("d", "e", "f", "g", "h", "i", "j", "k", "a", "b", "c")
+~~~
+
+Example #2:
+
 ~~~swift
 let list = List("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k")
-print(list.rotate(-2)) // ("j", "k", "a", "b", "c", "d", "e", "f", "g", "h", "i")
+list.rotate(-2)
+~~~
+
+Result:
+
+~~~swift
+List("j", "k", "a", "b", "c", "d", "e", "f", "g", "h", "i")
+~~~
+
+Implementation:
+
+~~~swift
+extension List {
+    public func rotate(amount: Int) -> List {
+        ...
+    }
+}
 ~~~
 
 ### <a name="p20"/>[P20](#p20) (\*) Remove the Kth element from a linked list.
@@ -394,7 +630,23 @@ Example:
 
 ~~~swift
 let list = List("a", "b", "c", "d")
-print(list.removeAt(1)) // (("a", "c", "d"), "b")
+list.removeAt(1)
+~~~
+
+Result:
+
+~~~swift
+(List("a", "c", "d"), "b")
+~~~
+
+Implementation:
+
+~~~swift
+extension List {
+    public func removeAt(position: Int) -> (List, T?) {
+        ...
+    }
+}
 ~~~
 
 ### <a name="p21"/>[P21](#p21) (\*) Insert an element at a given position into a linked list.
@@ -402,26 +654,75 @@ Example:
 
 ~~~swift
 let list = List("a", "b", "c", "d")
-print(list.insertAt(1, "new")) // ("a", "new", "b", "c", "d")
+list.insertAt(1, "new")
+~~~
+
+Result:
+
+~~~swift
+List("a", "new", "b", "c", "d")
+~~~
+
+Implementation:
+
+~~~swift
+extension List {
+    public func insertAt(index: Int, _ value: T) {
+        ...
+    }
+}
 ~~~
 
 ### <a name="p22"/>[P22](#p22) (\*) Create a linked list containing all integers within a given range.
 Example:
 
 ~~~swift
-let list = List.range(4, 9)
-print(list) // (4, 5, 6, 7, 8, 9)
+List.range(4, 9)
 ~~~
+
+Result:
+
+~~~swift
+List(4, 5, 6, 7, 8, 9)
+~~~
+
+Implementation:
+
+~~~swift
+extension List {
+    public class func range(from: Int, _ to: Int) -> List<Int> {
+        ...
+    }
+}
+~~~
+
+_Note: Implement as class function._
 
 ### <a name="p23"/>[P23](#p23) (\*\*) Extract a given number of randomly selected elements from a linked list.
 Example:
 
 ~~~swift
 let list = List("a", "b", "c", "d", "e", "f", "g", "h")
-print(list.randomSelect(3)) // ("e", "d", "a")
+list.randomSelect(3)
 ~~~
 
-_Hint:_ Use the solution to problem [P20](#p20)
+Result:
+
+~~~swift
+List("e", "d", "a")
+~~~
+
+Implementation:
+
+~~~swift
+extension List {
+    public func randomSelect(amount: Int) -> List {
+        ...
+    }
+}
+~~~
+
+_Hint: Use the solution to problem [P20](#p20)._
 
 ### <a name="p24"/>[P24](#p24) (\*) Lotto: Draw N different random numbers from the set 1..M.
 Return a linked list with the _lotto_ numbers.
@@ -429,19 +730,51 @@ Return a linked list with the _lotto_ numbers.
 Example:
 
 ~~~swift
-let list = List.lotto(6, 49)
-print(list) // (23, 1, 17, 33, 21, 37)
+List.lotto(6, 49)
 ~~~
+
+Result:
+
+~~~swift
+List(23, 1, 17, 33, 21, 37)
+~~~
+
+Implementation:
+
+~~~swift
+extension List {
+    public class func lotto(numbers: Int, _ maximum: Int) -> List<Int> {
+        ...
+    }
+}
+~~~
+
+_Note: Implement as class function._
 
 ### <a name="p25"/>[P25](#p25) (\*) Generate a random permutation of the elements of a linked list.
 Example:
 
 ~~~swift
-let list = List("a", "b", "c", "d", "e", "f")
-print(list.randomPermute()) // ("b", "a", "d", "e", "f")
+List("a", "b", "c", "d", "e", "f").randomPermute()
 ~~~
 
-_Hint:_ Use the solution of problem [P23](#p23).
+Result:
+
+~~~swift
+List("b", "a", "d", "c", "e", "f")
+~~~
+
+Implementation:
+
+~~~swift
+extension List {
+    public func randomPermute() -> List {
+        ...
+    }
+}
+~~~
+
+_Hint: Use the solution of problem [P23](#p23)._
 
 ### <a name="p26"/>[P26](#p26) (\*\*) Generate the combinations of K distinct objects chosen from the N elements of a linked list.
 In how many ways can a committee of 3 be chosen from a group of 12 people?
@@ -452,8 +785,23 @@ be great. But we want to really generate all the possibilities.
 Example:
 
 ~~~swift
-let list = List("a", "b", "c", "d", "e", "f")
-print(list.combinations(3)) // (("a", "b", "c"), ("a", "b", "d"), ("a", "b", "e")...)
+List("a", "b", "c", "d", "e", "f").combinations(3)
+~~~
+
+Result:
+
+~~~swift
+List(List("a", "b", "c"), List("a", "b", "d"), List("a", "b", "e"), ...)
+~~~
+
+Implementation:
+
+~~~swift
+extension List {
+    public func combinations(group: Int) -> List<List<T>> {
+        ...
+    }
+}
 ~~~
 
 ### <a name="p27"/>[P27](#p27) (\*\*) Group the elements of a set into disjoint subsets.
@@ -464,7 +812,23 @@ Example:
 
 ~~~swift
 let list = List("Aldo", "Beat", "Carla", "David", "Evi", "Flip", "Gary", "Hugo", "Ida")
-print(list.group3()) // (((Aldo, Beat), (Carla, David, Evi), (Flip, Gary, Hugo, Ida)), ...
+list.group3()
+~~~
+
+Result:
+
+~~~swift
+List(List(List("Aldo", "Beat"), List("Carla", "David", "Evi"), List("Flip", "Gary", "Hugo", "Ida")), ...)
+~~~
+
+Implementation:
+
+~~~swift
+extension List {
+    public func group3() -> List<List<List<T>>> {
+        ...
+    }
+}
 ~~~
 
 b) Generalize the above predicate in a way that we can specify a list of group
@@ -474,7 +838,23 @@ Example:
 
 ~~~swift
 let list = List("Aldo", "Beat", "Carla", "David", "Evi", "Flip", "Gary", "Hugo", "Ida")
-print(list.group(List(2, 2, 5))) // (((Aldo, Beat), (Carla, David), (Evi, Flip, Gary, Hugo, Ida)), ...
+list.group(List(2, 2, 5))
+~~~
+
+Result:
+
+~~~swift
+List(List(List("Aldo", "Beat"), List("Carla", "David"), List("Evi", "Flip", "Gary", "Hugo", "Ida")), ...)
+~~~
+
+Implementation:
+
+~~~swift
+extension List {
+    public func group3(groups: List<Int>) -> List<List<List<T>>> {
+        ...
+    }
+}
 ~~~
 
 Note that we do not want permutations of the group members;
@@ -494,7 +874,23 @@ Example:
 
 ~~~swift
 let list = List(List("a", "b", "c"), List("d", "e"), List("f", "g", "h"), List("d", "e"), List("i", "j", "k", "l"), List("m", "n"), List("o"))
-print(list.lsort()) // (("o"), ("d", "e"), ("d", "e"), ("m", "n"), ("a", "b", "c"), ("f", "g", "h"), ("i", "j", "k", "l"))
+list.lsort()
+~~~
+
+Result:
+
+~~~swift
+List(List("o"), List("d", "e"), List("d", "e"), List("m", "n"), List("a", "b", "c"), List("f", "g", "h"), List("i", "j", "k", "l"))
+~~~
+
+Implementation:
+
+~~~swift
+extension List {
+    public func lsort() -> List {
+        ...
+    }
+}
 ~~~
 
 b) Again, we suppose that a list contains elements that are lists themselves.
@@ -506,7 +902,23 @@ Example:
 
 ~~~swift
 let list = List(List("a", "b", "c"), List("d", "e"), List("f", "g", "h"), List("d", "e"), List("i", "j", "k", "l"), List("m", "n"), List("o"))
-print(list.lsortFreq()) // (("i", "j", "k", "l"), ("o"), ("a", "b", "c"), ("f", "g", "h"), ("d", "e"), ("d", "e"), ("m", "n"))
+list.lsortFreq()
+~~~
+
+Result:
+
+~~~swift
+List(List("i", "j", "k", "l"), List("o"), List("a", "b", "c"), List("f", "g", "h"), List("d", "e"), List("d", "e"), List("m", "n"))
+~~~
+
+Implementation:
+
+~~~swift
+extension List {
+    public func lsortFreq() -> List {
+        ...
+    }
+}
 ~~~
 
 Note that in the above example, the first two lists in the result have length
@@ -519,19 +931,54 @@ have length 2. This is the most frequent length.
 ## <a name="arithmetic"/>Arithmetic
 
 For the next section, we're going to take a different tack with the solutions.
-We'll declare a new class, S99Int, and an implicit conversion from regular
-Ints. The arithmetic1 file contains the starting definitions for this section.
-Each individual solution will show the relevant additions to the S99Int
-class. The full class will be given at the end of the section.
+Instead of using a class, we will define the solutions as extensions to `Int`
+and functions on the global module scope.
 
 ### <a name="p31"/>[P31](#p31) (\*\*) Determine whether a given integer number is prime.
-scala> 7.isPrime
-res0: Boolean = true
+Example:
+
+~~~swift
+7.isPrime()
+~~~
+
+Result:
+
+~~~swift
+true
+~~~
+
+Implementation:
+
+~~~swift
+extension Int {
+    public func isPrime() -> Bool {
+        ...
+    }
+}
+~~~
 
 ### <a name="p32"/>[P32](#p32) (\*\*) Determine the greatest common divisor of two positive integer numbers.
 Use Euclid's algorithm.
-scala> gcd(36, 63)
-res0: Int = 9
+
+Example:
+
+~~~swift
+gcd(36, 63)
+~~~
+
+Result:
+
+~~~swift
+9
+~~~
+
+Implementation:
+
+~~~swift
+public func gcd(first: Int, _ second: Int) -> Int {
+    ...
+}
+~~~
 
 ### <a name="p33"/>[P33](#p33) (\*) Determine whether two positive integer numbers are coprime.
 Two numbers are coprime if their greatest common divisor equals 1.
@@ -745,7 +1192,9 @@ res0: List(Node[String]) = List(T(x T(x . .) T(x . T(x . .))), T(x T(x . .) T(x 
 Let us call a binary tree symmetric if you can draw a vertical line through
 the root node and then the right subtree is the mirror image of the left
 subtree. Add an isSymmetric method to the Tree class to check whether a given
-binary tree is symmetric. _Hint:_ Write an isMirrorOf method first to check
+binary tree is symmetric.
+
+_Hint:_ Write an isMirrorOf method first to check
 whether one tree is the mirror image of another. We are only interested in
 the structure, not in the contents of the nodes.
 
@@ -762,6 +1211,7 @@ res1: Node[Int] = T(2 . T(3 . .))
 
 scala> res1.addValue(0)
 res2: Node[Int] = T(2 T(0 . .) T(3 . .))
+
 _Hint:_ The abstract definition of addValue in Tree should be
 def addValue[U >: T <% Ordered[U]](x: U): Tree[U]. The >: T is because
 addValue's parameters need to be contravariant in T. (Conceptually, we're
@@ -895,9 +1345,11 @@ The tree at right may be constructed with Tree.fromList(List('n','k','m','c','a'
 
 ### <a name="p65"/>[P65](#p65) (\*\*) Layout a binary tree (2).
 An alternative layout method is depicted in the illustration opposite. Find
-out the rules and write the corresponding method. _Hint:_ On a given level,
+out the rules and write the corresponding method.
+
+_Hint:_ On a given level,
 the horizontal distance between neighboring nodes is constant.
-Use the same conventions as in problem P64.
+Use the same conventions as in problem [P64](#p64).
 
 scala> Node('a', Node('b', End, Node('c')), Node('d')).layoutBinaryTree2
 res0: PositionedNode[Char] = T[3,1]('a T[1,2]('b . T[2,3]('c . .)) T[5,2]('d . .))
@@ -906,7 +1358,9 @@ The tree at right may be constructed with Tree.fromList(List('n','k','m','c','a'
 ### <a name="p66"/>[P66](#p66) (\*\*\*) Layout a binary tree (3).
 Yet another layout strategy is shown in the illustration opposite. The method
 yields a very compact layout while maintaining a certain symmetry in every
-node. Find out the rules and write the corresponding method. _Hint:_ Consider
+node. Find out the rules and write the corresponding method.
+
+_Hint:_ Consider
 the horizontal distance between a node and its successor nodes. How tight
 can you pack together two subtrees to construct the combined binary tree?
 Use the same conventions as in problem P64 and P65. Note: This is a difficult
@@ -1220,6 +1674,7 @@ Write methods to generate the graph-term and adjacency-list forms from a Graph.
  Write another method to output the human-friendly form for a graph. Make it
  the toString method for Graph. Write more functions to create graphs from
  strings.
+
 _Hint:_ You might need separate functions for labeled and unlabeled graphs.
 
 scala> Graph.fromString("[b-c, f-c, g-h, d, f-b, k-f, h-g]").toTermForm
@@ -1261,9 +1716,12 @@ res0: List[Graph[String,Unit]] = List([a-b, b-c], [a-c, b-c], [a-b, a-c])
 
 ### <a name="p84"/>[P84](#p84) (\*\*) Construct the minimal spanning tree.
 Write a method minimalSpanningTree to construct the minimal spanning tree of a
-given labeled graph. _Hint:_ Use Prim's Algorithm. A small modification of the
+given labeled graph.
+
+_Hint:_ Use Prim's Algorithm. A small modification of the
 solution of [P83](#p83) does the trick. The data of the example graph to the right can
 be found below.
+
 Graph:
 
 Graph.termLabel(
@@ -1336,6 +1794,7 @@ This is a classical problem in computer science. The objective is to place
 eight queens on a chessboard so that no two queens are attacking each other;
 i.e., no two queens are in the same row, the same column, or on the same
 diagonal.
+
 _Hint:_ Represent the positions of the queens as a list of numbers 1..N. Example:
 List(4, 2, 7, 3, 6, 8, 5, 1) means that the queen in the first column is in row
 4, the queen in the second column is in row 2, etc. Use the generate-and-test
