@@ -982,24 +982,29 @@ public func gcd(first: Int, _ second: Int) -> Int {
 
 ### <a name="p33"/>[P33](#p33) (\*) Determine whether two positive integer numbers are coprime.
 Two numbers are coprime if their greatest common divisor equals 1.
+
 scala> 35.isCoprimeTo(64)
 res0: Boolean = true
 
 ### <a name="p34"/>[P34](#p34) (\*\*) Calculate Euler's totient function phi(m).
 Euler's so-called totient function phi(m) is defined as the number of positive
 integers r (1 <= r <= m) that are coprime to m.
+
 scala> 10.totient
 res0: Int = 4
 
 ### <a name="p35"/>[P35](#p35) (\*\*) Determine the prime factors of a given positive integer.
 Construct a flat list containing the prime factors in ascending order.
+
 scala> 315.primeFactors
 res0: List[Int] = List(3, 3, 5, 7)
 
 ### <a name="p36"/>[P36](#p36) (\*\*) Determine the prime factors of a given positive integer (2).
 Construct a list containing the prime factors and their multiplicity.
+
 scala> 315.primeFactorMultiplicity
 res0: List[(Int, Int)] = List((3,2), (5,1), (7,1))
+
 Alternately, use a Map for the result.
 
 scala> 315.primeFactorMultiplicity
@@ -1026,6 +1031,7 @@ algorithms. Try to calculate `phi(10090)` as an example.
 ### <a name="p39"/>[P39](#p39) (\*) A linked list of prime numbers.
 Given a range of integers by its lower and upper limit, construct a linked list of
 all prime numbers in that range.
+
 scala> listPrimesinRange(7 to 31)
 res0: List[Int] = List(7, 11, 13, 17, 19, 23, 29, 31)
 
@@ -1036,12 +1042,14 @@ famous facts in number theory that has not been proved to be correct in the
 general case. It has been numerically confirmed up to very large numbers
 (much larger than Scala's Int can represent). Write a function to find the
 two prime numbers that sum up to a given even integer.
+
 scala> 28.goldbach
 res0: (Int, Int) = (5,23)
 
 ### <a name="p41"/>[P41](#p41) (\*\*) A list of Goldbach compositions.
 Given a range of integers by its lower and upper limit, print a list of all
 even numbers and their Goldbach composition.
+
 scala> printGoldbachList(9 to 20)
 10 = 3 + 7
 12 = 5 + 7
@@ -1049,6 +1057,7 @@ scala> printGoldbachList(9 to 20)
 16 = 3 + 13
 18 = 5 + 13
 20 = 3 + 17
+
 In most cases, if an even number is written as the sum of two prime numbers,
 one of them is very small. Very rarely, the primes are both bigger than, say,
 50. Try to find out how many such cases there are in the range 2..3000.
@@ -1060,6 +1069,7 @@ scala> printGoldbachListLimited(1 to 2000, 50)
 1382 = 61 + 1321
 1856 = 67 + 1789
 1928 = 61 + 1867
+
 The file containing the full class for this section is arithmetic.scala.
 
 * * *
@@ -1071,31 +1081,68 @@ and add code to it for each problem. The difference here is that the file
 starts out almost empty.
 
 ### <a name="p46"/>[P46](#p46) (\*\*) Truth tables for logical expressions.
-Define functions and, or, nand, nor, xor, impl, and equ (for logical
-    equivalence) which return true or false according to the result of
-    their respective operations; e.g. and(A, B) is true if and only if
-    both A and B are true.
-scala> and(true, true)
-res0: Boolean = true
+Define functions `and`, `or`, `nand`, `nor`, `xor`, `impl`, and `equ`
+(for logical equivalence) which return `true` or `false` according to the
+result of their respective operations; e.g. `and(A, B)` is `true` if and only
+if both `A` and `B` are `true`.
 
-scala> xor(true. true)
-res1: Boolean = false
-A logical expression in two variables can then be written as an function of
-two variables, e.g: (a: Boolean, b: Boolean) => and(or(a, b), nand(a, b))
+Example #1:
 
-Now, write a function called table2 which prints the truth table of a given
+~~~swift
+and(true, true)
+~~~
+
+Result:
+
+~~~swift
+true
+~~~
+
+Example #2:
+
+~~~swift
+xor(true, true)
+~~~
+
+Result:
+
+~~~swift
+false
+~~~
+
+A logical expression in two variables can then be written as a [closure in Swift](https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Closures.html)
+of two variables:
+
+~~~swift
+{ (a: Bool, b: Bool) -> Bool in and(or(a, b), nand(a, b)) }
+
+{ (a, b) in and(or(a, b), nand(a, b)) } // Type Inference
+
+{ and(or($0, $1), nand($0, $1)) } // Shorthand Argument Names
+~~~
+
+Now, write a function called `table2` which prints the truth table of a given
 logical expression in two variables.
 
-scala> table2((a: Boolean, b: Boolean) => and(a, or(a, b)))
-A     B     result
+Example:
+
+~~~swift
+table2({ and($0, or($0, $1)) })
+~~~
+
+Output:
+
+~~~
+A     B     Result
 true  true  true
 true  false true
 false true  false
 false false false
+~~~
 
 ### <a name="p47"/>[P47](#p47) (\*) Truth tables for logical expressions (2).
-Continue problem P46 by redefining and, or, etc as operators. (i.e. make them
-    methods of a new class with an implicit conversion from Boolean.) not will
+Continue problem [P46](#p46) by redefining `and`, `or`, etc. as operators. 
+(i.e. make them methods of a new class with an implicit conversion from Boolean.) not will
     have to be left as a object method.
 scala> table2((a: Boolean, b: Boolean) => a and (a or not(b)))
 A     B     result
