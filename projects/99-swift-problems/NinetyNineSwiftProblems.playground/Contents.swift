@@ -53,11 +53,11 @@ List<Int>().pennultimate
 
 //: ### P03 (\*) Find the Kth element of a list.
 //: By convention, the first element in the list is element `0`.
-List(1, 1, 2, 3, 5, 8).nth(2)
-List(1, 1, 2, 3, 5, 8).nth(0)
-List(1, 1, 2, 3, 5, 8).nth(10)
-List(1).nth(1)
-List<Int>().nth(0)
+List(1, 1, 2, 3, 5, 8).elementAtIndex(2)
+List(1, 1, 2, 3, 5, 8).elementAtIndex(0)
+List(1, 1, 2, 3, 5, 8).elementAtIndex(10)
+List(1).elementAtIndex(1)
+List<Int>().elementAtIndex(0)
 
 //: ### P04 (\*) Find the number of elements of a list.
 List(1, 1, 2, 3, 5, 8).length
@@ -66,16 +66,20 @@ List(1).length
 List<Int>().length
 
 //: ### P05 (\*) Reverse a list.
-List(1, 1, 2, 3, 5, 8).reverseInPlace()
-List(1, 1, 2, 1, 1).reverseInPlace()
-List(1).reverseInPlace()
-List<Int>().reverseInPlace()
+let listA = List(1, 1, 2, 3, 5, 8)
+listA.reverseInPlace()
+let listB = List(1, 1, 2, 1, 1)
+listB.reverseInPlace()
+let listC = List(1)
+listC.reverseInPlace()
+let listD = List<Int>()
+listD.reverseInPlace()
 
 //: ### P06 (\*) Find out whether a list is a palindrome.
-List(1, 1, 2, 3, 5, 8).isPalindrome
-List(1, 1, 2, 1, 1).isPalindrome
-List(1).isPalindrome
-List<Int>().isPalindrome
+List(1, 1, 2, 3, 5, 8).isPalindrome()
+List(1, 1, 2, 1, 1).isPalindrome()
+List(1).isPalindrome()
+List<Int>().isPalindrome()
 
 //: ### P07 (\*\*) Flatten a nested list structure.
 List<Any>(List<Any>(1, 1), 2, List<Any>(3, List<Any>(5, 8))).flatten()
@@ -137,10 +141,10 @@ List("a").duplicateInPlace()
 List<String>().duplicateInPlace()
 
 //: ### P15 (\*\*) Duplicate the elements of a list a given number of times.
-List("a", "b", "c", "c", "d").duplicateNInPlace(3)
-List(1, 1, 2, 3, 5, 8).duplicateNInPlace(3)
-List("a").duplicateNInPlace(3)
-List<String>().duplicateNInPlace(3)
+List("a", "b", "c", "c", "d").duplicateInPlace(3)
+List(1, 1, 2, 3, 5, 8).duplicateInPlace(3)
+List("a").duplicateInPlace(3)
+List<String>().duplicateInPlace(3)
 
 //: ### P16 (\*\*) Drop every Nth element from a list.
 List("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k").drop(3)

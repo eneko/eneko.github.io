@@ -29,7 +29,7 @@ extension List {
 
 /// Problem 3
 extension List {
-    public func nth(index: Int) -> T? {
+    public func elementAtIndex(index: Int) -> T? {
         var count = 0
         var current = head
         while count < index {
@@ -58,23 +58,22 @@ extension List {
 
 /// Problem 5
 extension List {
-    public func reverseInPlace() -> List {
+    public func reverseInPlace() {
         let current = head
         if current == nil || current?.next == nil {
-            return self
+            return
         }
         while let next = current?.next {
             current?.next = next.next
             next.next = head
             head = next
         }
-        return self
     }
 }
 
 /// Problem 6
 extension List where T:Equatable {
-    public var isPalindrome: Bool {
+    public func isPalindrome() -> Bool {
         var stack: [T] = []
         var current = head
         while current != nil {
@@ -130,7 +129,7 @@ extension List {
 
 /// Problem 8
 extension List where T: Equatable {
-    public func compressInPlace() -> List {
+    public func compressInPlace() {
         var current = head
         while let value = current?.value {
             if value == current?.next?.value {
@@ -139,7 +138,6 @@ extension List where T: Equatable {
                 current = current?.next
             }
         }
-        return self
     }
 }
 
@@ -292,7 +290,7 @@ extension List {
 
 /// Problem 15
 extension List {
-    public func duplicateNInPlace(times: Int) -> List {
+    public func duplicateInPlace(times: Int) -> List {
         var current = head
         while let value = current?.value {
             for _ in 1..<times {
@@ -309,13 +307,13 @@ extension List {
 
 /// Problem 16
 extension List {
-    public func drop(each: Int) -> List {
+    public func drop(every: Int) -> List {
         let resultList = List()
         var resultListLast = resultList.head
         var current = head
         var index = 1
         while let value = current?.value {
-            if index % each != 0 {
+            if index % every != 0 {
                 let newItem = ListItem(value: value)
                 if resultList.head == nil {
                     resultList.head = newItem
@@ -451,7 +449,7 @@ extension List {
 
 /// Problem 21
 extension List {
-    public func insertAt(index: Int, _ value: T) -> List {
+    public func insertAt(index: Int, _ value: T) {
         var current = head
         var currentIndex = 1
         while current != nil {
@@ -464,7 +462,6 @@ extension List {
             currentIndex++
             current = current?.next
         }
-        return self
     }
 }
 
