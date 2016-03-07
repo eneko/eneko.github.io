@@ -8,8 +8,9 @@ image: /media/99-swift-problems/screenshot.jpg
 ---
 
 Ninety-Nine Swift Problems is a collection of interesting problems that will
-help Swift programmers learn and practice data structures and algorithms in
-the [Swift programming language](https://swift.org).
+help Swift programmers like you learn and practice your skills in logic
+programming, data structures and algorithms in the
+[Swift programming language](https://swift.org).
 
 This list is an adaptation by me, [Eneko Alonso](http://enekoalonso.com), of the
 [Ninety-Nine Scala Problems](http://aperiodic.net/phil/scala/s-99/) written by
@@ -17,10 +18,7 @@ This list is an adaptation by me, [Eneko Alonso](http://enekoalonso.com), of the
 original [Ninety-Nine Prolog Problems](https://prof.ti.bfh.ch/hew1/informatik3/prolog/p-99/)
 written by Werner Hett at Berne University of Applied Sciences in Berne, Switzerland.
 
-The problems are numbered following the numeration by Phil Gold, which differs
-from the original Prolog Problem list.
-
-From the original lists:
+From the original:
 
 > The problems have different levels of difficulty. Those marked with a single
 asterisk (\*) are easy. If you have successfully solved the preceding problems
@@ -37,10 +35,7 @@ Efficiency is important, but clarity is even more crucial. Some of the (easy)
 problems can be trivially solved using built-in functions. However, in these
 cases, you learn more if you try to find your own solution.
 
-Most of the above also applies to Swift, since both Swift and Scala are high-level
-modern languages.
-
-The problems are divided in seven categories:
+Problems are divided in seven categories:
 
 1. [Linked Lists](#linked-lists)
 2. [Arithmetic](#arithmetic)
@@ -52,14 +47,15 @@ The problems are divided in seven categories:
 
 Solutions for these problems can be written in Swift by creating a
 Playground in Xcode. Classes and structures can be placed on the source files
-to keep the Playground clean.
+folder to keep the Playground clean.
 
 Another way, of course, is to crate an application for iOS, OS X or tvOS. From
 those, probably a command line application for OS X is the one that would make
 more sense.
 
-You can also create plain Swift files and use `swift` or `swiftc` on the
-terminal to run the code. Use `swift build` if you have Swift 2.2 installed.
+You can also create Swift files without an Xcode project and use `swift`
+or `swiftc` on the terminal to run the code. Use `swift build` if you have
+Swift 2.2 installed.
 
 
 * * *
@@ -1141,7 +1137,7 @@ false false false
 ~~~
 
 ### <a name="p47"/>[P47](#p47) (\*) Truth tables for logical expressions (2).
-Continue problem [P46](#p46) by redefining `and`, `or`, etc. as operators. 
+Continue problem [P46](#p46) by redefining `and`, `or`, etc. as operators.
 (i.e. make them methods of a new class with an implicit conversion from Boolean.) not will
     have to be left as a object method.
 scala> table2((a: Boolean, b: Boolean) => a and (a or not(b)))
