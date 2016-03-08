@@ -891,7 +891,7 @@ You may find more about this combinatorial problem in a good book on discrete
 mathematics under the term "multinomial coefficients".
 
 ### <a name="p28"/>[P28](#p28) (\*\*) Sorting a linked list of linked lists according to length of sublists.
-a) We suppose that a linked list contains elements that are linked lists themselves.
+We suppose that a linked list contains elements that are linked lists themselves.
 The objective is to sort the elements of the list according to their length.
 E.g. short lists first, longer lists later, or vice versa.
 
@@ -918,7 +918,8 @@ extension List {
 }
 ~~~
 
-b) Again, we suppose that a list contains elements that are lists themselves.
+### <a name="p28b"/>[P28B](#p28b) (\*\*) Sorting a linked list of linked lists according to their length frequency.
+Again, we suppose that a list contains elements that are lists themselves.
 But this time the objective is to sort the elements according to their length
 frequency; i.e. in the default, sorting is done ascendingly, lists with rare
 lengths are placed, others with a more frequent length come later.
@@ -957,7 +958,7 @@ have length 2. This is the most frequent length.
 
 For the next section, we're going to take a different tack with the solutions.
 Instead of using a class, we will define the solutions as extensions to `Int`
-and functions on the global module scope.
+(both instance and class).
 
 ### <a name="p31"/>[P31](#p31) (\*\*) Determine whether a given integer number is prime.
 Example:
@@ -988,7 +989,7 @@ Use Euclid's algorithm.
 Example:
 
 ~~~swift
-gcd(36, 63)
+Int.gcd(36, 63)
 ~~~
 
 Result:
@@ -1000,65 +1001,193 @@ Result:
 Implementation:
 
 ~~~swift
-public func gcd(first: Int, _ second: Int) -> Int {
-    ...
+extension Int {
+    public class func gcd(first: Int, _ second: Int) -> Int {
+        ...
+    }
 }
 ~~~
 
 ### <a name="p33"/>[P33](#p33) (\*) Determine whether two positive integer numbers are coprime.
 Two numbers are coprime if their greatest common divisor equals 1.
 
-scala> 35.isCoprimeTo(64)
-res0: Boolean = true
+Example:
 
-### <a name="p34"/>[P34](#p34) (\*\*) Calculate Euler's totient function phi(m).
-Euler's so-called totient function phi(m) is defined as the number of positive
-integers r (1 <= r <= m) that are coprime to m.
+~~~swift
+35.isCoprimeTo(64)
+~~~
 
-scala> 10.totient
-res0: Int = 4
+Result:
+
+~~~swift
+true
+~~~
+
+Implementation:
+
+~~~swift
+extension Int {
+    public func isCoprimeTo(other: Int) -> Bool {
+        ...
+    }
+}
+~~~
+
+### <a name="p34"/>[P34](#p34) (\*\*) Calculate Euler's totient function _phi(m)_.
+Euler's so-called totient function `phi(m)` is defined as the number of positive
+integers `r (1 <= r <= m)` that are coprime to `m`.
+
+E.g. `m = 10: r = 1,3,7,9`; thus `phi(m) = 4`.
+Note the special case: `phi(1) = 1`.
+
+Example:
+
+~~~swift
+10.totient
+~~~
+
+Result:
+
+~~~swift
+4
+~~~
+
+Implementation:
+
+~~~swift
+extension Int {
+    public var totient: Int {
+        ...
+    }
+}
+~~~
 
 ### <a name="p35"/>[P35](#p35) (\*\*) Determine the prime factors of a given positive integer.
-Construct a flat list containing the prime factors in ascending order.
+Construct a flat linked list containing the prime factors in ascending order.
 
-scala> 315.primeFactors
-res0: List[Int] = List(3, 3, 5, 7)
+Example:
+
+~~~swift
+315.primeFactors
+~~~
+
+Result:
+
+~~~swift
+List(3, 3, 5, 7)
+~~~
+
+Implementation:
+
+~~~swift
+extension Int {
+    public var primeFactors: List<Int> {
+        ...
+    }
+}
+~~~
 
 ### <a name="p36"/>[P36](#p36) (\*\*) Determine the prime factors of a given positive integer (2).
-Construct a list containing the prime factors and their multiplicity.
+Construct a linked list containing tuples with the prime factors and their multiplicity.
 
-scala> 315.primeFactorMultiplicity
-res0: List[(Int, Int)] = List((3,2), (5,1), (7,1))
+Example:
 
-Alternately, use a Map for the result.
+~~~swift
+315.primeFactorMultiplicity
+~~~
 
-scala> 315.primeFactorMultiplicity
-res0: Map[Int,Int] = Map(3 -> 2, 5 -> 1, 7 -> 1)
+Result:
 
-### <a name="p37"/>[P37](#37) (\*\*) Calculate Euler's totient function phi(m) (improved).
+~~~swift
+List((3, 2), (5, 1), (7, 1))
+~~~
+
+Implementation:
+
+~~~swift
+extension Int {
+    public var primeFactorMultiplicity: List<(Int, Int)> {
+        ...
+    }
+}
+~~~
+
+Alternatively, use a Dictionary for the result.
+
+Example:
+
+~~~swift
+315.primeFactorMultiplicityDict
+~~~
+
+Result:
+
+~~~swift
+Dictionary([3: 2, 5: 1, 7: 1])
+~~~
+
+Implementation:
+
+~~~swift
+extension Int {
+    public var primeFactorMultiplicityDict: Dictionary<Int, Int> {
+        ...
+    }
+}
+~~~
+
+### <a name="p37"/>[P37](#37) (\*\*) Calculate Euler's totient function _phi(m)_ (improved).
 See problem [P34](#p34) for the definition of Euler's totient function.
-If the list of the prime factors of a number m is known in the form of
-problem [P36](#p36)
-then the function `phi(m>)` can be efficiently calculated as follows:
-Let `[[p1, m1], [p2, m2], [p3, m3], ...]` be the list of prime factors
+If the list of the prime factors of a number `m` is known in the form of
+problem [P36](#p36) then the function `phi(m)` can be efficiently calculated
+as follows: Let `[[p1, m1], [p2, m2], [p3, m3], ...]` be the list of prime factors
 (and their multiplicities) of a given number `m`. Then `phi(m)` can be
 calculated with the following formula:
 
 ~~~
-phi(m) = (p1-1)*p1(m1-1) * (p2-1)*p2(m2-1) * (p3-1)*p3(m3-1) * ...
+phi(m) = (p1-1)*p1^(m1-1) * (p2-1)*p2^(m2-1) * (p3-1)*p3^(m3-1) * ...
 ~~~
-Note that ab stands for the bth power of a.
+_Note: `a^b` stands for the `bth` power of `a`._
+
+Implementation:
+
+~~~swift
+extension Int {
+    public var totientImproved: Int {
+        ...
+    }
+}
+~~~
 
 ### <a name="p38"/>[P38](#p38) (\*) Compare the two methods of calculating Euler's totient function.
 Use the solutions of problems [P34](#p38) and [P37](#p37) to compare the
 algorithms. Try to calculate `phi(10090)` as an example.
 
 ### <a name="p39"/>[P39](#p39) (\*) A linked list of prime numbers.
-Given a range of integers by its lower and upper limit, construct a linked list of
-all prime numbers in that range.
+Given a range of integers by its lower and upper limit, construct a linked list
+of all prime numbers in that range.
 
-scala> listPrimesinRange(7 to 31)
-res0: List[Int] = List(7, 11, 13, 17, 19, 23, 29, 31)
+Example:
+
+~~~swift
+Int.listPrimesinRange(7...31)
+~~~
+
+Result:
+
+~~~swift
+List(7, 11, 13, 17, 19, 23, 29, 31)
+~~~
+
+Implementation:
+
+~~~swift
+extension Int {
+    public class func listPrimesInRange(range: Range<Int>) -> List<Int> {
+        ...
+    }
+}
+~~~
 
 ### <a name="p40"/>[P40](#40) (\*\*) Goldbach's conjecture.
 Goldbach's conjecture says that every positive even number greater than `2`
