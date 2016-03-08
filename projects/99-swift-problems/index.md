@@ -62,7 +62,7 @@ Swift 2.2 installed.
 * * *
 
 
-## <a name="linked-lists"/>Working with Linked Lists
+## <a name="linked-lists"/> [Section 1:](#linked-lists) Working with Linked Lists
 
 While most of these problems can be solved using an Array and built-in methods,
 I would like to challenge you to solve these problems using generic
@@ -70,10 +70,10 @@ I would like to challenge you to solve these problems using generic
 following signature:
 
 ~~~swift
-public class List<T> {
+class List<T> {
     var head: ListItem<T>?
 
-    public init(_ values: T...) {
+    init(_ values: T...) {
         // append values to the list
     }
 }
@@ -131,7 +131,7 @@ Implementation:
 
 ~~~swift
 extension List {
-    public var last: T? {
+    var last: T? {
         ...
     }
 }
@@ -154,7 +154,7 @@ Implementation:
 
 ~~~swift
 extension List {
-    public var pennultimate: T? {
+    var pennultimate: T? {
         ...
     }
 }
@@ -179,7 +179,7 @@ Implementation:
 
 ~~~swift
 extension List {
-    public func elementAtIndex(index: Int) -> T? {
+    func elementAtIndex(index: Int) -> T? {
         ...
     }
 }
@@ -202,7 +202,7 @@ Implementation:
 
 ~~~swift
 extension List {
-    public var length: Int {
+    var length: Int {
         ...
     }
 }
@@ -225,7 +225,7 @@ Implementation:
 
 ~~~swift
 extension List {
-    public func reverseInPlace() {
+    func reverseInPlace() {
         ...
     }
 }
@@ -248,7 +248,7 @@ Implementation:
 
 ~~~swift
 extension List where T:Equatable {
-    public func isPalindrome() -> Bool {
+    func isPalindrome() -> Bool {
         ...
     }
 }
@@ -273,7 +273,7 @@ Implementation:
 
 ~~~swift
 extension List {
-    public func flatten() -> List {
+    func flatten() -> List {
         ...
     }
 }
@@ -300,7 +300,7 @@ Implementation:
 
 ~~~swift
 extension List where T: Equatable {
-    public func compressInPlace() {
+    func compressInPlace() {
         ...
     }
 }
@@ -328,7 +328,7 @@ Implementation:
 
 ~~~swift
 extension List where T: Equatable {
-    public func pack() -> List<List<T>> {
+    func pack() -> List<List<T>> {
         ...
     }
 }
@@ -359,7 +359,7 @@ Implementation:
 
 ~~~swift
 extension List where T: Equatable {
-    public func encode() -> List<(Int, T)> {
+    func encode() -> List<(Int, T)> {
         ...
     }
 }
@@ -389,7 +389,7 @@ Implementation:
 
 ~~~swift
 extension List where T: Equatable {
-    public func encodeModified() -> List<Any> {
+    func encodeModified() -> List<Any> {
         ...
     }
 }
@@ -418,7 +418,7 @@ Implementation:
 
 ~~~swift
 extension List {
-    public func decode() -> List<String> {
+    func decode() -> List<String> {
         ...
     }
 }
@@ -448,7 +448,7 @@ Implementation:
 
 ~~~swift
 extension List where T: Equatable {
-    public func encodeDirect() -> List<(Int, T)> {
+    func encodeDirect() -> List<(Int, T)> {
         ...
     }
 }
@@ -474,7 +474,7 @@ Implementation:
 
 ~~~swift
 extension List {
-    public func duplicateInPlace() -> List {
+    func duplicateInPlace() -> List {
         ...
     }
 }
@@ -498,7 +498,7 @@ Implementation:
 
 ~~~swift
 extension List {
-    public func duplicateInPlace(times: Int) -> List {
+    func duplicateInPlace(times: Int) -> List {
         ...
     }
 }
@@ -522,7 +522,7 @@ Implementation:
 
 ~~~swift
 extension List {
-    public func drop(every: Int) -> List {
+    func drop(every: Int) -> List {
         ...
     }
 }
@@ -548,7 +548,7 @@ Implementation:
 
 ~~~swift
 extension List {
-    public func split(atIndex: Int) -> (List, List) {
+    func split(atIndex: Int) -> (List, List) {
         ...
     }
 }
@@ -576,7 +576,7 @@ Implementation:
 
 ~~~swift
 extension List {
-    public func slice(from: Int, _ to: Int) -> List {
+    func slice(from: Int, _ to: Int) -> List {
         ...
     }
 }
@@ -613,7 +613,7 @@ Implementation:
 
 ~~~swift
 extension List {
-    public func rotate(amount: Int) -> List {
+    func rotate(amount: Int) -> List {
         ...
     }
 }
@@ -640,7 +640,7 @@ Implementation:
 
 ~~~swift
 extension List {
-    public func removeAt(position: Int) -> (List, T?) {
+    func removeAt(position: Int) -> (List, T?) {
         ...
     }
 }
@@ -664,7 +664,7 @@ Implementation:
 
 ~~~swift
 extension List {
-    public func insertAt(index: Int, _ value: T) {
+    func insertAt(index: Int, _ value: T) {
         ...
     }
 }
@@ -687,7 +687,7 @@ Implementation:
 
 ~~~swift
 extension List {
-    public class func range(from: Int, _ to: Int) -> List<Int> {
+    class func range(from: Int, _ to: Int) -> List<Int> {
         ...
     }
 }
@@ -713,7 +713,7 @@ Implementation:
 
 ~~~swift
 extension List {
-    public func randomSelect(amount: Int) -> List {
+    func randomSelect(amount: Int) -> List {
         ...
     }
 }
@@ -740,7 +740,7 @@ Implementation:
 
 ~~~swift
 extension List {
-    public class func lotto(numbers: Int, _ maximum: Int) -> List<Int> {
+    class func lotto(numbers: Int, _ maximum: Int) -> List<Int> {
         ...
     }
 }
@@ -765,7 +765,7 @@ Implementation:
 
 ~~~swift
 extension List {
-    public func randomPermute() -> List {
+    func randomPermute() -> List {
         ...
     }
 }
@@ -795,7 +795,7 @@ Implementation:
 
 ~~~swift
 extension List {
-    public func combinations(group: Int) -> List<List<T>> {
+    func combinations(group: Int) -> List<List<T>> {
         ...
     }
 }
@@ -821,7 +821,7 @@ Implementation:
 
 ~~~swift
 extension List {
-    public func permutations(group: Int) -> List<List<T>> {
+    func permutations(group: Int) -> List<List<T>> {
         ...
     }
 }
@@ -850,7 +850,7 @@ Implementation:
 
 ~~~swift
 extension List {
-    public func group3() -> List<List<List<T>>> {
+    func group3() -> List<List<List<T>>> {
         ...
     }
 }
@@ -876,7 +876,7 @@ Implementation:
 
 ~~~swift
 extension List {
-    public func group3(groups: List<Int>) -> List<List<List<T>>> {
+    func group3(groups: List<Int>) -> List<List<List<T>>> {
         ...
     }
 }
@@ -912,7 +912,7 @@ Implementation:
 
 ~~~swift
 extension List {
-    public func lsort() -> List {
+    func lsort() -> List {
         ...
     }
 }
@@ -941,7 +941,7 @@ Implementation:
 
 ~~~swift
 extension List {
-    public func lsortFreq() -> List {
+    func lsortFreq() -> List {
         ...
     }
 }
@@ -954,7 +954,7 @@ have length 2. This is the most frequent length.
 
 * * *
 
-## <a name="arithmetic"/>Arithmetic
+## <a name="arithmetic"/> [Section 2:](#arithmetic) Arithmetic
 
 For the next section, we're going to take a different tack with the solutions.
 Instead of using a class, we will define the solutions as extensions to `Int`
@@ -977,14 +977,14 @@ Implementation:
 
 ~~~swift
 extension Int {
-    public func isPrime() -> Bool {
+    func isPrime() -> Bool {
         ...
     }
 }
 ~~~
 
 ### <a name="p32"/>[P32](#p32) (\*\*) Determine the greatest common divisor of two positive integer numbers.
-Use Euclid's algorithm.
+Use [Euclid's algorithm](https://en.wikipedia.org/wiki/Euclidean_algorithm).
 
 Example:
 
@@ -1002,14 +1002,16 @@ Implementation:
 
 ~~~swift
 extension Int {
-    public class func gcd(first: Int, _ second: Int) -> Int {
+    class func gcd(first: Int, _ second: Int) -> Int {
         ...
     }
 }
 ~~~
 
 ### <a name="p33"/>[P33](#p33) (\*) Determine whether two positive integer numbers are coprime.
-Two numbers are coprime if their greatest common divisor equals 1.
+Two numbers are [coprime](https://en.wikipedia.org/wiki/Coprime_integers)
+if their [greatest common divisor](https://en.wikipedia.org/wiki/Greatest_common_divisor)
+equals `1`.
 
 Example:
 
@@ -1027,15 +1029,16 @@ Implementation:
 
 ~~~swift
 extension Int {
-    public func isCoprimeTo(other: Int) -> Bool {
+    func isCoprimeTo(other: Int) -> Bool {
         ...
     }
 }
 ~~~
 
 ### <a name="p34"/>[P34](#p34) (\*\*) Calculate Euler's totient function _phi(m)_.
-Euler's so-called totient function `phi(m)` is defined as the number of positive
-integers `r (1 <= r <= m)` that are coprime to `m`.
+Euler's so-called [totient function](https://en.wikipedia.org/wiki/Euler%27s_totient_function)
+`phi(m)` is defined as the number of positive integers `r (1 <= r <= m)`
+that are coprime to `m`.
 
 E.g. `m = 10: r = 1,3,7,9`; thus `phi(m) = 4`.
 Note the special case: `phi(1) = 1`.
@@ -1056,7 +1059,7 @@ Implementation:
 
 ~~~swift
 extension Int {
-    public var totient: Int {
+    var totient: Int {
         ...
     }
 }
@@ -1081,7 +1084,7 @@ Implementation:
 
 ~~~swift
 extension Int {
-    public var primeFactors: List<Int> {
+    var primeFactors: List<Int> {
         ...
     }
 }
@@ -1106,7 +1109,7 @@ Implementation:
 
 ~~~swift
 extension Int {
-    public var primeFactorMultiplicity: List<(Int, Int)> {
+    var primeFactorMultiplicity: List<(Int, Int)> {
         ...
     }
 }
@@ -1130,7 +1133,7 @@ Implementation:
 
 ~~~swift
 extension Int {
-    public var primeFactorMultiplicityDict: Dictionary<Int, Int> {
+    var primeFactorMultiplicityDict: Dictionary<Int, Int> {
         ...
     }
 }
@@ -1153,7 +1156,7 @@ Implementation:
 
 ~~~swift
 extension Int {
-    public var totientImproved: Int {
+    var totientImproved: Int {
         ...
     }
 }
@@ -1183,62 +1186,123 @@ Implementation:
 
 ~~~swift
 extension Int {
-    public class func listPrimesInRange(range: Range<Int>) -> List<Int> {
+    class func listPrimesInRange(range: Range<Int>) -> List<Int> {
         ...
     }
 }
 ~~~
 
 ### <a name="p40"/>[P40](#40) (\*\*) Goldbach's conjecture.
-Goldbach's conjecture says that every positive even number greater than `2`
+[Goldbach's conjecture](https://en.wikipedia.org/wiki/Goldbach%27s_conjecture)
+says that every positive even number greater than `2`
 is the sum of two prime numbers. E.g. `28 = 5 + 23`. It is one of the most
 famous facts in number theory that has not been proved to be correct in the
 general case. It has been numerically confirmed up to very large numbers
-(much larger than Scala's Int can represent). Write a function to find the
+(much larger than Swift's Int can represent). Write a function to find
 two prime numbers that sum up to a given even integer.
 
-scala> 28.goldbach
-res0: (Int, Int) = (5,23)
+Example:
+
+~~~swift
+28.goldbach()
+~~~
+
+Result:
+
+~~~swift
+(5, 23)
+~~~
+
+Implementation:
+
+~~~swift
+extension Int {
+    func goldbach() -> (Int, Int) {
+        ...
+    }
+}
+~~~
 
 ### <a name="p41"/>[P41](#p41) (\*\*) A list of Goldbach compositions.
 Given a range of integers by its lower and upper limit, print a list of all
 even numbers and their Goldbach composition.
 
-scala> printGoldbachList(9 to 20)
+Example:
+
+~~~swift
+Int.printGoldbachList(9...20)
+~~~
+
+Output:
+
+~~~
 10 = 3 + 7
 12 = 5 + 7
 14 = 3 + 11
 16 = 3 + 13
 18 = 5 + 13
 20 = 3 + 17
+~~~
+
+Implementation:
+
+~~~swift
+extension Int {
+    class func printGoldbachList() {
+        ...
+    }
+}
+~~~
 
 In most cases, if an even number is written as the sum of two prime numbers,
 one of them is very small. Very rarely, the primes are both bigger than, say,
-50. Try to find out how many such cases there are in the range 2..3000.
+`50`. Try to find out how many such cases there are in the range `2...3000`.
 
-Example (minimum value of 50 for the primes):
+Example (minimum value of `50` for the primes):
 
-scala> printGoldbachListLimited(1 to 2000, 50)
+~~~swift
+Int.printGoldbachListLimited(1...2000, 50)
+~~~
+
+Output:
+
+~~~
 992 = 73 + 919
 1382 = 61 + 1321
 1856 = 67 + 1789
 1928 = 61 + 1867
+~~~
 
-The file containing the full class for this section is arithmetic.scala.
+Implementation:
+
+~~~swift
+extension Int {
+    class func printGoldbachListLimited() {
+        ...
+    }
+}
+~~~
+
 
 * * *
 
-## <a name="logic-and-codes"/>Logic and Codes
+## <a name="logic-and-codes"/> [Section 3:](#logic-and-codes) Logic and Codes
 
-As in the previous section, we will start with a skeleton file, logic1.scala,
-and add code to it for each problem. The difference here is that the file
-starts out almost empty.
+Because this is a short section, we will create global functions.
 
 ### <a name="p46"/>[P46](#p46) (\*\*) Truth tables for logical expressions.
 Define functions `and`, `or`, `nand`, `nor`, `xor`, `impl`, and `equ`
 (for logical equivalence) which return `true` or `false` according to the
 result of their respective operations; e.g. `and(A, B)` is `true` if and only
 if both `A` and `B` are `true`.
+
+- `and` - [Logical Conjunction](http://en.wikipedia.org/wiki/Logical_conjunction)
+- `or` - [Logical Disjunction](http://en.wikipedia.org/wiki/Logical_disjunction)
+- `nand` - [Logical NAND](http://en.wikipedia.org/wiki/Logical_NAND)
+- `nor` - [Logical NOR](http://en.wikipedia.org/wiki/Logical_NOR)
+- `xor` - [Exclusive Disjunction](http://en.wikipedia.org/wiki/Exclusive_or)
+- `impl` - [Logical Implication](https://en.wikipedia.org/wiki/Material_conditional)
+- `equ` - [Logical Equality](https://en.wikipedia.org/wiki/Logical_equality)
 
 Example #1:
 
@@ -1264,8 +1328,16 @@ Result:
 false
 ~~~
 
-A logical expression in two variables can then be written as a [closure in Swift](https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Closures.html)
-of two variables:
+Implementation:
+
+~~~swift
+func and(a: Bool, b: Bool) -> Bool) {
+    ...
+}
+~~~
+
+A logical expression in two variables can be written as a [closure in Swift](https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Closures.html)
+with two parameters:
 
 ~~~swift
 { (a: Bool, b: Bool) -> Bool in and(or(a, b), nand(a, b)) }
@@ -1275,13 +1347,13 @@ of two variables:
 { and(or($0, $1), nand($0, $1)) } // Shorthand Argument Names
 ~~~
 
-Now, write a function called `table2` which prints the truth table of a given
-logical expression in two variables.
+Now, write a function called `table` which prints the [truth table](https://en.wikipedia.org/wiki/Truth_table)
+of a given logical expression in two variables.
 
 Example:
 
 ~~~swift
-table2({ and($0, or($0, $1)) })
+table({ and($0, or($0, $1)) })
 ~~~
 
 Output:
@@ -1294,46 +1366,124 @@ false true  false
 false false false
 ~~~
 
+Implementation:
+
+~~~swift
+func table(expression: (a: Bool, b: Bool) -> Bool) {
+    ...
+}
+~~~
+
 ### <a name="p47"/>[P47](#p47) (\*) Truth tables for logical expressions (2).
-Continue problem [P46](#p46) by redefining `and`, `or`, etc. as operators.
-(i.e. make them methods of a new class with an implicit conversion from Boolean.) not will
-    have to be left as a object method.
-scala> table2((a: Boolean, b: Boolean) => a and (a or not(b)))
-A     B     result
+Continue problem [P46](#p46) by redefining `and`, `or`, etc. as operators. Use
+the following list of mathematical symbols:
+
+- `∧` - [Logical Conjunction](http://en.wikipedia.org/wiki/Logical_conjunction)
+- `∨` - [Logical Disjunction](http://en.wikipedia.org/wiki/Logical_disjunction)
+- `⊼` - [Logical NAND](http://en.wikipedia.org/wiki/Logical_NAND)
+- `⊽` - [Logical NOR](http://en.wikipedia.org/wiki/Logical_NOR)
+- `⊕` - [Logical XOR](http://en.wikipedia.org/wiki/Exclusive_or)
+- `→` - [Logical Implication](https://en.wikipedia.org/wiki/Material_conditional)
+- `≡` - [Logical Equality](https://en.wikipedia.org/wiki/Logical_equality)
+
+
+~~~swift
+table({ $0 ∧ $0 ∨ $1 })
+~~~
+
+Output:
+
+~~~
+A     B     Result
 true  true  true
 true  false true
 false true  false
 false false false
+~~~
+
+Implementation:
+
+~~~swift
+infix operator ∧ { associativity left precedence 140 }
+func ∧ (a: Bool, b: Bool) -> Bool) {
+    ...
+}
+~~~
+
+_Note: Use operator precedence to avoid the need of parentheses._
 
 ### <a name="p48"/>[P48](#p48) (\*\*) Truth tables for logical expressions (3).
-Omitted for now.
+Generalize problem [P47](#p47) in such a way that the logical expression may
+contain any number of logical variables. Define `table` in a way that
+`tableN(List, Expr)` prints the truth table for the expression `Expr`, which
+contains the logical variables enumerated in List.
 
 ### <a name="p48"/>[P48](#p49) (\*\*) Gray code.
 An n-bit Gray code is a sequence of n-bit strings constructed according to
 certain rules. For example,
+
+~~~
 n = 1: C(1) = ("0", "1").
 n = 2: C(2) = ("00", "01", "11", "10").
 n = 3: C(3) = ("000", "001", "011", "010", "110", "111", "101", "100").
+~~~
+
 Find out the construction rules and write a function to generate Gray codes.
 
-scala> gray(3)
-res0 List[String] = List(000, 001, 011, 010, 110, 111, 101, 100)
+Example:
+
+~~~swift
+gray(3)
+~~~
+
+Result:
+
+~~~swift
+List("000", "001", "011", "010", "110", "111", "101", "100")
+~~~
+
+Implementation:
+
+~~~swift
+func gray(number: Int) -> List<String> {
+    ...
+}
+~~~
+
 See if you can use memoization to make the function more efficient.
 
 ### <a name="p50"/>[P50](#p50) (\*\*\*) Huffman code.
 First of all, consult a good book on discrete mathematics or algorithms for
 a detailed description of Huffman codes!
-We suppose a set of symbols with their frequencies, given as a list of (S, F)
-Tuples. E.g. (("a", 45), ("b", 13), ("c", 12), ("d", 16), ("e", 9), ("f", 5)).
-Our objective is to construct a list of (S, C) Tuples, where C is the Huffman
-code word for the symbol S.
 
-scala> huffman(List(("a", 45), ("b", 13), ("c", 12), ("d", 16), ("e", 9), ("f", 5)))
-res0: List[String, String] = List((a,0), (b,101), (c,100), (d,111), (e,1101), (f,1100))
+We suppose a set of symbols with their frequencies, given as a list of `(S, F)`
+Tuples. E.g. `(("a", 45), ("b", 13), ("c", 12), ("d", 16), ("e", 9), ("f", 5))`.
+Our objective is to construct a linked list of `(S, C)` Tuples,
+where `C` is the Huffman code word for the symbol `S`.
+
+Example:
+
+~~~swift
+huffman(List(("a", 45), ("b", 13), ("c", 12), ("d", 16), ("e", 9), ("f", 5)))
+~~~
+
+Result:
+
+~~~swift
+List(("a", "0"), ("b", "101"), ("c", "100"), ("d", "111"), ("e", "1101"), ("f", "1100"))
+~~~
+
+Implementation:
+
+~~~swift
+func huffman(symbols: List<(String, Int)>) -> List<(String, String)> {
+    ...
+}
+~~~
 
 * * *
 
-## <a name="binary-trees"/>Binary Trees
+## <a name="binary-trees"/> [Section 4:](#binary-trees) Binary Trees
 
 A binary tree is either empty or it is composed of a root element and two
 successors, which are binary trees themselves.
@@ -1628,7 +1778,7 @@ scala> Tree.fromDotstring("abd..e..c.fg...")
 res1: Node[Char] = a(b(d,e),c(,f(g,)))
 The file containing the full class definitions for this section is tree.scala.
 
-## <a name="multiway-trees"/>Multiway Trees
+## <a name="multiway-trees"/> [Section 5:](#multiway-trees) Multiway Trees
 
 A multiway tree is composed of a root element and a (possibly empty) set of
 successors which are multiway trees themselves. A multiway tree is never empty.
@@ -1720,7 +1870,7 @@ The complete source file for this section is mtree.scala.
 
 * * *
 
-## <a name="graphs"/>Graphs
+## <a name="graphs"/> [Section 6:](#graphs) Graphs
 
 A graph is defined as a set of nodes and a set of edges, where each edge is
 a pair of nodes.
@@ -1988,7 +2138,7 @@ The complete source file for this section is graph.scala.
 
 * * *
 
-## <a name="miscellaneous"/>Miscellaneous Problems
+## <a name="miscellaneous"/> [Section 7:](#miscellaneous) Miscellaneous Problems
 
 ### <a name="p90"/>[P90](#p90) (\*\*) Eight queens problem
 This is a classical problem in computer science. The objective is to place

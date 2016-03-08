@@ -302,3 +302,41 @@ have length 2. This is the most frequent length.
 
 
 */
+
+func and(a: Bool, _ b: Bool) -> Bool {
+    return a && b
+}
+
+func or(a: Bool, _ b: Bool) -> Bool {
+    return a || b
+}
+
+infix operator ∧ { associativity left precedence 140 }
+func ∧ (a: Bool, b: Bool) -> Bool {
+    return a && b
+}
+
+
+func table(expression: (a: Bool, b: Bool) -> Bool) {
+    print("A\tB\tResult")
+    print(String(format: "%d\t%d\t%d", Int(false), Int(false), Int(expression(a: false, b: false))))
+    print(String(format: "%d\t%d\t%d", Int(false), Int(true), Int(expression(a: false, b: true))))
+    print(String(format: "%d\t%d\t%d", Int(true), Int(false), Int(expression(a: true, b: false))))
+    print(String(format: "%d\t%d\t%d", Int(true), Int(true), Int(expression(a: true, b: true))))
+}
+
+table({ $0 ∧ $1 })
+table({ and($0, and($0, $1)) })
+table({ or(or($0, $1), and(and($0, and($0, $1)), $1)) })
+
+
+
+func table2(expression: (a: [Bool]) -> Bool) {
+    print("A\tB\tResult")
+//    print(String(format: "%d\t%d\t%d", Int(false), Int(false), Int(expression(a: [false, false]))))
+//    print(String(format: "%d\t%d\t%d", Int(false), Int(true), Int(expression(a: false, b: true))))
+//    print(String(format: "%d\t%d\t%d", Int(true), Int(false), Int(expression(a: true, b: false))))
+//    print(String(format: "%d\t%d\t%d", Int(true), Int(true), Int(expression(a: true, b: true))))
+}
+
+//table2({ vars in vars[0] ||| vars[1] })
