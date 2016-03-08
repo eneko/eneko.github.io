@@ -527,9 +527,60 @@ extension List {
 }
 
 /// Problem 26
-/// This is pretty hardcore with a linked list
 extension List {
     public func combinations(group: Int) -> List<List<T>> {
+        let resultList = List<List<T>>()
+        var resultListLast = resultList.head
+        if group > 1 {
+            let itemCount = length
+            var current = head
+            var theOthers = self
+            while let value = current?.value {
+                theOthers = theOthers.removeAt(0).0
+                let theirCombinations = theOthers.combinations(group-1)
+                var innerCurrent = theirCombinations.head
+                while let innerList = innerCurrent?.value {
+                    let myCombinations = List(value)
+                    var myCombinationsLast = myCombinations.head
+                    var currentItem = innerList.head
+                    while let innerValue = currentItem?.value {
+                        let newCombinationItem = ListItem(value: innerValue)
+                        myCombinationsLast?.next = newCombinationItem
+                        myCombinationsLast = newCombinationItem
+                        currentItem = currentItem?.next
+                    }
+                    let newItem = ListItem(value: myCombinations)
+                    if resultList.head == nil {
+                        resultList.head = newItem
+                    } else {
+                        resultListLast?.next = newItem
+                    }
+                    resultListLast = newItem
+                    innerCurrent = innerCurrent?.next
+                }
+                current = current?.next
+            }
+        } else {
+            // N groups of 1 item
+            var current = head
+            while let value = current?.value {
+                let newList = ListItem(value: List(value))
+                if resultList.head == nil {
+                    resultList.head = newList
+                } else {
+                    resultListLast?.next = newList
+                }
+                resultListLast = newList
+                current = current?.next
+            }
+        }
+        return resultList
+    }
+}
+
+/// Problem 26b
+extension List {
+    public func permutations(group: Int) -> List<List<T>> {
         let resultList = List<List<T>>()
         var resultListLast = resultList.head
         if group > 1 {

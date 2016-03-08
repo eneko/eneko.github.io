@@ -24,16 +24,17 @@ From the original:
 asterisk (\*) are easy. If you have successfully solved the preceding problems
 you should be able to solve them within a few (say 15) minutes. Problems marked
 with two asterisks (\*\*) are of intermediate difficulty. If you are a skilled
-Scala programmer it shouldn't take you more than 30-90 minutes to solve them.
+programmer it shouldn't take you more than 30-90 minutes to solve them.
 Problems marked with three asterisks (\*\*\*) are more difficult. You may need
-more time (i.e. a few hours or more) to find a good solution. The difficulties
-were all assigned for the Prolog problems, but the Scala versions seem to be
-of roughly similar difficulty.
+more time (i.e. a few hours or more) to find a good solution.
 
 > Your goal should be to find the most elegant solution of the given problems.
 Efficiency is important, but clarity is even more crucial. Some of the (easy)
 problems can be trivially solved using built-in functions. However, in these
 cases, you learn more if you try to find your own solution.
+
+I have maintained the difficulties from the Scala and Prolog problems, as they
+should also apply to Swift.
 
 Problems are divided in seven categories:
 
@@ -64,9 +65,9 @@ Swift 2.2 installed.
 ## <a name="linked-lists"/>Working with Linked Lists
 
 While most of these problems can be solved using an Array and built-in methods,
-I would like to challenge you to solve these problems by
-implementing a generic [Linked List](https://en.wikipedia.org/wiki/Linked_list)
-with the following signature:
+I would like to challenge you to solve these problems using generic
+[Linked Lists](https://en.wikipedia.org/wiki/Linked_list), starting with the
+following signature:
 
 ~~~swift
 public class List<T> {
@@ -781,13 +782,13 @@ be great. But we want to really generate all the possibilities.
 Example:
 
 ~~~swift
-List("a", "b", "c", "d", "e", "f").combinations(3)
+List("a", "b", "c").combinations(2)
 ~~~
 
 Result:
 
 ~~~swift
-List(List("a", "b", "c"), List("a", "b", "d"), List("a", "b", "e"), ...)
+List(List("a", "b"), List("a", "c"), List("b", "c"))
 ~~~
 
 Implementation:
@@ -799,6 +800,34 @@ extension List {
     }
 }
 ~~~
+
+### <a name="p26b"/>[P26B](#p26b) (\*\*) Generate the permutations of K distinct objects chosen from the N elements of a linked list.
+In how many ways can 12 people sit on 3 chairs?
+Generate all the possible permutations. Eg. `P(12,3) = 660`.
+
+Example:
+
+~~~swift
+List("a", "b", "c").permutations(2)
+~~~
+
+Result:
+
+~~~swift
+List(List("a", "b"), List("a", "c"), List("b", "a"), List("b", "c"), List("c", "a"), List("c", "b"))
+~~~
+
+Implementation:
+
+~~~swift
+extension List {
+    public func permutations(group: Int) -> List<List<T>> {
+        ...
+    }
+}
+~~~
+
+
 
 ### <a name="p27"/>[P27](#p27) (\*\*) Group the elements of a set into disjoint subsets.
 a) In how many ways can a group of 9 people work in 3 disjoint subgroups of

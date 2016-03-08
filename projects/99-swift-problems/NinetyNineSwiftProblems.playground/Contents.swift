@@ -222,10 +222,22 @@ List<String>().randomPermute()
 //: ### P26 (\*\*) Generate the combinations of K distinct objects chosen from the N elements of a list.
 //: In how many ways can a committee of 3 be chosen from a group of 12 people?
 //: We all know that there are `C(12,3) = 220` possibilities (`C(N,K)` denotes the well-known binomial coefficient). For pure mathematicians, this result may be great. But we want to really generate all the possibilities.
-List("a", "b", "c", "d", "e", "f").combinations(3)
+List(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12).combinations(3).length
+List("a", "b", "c", "d", "e", "f").combinations(3).length
 List(1, 1, 2, 3, 5, 8).combinations(3)
 List("a").combinations(3)
 List<String>().combinations(3)
+List("a", "b", "c").combinations(2)
+
+//: ### P26B (\*\*) Generate the permutations of K distinct objects chosen from the N elements of a list.
+//: In how many ways can 12 people sit on 3 chairs?
+//: Generate all the possible permutations. Eg. `P(12,3) = 660`.
+List(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12).permutations(3).length
+List("a", "b", "c", "d", "e", "f").permutations(3).length
+List(1, 1, 2, 3, 5, 8).permutations(3)
+List("a").permutations(3)
+List<String>().permutations(3)
+List("a", "b", "c").permutations(2)
 
 
 /*
