@@ -340,3 +340,49 @@ func table2(expression: (a: [Bool]) -> Bool) {
 }
 
 //table2({ vars in vars[0] ||| vars[1] })
+
+
+class Tree<T> {
+    var value: T
+    var left: Tree<T>?
+    var right: Tree<T>?
+
+    init(_ value: T, _ left: Tree<T>? = nil, _ right: Tree<T>? = nil) {
+        self.value = value
+        self.left = left
+        self.right = right
+    }
+}
+
+extension Tree: CustomStringConvertible {
+    var description: String {
+        if left != nil && right != nil {
+            return "T(\(value) \(left!) \(right!))"
+        } else if left != nil {
+            return "T(\(value) \(left!) nil)"
+        } else if right != nil {
+            return "T(\(value) nil \(right!))"
+        } else {
+            return "T(\(value) nil nil)"
+        }
+    }
+}
+
+Tree("a", Tree("b", nil, nil), nil)
+
+Tree("a", Tree("b", Tree("d"), Tree("e")), Tree("c", nil, Tree("f", Tree("g"), nil)))
+
+
+Tree("a", Tree("b", nil, Tree("c")))
+
+
+
+extension Tree {
+    class func cBalanced(number: Int, _ value: T) -> List<Tree<T>> {
+        return List(Tree(value))
+    }
+}
+
+Tree<String>.cBalanced(4, "x")
+
+Tree(1, Tree(2), Tree(3))
