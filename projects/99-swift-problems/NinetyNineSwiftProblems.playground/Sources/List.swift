@@ -1,13 +1,13 @@
 
 public class List<T> {
-    var value: T
+    var value: T!
     var next: List<T>?
 
 //    public init() {
 //        //
 //    }
 
-    public init(_ values: T...) {
+    public init?(_ values: T...) {
 //        var current: ListItem<T>?
 //        for value in values {
 //            let newItem = ListItem<T>(value: value)
@@ -18,16 +18,30 @@ public class List<T> {
 //            }
 //            current = newItem
 //        }
+        print("init variants: \(values)")
+        if values.count == 0 {
+            return nil
+        }
         value = values[0]
+        print("value: \(value)")
         if values.count > 1 {
-            next = List(values[1..<values.count])
+            let remaining = Array(values[1..<values.count])
+            print("remaining: \(remaining)")
+            next = List(slice: remaining)
         }
     }
 
-    init(_ values: ArraySlice<T>) {
-        value = values[0]
-        if values.count > 1 {
-            next = List(values[1..<values.count])
+    init!(slice: Array<T>) {
+        print("init slice: \(slice)")
+        if slice.count == 0 {
+            return nil
+        }
+        value = slice[0]
+        print("value: \(value)")
+        if slice.count > 1 {
+            let remaining = Array(slice[1..<slice.count])
+            print("remaining: \(remaining)")
+            next = List(slice: remaining)
         }
     }
 

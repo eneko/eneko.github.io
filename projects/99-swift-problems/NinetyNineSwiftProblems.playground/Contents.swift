@@ -40,6 +40,12 @@ For more information, see [Ninety-Nine Swift Problems](http://enekoalonso.com/99
   [Ninety-Nine Swift Problems](http://enekoalonso.com/99-swift-problems) page.
 */
 
+List<String>()
+List(1, 1, 2, 3, 5, 8)
+
+
+
+/*
 //: ### P01 (\*) Find the last element of a list.
 List(1, 1, 2, 3, 5, 8).last
 List(1).last
@@ -239,6 +245,7 @@ List("a").permutations(3)
 List<String>().permutations(3)
 List("a", "b", "c").permutations(2)
 
+*/
 
 /*
 

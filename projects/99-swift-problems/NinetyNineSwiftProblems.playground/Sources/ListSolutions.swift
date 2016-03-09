@@ -1,11 +1,9 @@
 import Foundation
 
-/// Problem 1
+/// P01 Find the last element of a linked list.
 extension List {
-    public var last: T? {
-        guard var current = head else {
-            return nil
-        }
+    public var last: T {
+        var current = self
         while let next = current.next {
             current = next
         }
@@ -13,37 +11,38 @@ extension List {
     }
 }
 
-/// Problem 2
+/// P02 Find the last but one element of a linked list.
 extension List {
     public var pennultimate: T? {
-        var current = head
-        while current?.next != nil {
-            if current?.next?.next == nil {
-                return current?.value
+        var current = self
+        while let next = current.next {
+            if next.next == nil {
+                return current.value
             }
-            current = current?.next
+            current = next
         }
         return nil
     }
 }
 
-/// Problem 3
+/// P03 Find the Kth element of a linked list.
 extension List {
     public func elementAtIndex(index: Int) -> T? {
         var count = 0
-        var current = head
+        var current = self
         while count < index {
-            count++
-            current = current?.next
-            if current == nil {
-                break
+            guard let next = current.next else {
+                return nil
             }
+            count++
+            current = next
         }
-        return current?.value
+        return current.value
     }
 }
 
-/// Problem 4
+/*
+/// P04
 extension List {
     public var length: Int {
         var count = 0
@@ -56,7 +55,7 @@ extension List {
     }
 }
 
-/// Problem 5
+/// P05
 extension List {
     public func reverseInPlace() {
         let current = head
@@ -71,7 +70,7 @@ extension List {
     }
 }
 
-/// Problem 6
+/// P06
 extension List where T:Equatable {
     public func isPalindrome() -> Bool {
         var stack: [T] = []
@@ -91,7 +90,7 @@ extension List where T:Equatable {
     }
 }
 
-/// Problem 7
+/// P07
 extension List {
     public func flatten() -> List {
         let resultList = List()
@@ -127,7 +126,7 @@ extension List {
     }
 }
 
-/// Problem 8
+/// P08
 extension List where T: Equatable {
     public func compressInPlace() {
         var current = head
@@ -141,7 +140,7 @@ extension List where T: Equatable {
     }
 }
 
-/// Problem 9
+/// P09
 extension List where T: Equatable {
     public func pack() -> List<List<T>> {
         let resultList = List<List<T>>()
@@ -174,7 +173,7 @@ extension List where T: Equatable {
     }
 }
 
-/// Problem 10
+/// P010
 extension List where T: Equatable {
     public func encode() -> List<(Int, T)> {
         let packed = self.pack()
@@ -197,7 +196,7 @@ extension List where T: Equatable {
     }
 }
 
-/// Problem 11
+/// P011
 extension List where T: Equatable {
     public func encodeModified() -> List<Any> {
         let packed = self.pack()
@@ -226,7 +225,7 @@ extension List where T: Equatable {
     }
 }
 
-/// Problem 12
+/// P012
 extension List {
     public func decode() -> List<String> {
         let resultList = List<String>()
@@ -248,7 +247,7 @@ extension List {
     }
 }
 
-/// Problem 13
+/// P013
 extension List where T: Equatable {
     public func encodeDirect() -> List<(Int, T)> {
         let resultList = List<(Int, T)>()
@@ -274,7 +273,7 @@ extension List where T: Equatable {
     }
 }
 
-/// Problem 14
+/// P014
 extension List {
     public func duplicateInPlace() -> List {
         var current = head
@@ -288,7 +287,7 @@ extension List {
     }
 }
 
-/// Problem 15
+/// P015
 extension List {
     public func duplicateInPlace(times: Int) -> List {
         var current = head
@@ -305,7 +304,7 @@ extension List {
     }
 }
 
-/// Problem 16
+/// P016
 extension List {
     public func drop(every: Int) -> List {
         let resultList = List()
@@ -329,7 +328,7 @@ extension List {
     }
 }
 
-/// Problem 17
+/// P017
 extension List {
     public func split(atIndex: Int) -> (List, List) {
         let left = List()
@@ -362,7 +361,7 @@ extension List {
     }
 }
 
-/// Problem 18
+/// P018
 extension List {
     public func slice(from: Int, _ to: Int) -> List {
         let resultList = List()
@@ -386,7 +385,7 @@ extension List {
     }
 }
 
-/// Problem 19
+/// P019
 /// TODO: Can we do negative rotation without knowing the length of the list?
 /// being lazy, let's use split and concatenate
 extension List {
@@ -420,7 +419,7 @@ extension List {
     }
 }
 
-/// Problem 20
+/// P020
 extension List {
     public func removeAt(position: Int) -> (List, T?) {
         let resultList = List()
@@ -447,7 +446,7 @@ extension List {
     }
 }
 
-/// Problem 21
+/// P021
 extension List {
     public func insertAt(index: Int, _ value: T) {
         var current = head
@@ -465,7 +464,7 @@ extension List {
     }
 }
 
-/// Problem 22
+/// P022
 extension List {
     public class func range(from: Int, _ to: Int) -> List<Int> {
         let resultList = List<Int>()
@@ -483,7 +482,7 @@ extension List {
     }
 }
 
-/// Problem 23
+/// P023
 extension List {
     public func randomSelect(amount: Int) -> List {
         let resultList = List()
@@ -511,7 +510,7 @@ extension List {
     }
 }
 
-/// Problem 24
+/// P024
 extension List {
     public class func lotto(numbers: Int, _ maximum: Int) -> List<Int> {
         let numberList = List<Int>.range(1, maximum)
@@ -519,14 +518,14 @@ extension List {
     }
 }
 
-/// Problem 25
+/// P025
 extension List {
     public func randomPermute() -> List {
         return randomSelect(length)
     }
 }
 
-/// Problem 26
+/// P026
 extension List {
     public func combinations(group: Int) -> List<List<T>> {
         let resultList = List<List<T>>()
@@ -578,7 +577,7 @@ extension List {
     }
 }
 
-/// Problem 26b
+/// P026b
 extension List {
     public func permutations(group: Int) -> List<List<T>> {
         let resultList = List<List<T>>()
@@ -630,3 +629,4 @@ extension List {
         return resultList
     }
 }
+*/
