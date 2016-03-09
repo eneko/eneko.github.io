@@ -64,14 +64,17 @@ Swift 2.2 installed.
 
 ## <a name="linked-lists"/> [Section 1:](#linked-lists) Working with Linked Lists
 
-While most of these problems can be solved using an Array and built-in methods,
-I would like to challenge you to solve these problems using generic
-[Linked Lists](https://en.wikipedia.org/wiki/Linked_list), starting with the
+> A list is either empty or it is composed of a first element (head) and a tail,
+> which is a list itself.
+
+We are going to solve the problems on this section by using a generic
+[Linked List](https://en.wikipedia.org/wiki/Linked_list), starting with the
 following signature:
 
 ~~~swift
 class List<T> {
-    var head: ListItem<T>?
+    var value: T
+    var next: List<T>?
 
     init(_ values: T...) {
         // append values to the list
@@ -79,22 +82,8 @@ class List<T> {
 }
 ~~~
 
-Items of the linked list will have a value and a pointer to the next element in
-the list:
-
-~~~swift
-class ListItem<T> {
-    var value: T
-    var next: ListItem<T>?
-
-    init(value: T) {
-        self.value = value
-    }
-}
-~~~
-
 The gist [List.swift](https://gist.github.com/eneko/98b0313fa2e7bb529ecf)
-contains the basics of the `List` and `ListItem` classes to get you started,
+contains the basics of the `List` class to get you started,
 including implementations of the `CustomStringConvertible` protocol.
 
 Individual methods or computed properties should be added to the `List<T>`
@@ -1450,7 +1439,8 @@ func gray(number: Int) -> List<String> {
 }
 ~~~
 
-See if you can use memoization to make the function more efficient.
+See if you can use [memoization](https://en.wikipedia.org/wiki/Memoization)
+to make the function more efficient.
 
 ### <a name="p50"/>[P50](#p50) (\*\*\*) Huffman code.
 First of all, consult a good book on discrete mathematics or algorithms for
@@ -1774,11 +1764,17 @@ scala> Tree.fromDotstring("abd..e..c.fg...")
 res1: Node[Char] = a(b(d,e),c(,f(g,)))
 The file containing the full class definitions for this section is tree.scala.
 
+
+
+* * *
+
+
+
 ## <a name="multiway-trees"/> [Section 5:](#multiway-trees) Multiway Trees
 
-A multiway tree is composed of a root element and a (possibly empty) set of
-successors which are multiway trees themselves. A multiway tree is never empty.
-The set of successor trees is sometimes called a forest.
+> A multiway tree is composed of a root element and a (possibly empty) set of
+> successors which are multiway trees themselves. A multiway tree is never empty.
+> The set of successor trees is sometimes called a forest.
 
 The code to represent these is somewhat simpler than the code for binary
 trees, partly because we don't separate classes for nodes and terminators,
@@ -1864,12 +1860,16 @@ I can elaborate more on this, if requested. <PMG>]
 
 The complete source file for this section is mtree.scala.
 
+
+
 * * *
+
+
 
 ## <a name="graphs"/> [Section 6:](#graphs) Graphs
 
-A graph is defined as a set of nodes and a set of edges, where each edge is
-a pair of nodes.
+> A graph is defined as a set of nodes and a set of edges, where each edge is
+> a pair of nodes.
 
 The class to represent a graph is mutable, which isn't in keeping with pure
 functional programming, but a pure functional data structure would make
