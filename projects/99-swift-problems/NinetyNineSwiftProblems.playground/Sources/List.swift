@@ -1,31 +1,33 @@
 
-class ListItem<T> {
-    var value: T
-    var next: ListItem<T>?
-
-    init(value: T) {
-        self.value = value
-    }
-}
-
 public class List<T> {
+    var value: T
+    var next: List<T>?
 
-    var head: ListItem<T>?
-
-    public init() {
-        //
-    }
+//    public init() {
+//        //
+//    }
 
     public init(_ values: T...) {
-        var current: ListItem<T>?
-        for value in values {
-            let newItem = ListItem<T>(value: value)
-            if head == nil {
-                head = newItem
-            } else {
-                current?.next = newItem
-            }
-            current = newItem
+//        var current: ListItem<T>?
+//        for value in values {
+//            let newItem = ListItem<T>(value: value)
+//            if head == nil {
+//                head = newItem
+//            } else {
+//                current?.next = newItem
+//            }
+//            current = newItem
+//        }
+        value = values[0]
+        if values.count > 1 {
+            next = List(values[1..<values.count])
+        }
+    }
+
+    init(_ values: ArraySlice<T>) {
+        value = values[0]
+        if values.count > 1 {
+            next = List(values[1..<values.count])
         }
     }
 
@@ -44,24 +46,15 @@ public class List<T> {
 
 }
 
-/// Pretty print list item values
-extension ListItem: CustomStringConvertible {
-    var description: String {
-        return String(value)
-    }
-}
-
 /// Pretty print lists (array syntax)
 extension List: CustomStringConvertible {
     public var description: String {
         var buffer: [String] = []
-        guard var current = head else {
-            return "[]"
-        }
-        buffer.append(String(current))
+        var current = self
+        buffer.append(String(current.value))
         while let next = current.next {
             current = next
-            buffer.append(String(current))
+            buffer.append(String(current.value))
         }
         return "[" + buffer.joinWithSeparator(", ") + "]"
     }
