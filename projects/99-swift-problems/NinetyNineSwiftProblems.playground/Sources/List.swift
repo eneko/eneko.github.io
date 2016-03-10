@@ -17,7 +17,7 @@ public class List<T> {
 
 }
 
-/// Pretty print lists (array syntax)
+/// Pretty print lists (literal array syntax)
 extension List: CustomStringConvertible {
     public var description: String {
         var buffer: [String] = []

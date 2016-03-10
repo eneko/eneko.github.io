@@ -75,22 +75,20 @@ following signature:
 class List<T> {
     var value: T
     var next: List<T>?
-
-    init(_ values: T...) {
-        // append values to the list
-    }
 }
 ~~~
 
 The gist [List.swift](https://gist.github.com/eneko/98b0313fa2e7bb529ecf)
 contains the basics of the `List` class to get you started,
-including implementations of the `CustomStringConvertible` protocol.
+including a convenience initializer to create lists in the `List(1,2,3...)` form
+and implementations of the `CustomStringConvertible` protocol.
 
-Individual methods or computed properties should be added to the `List<T>`
+Section rules:
+
+- Individual methods or computed properties will be added to the `List<T>`
 class as extensions to solve each of the problems.
-
-**Note:** Consider all `List` instances as immutable. **All methods should
-return new linked lists instead of modifying the current list.**
+- Consider instances of `List` as immutable. All methods should
+return new linked lists instead of modifying the current list.
 
 ### <a name="p01"/>[P01](#p01) (\*) Find the last element of a linked list.
 Example:
