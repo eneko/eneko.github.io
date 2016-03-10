@@ -89,19 +89,8 @@ including implementations of the `CustomStringConvertible` protocol.
 Individual methods or computed properties should be added to the `List<T>`
 class as extensions to solve each of the problems.
 
-<!-- For most of these problems, the solutions should return a new `List` or value.
-In some cases, however, it will make more sense to modify the current list.
-In these cases, the method can be made to return the list itself,
-which enables chaining and facilitates _printing_ the solution in the same line.
-
-When modifying the existing list, I've appended `inPlace` to the method name for
-proper distinction (see [P05](#p05) `reverseInPlace()`).
-
-An additional challenge could be, perhaps, to implement a solution for each of
-these problems in both ways:
-
-1. Returning a new list.
-2. Modifying the existing list. -->
+**Note:** Consider all `List` instances as immutable. **All methods should
+return new linked lists instead of modifying the current list.**
 
 ### <a name="p01"/>[P01](#p01) (\*) Find the last element of a linked list.
 Example:
@@ -197,11 +186,11 @@ extension List {
 }
 ~~~
 
-### <a name="p05"/>[P05](#p05) (\*) Reverse a linked list in place.
+### <a name="p05"/>[P05](#p05) (\*) Reverse a linked list.
 Example:
 
 ~~~swift
-List(1, 1, 2, 3, 5, 8).reverseInPlace()
+List(1, 1, 2, 3, 5, 8).reverse()
 ~~~
 
 Result:
@@ -214,7 +203,7 @@ Implementation:
 
 ~~~swift
 extension List {
-    func reverseInPlace() {
+    func reverse() {
         ...
     }
 }
@@ -276,7 +265,7 @@ Example:
 
 ~~~swift
 let list = List("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e")
-list.compressInPlace()
+list.compress()
 ~~~
 
 Result:
@@ -289,7 +278,7 @@ Implementation:
 
 ~~~swift
 extension List where T: Equatable {
-    func compressInPlace() {
+    func compress() {
         ...
     }
 }
@@ -450,7 +439,7 @@ Example:
 
 ~~~swift
 let list = List("a", "b", "c", "c", "d")
-list.duplicateInPlace()
+list.duplicate()
 ~~~
 
 Result:
@@ -463,7 +452,7 @@ Implementation:
 
 ~~~swift
 extension List {
-    func duplicateInPlace() -> List {
+    func duplicate() -> List {
         ...
     }
 }
@@ -474,7 +463,7 @@ Example:
 
 ~~~swift
 let list = List("a", "b", "c", "c", "d")
-list.duplicateInPlace(3)
+list.duplicate(3)
 ~~~
 
 Result:
@@ -487,7 +476,7 @@ Implementation:
 
 ~~~swift
 extension List {
-    func duplicateInPlace(times: Int) -> List {
+    func duplicate(times: Int) -> List {
         ...
     }
 }

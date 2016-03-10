@@ -145,11 +145,12 @@ List(1, 1, 2, 3, 5, 8).drop(0)
 //: ### P17 (\*) Split a list into two parts.
 //: The length of the first part is given. Use a Tuple for your result.
 List("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k").split(3).0
-List(1, 1, 2, 3, 5, 8).split(3).0
-List("a").split(3).0
-
 List("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k").split(3).1
+
+List(1, 1, 2, 3, 5, 8).split(3).0
 List(1, 1, 2, 3, 5, 8).split(3).1
+
+List("a").split(3).0
 List("a").split(3).1
 
 List(1, 1, 2, 3, 5, 8).split(0).0
@@ -172,24 +173,19 @@ List("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k").rotate(-2)
 List(1, 1, 2, 3, 5, 8).rotate(-2)
 List("a").rotate(-2)
 
-/*
-
 //: ### P20 (\*) Remove the Kth element from a list.
 //: Return the list and the removed element in a Tuple. Elements are numbered from `0`.
 List("a", "b", "c", "d").removeAt(1).0
-List(1, 1, 2, 3, 5, 8).removeAt(1).0
-List("a").removeAt(1).0
-List<String>().removeAt(1).0
 List("a", "b", "c", "d").removeAt(1).1
+List(1, 1, 2, 3, 5, 8).removeAt(1).0
 List(1, 1, 2, 3, 5, 8).removeAt(1).1
+List("a").removeAt(1).0
 List("a").removeAt(1).1
-List<String>().removeAt(1).1
 
 //: ### P21 (\*) Insert an element at a given position into a list.
 List("a", "b", "c", "d").insertAt(1, "new")
 List(1, 1, 2, 3, 5, 8).insertAt(1, "new")
 List("a").insertAt(1, "new")
-List<String>().insertAt(1, "new")
 
 //: ### P22 (\*) Create a list containing all integers within a given range.
 List<Int>.range(4, 9)
@@ -199,7 +195,6 @@ List<Int>.range(4, 9)
 List("a", "b", "c", "d", "e", "f", "g", "h").randomSelect(3)
 List(1, 1, 2, 3, 5, 8).randomSelect(3)
 List("a").randomSelect(3)
-List<String>().randomSelect(3)
 
 //: ### P24 (\*) Lotto: Draw N different random numbers from the set 1..M.
 List<Int>.lotto(6, 49)
@@ -209,29 +204,25 @@ List<Int>.lotto(6, 49)
 List("a", "b", "c", "d", "e", "f").randomPermute()
 List(1, 1, 2, 3, 5, 8).randomPermute()
 List("a").randomPermute()
-List<String>().randomPermute()
 
 //: ### P26 (\*\*) Generate the combinations of K distinct objects chosen from the N elements of a list.
 //: In how many ways can a committee of 3 be chosen from a group of 12 people?
 //: We all know that there are `C(12,3) = 220` possibilities (`C(N,K)` denotes the well-known binomial coefficient). For pure mathematicians, this result may be great. But we want to really generate all the possibilities.
-List(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12).combinations(3).length
-List("a", "b", "c", "d", "e", "f").combinations(3).length
+List(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12).combinations(3)?.length
+List("a", "b", "c", "d", "e", "f").combinations(3)?.length
 List(1, 1, 2, 3, 5, 8).combinations(3)
 List("a").combinations(3)
-List<String>().combinations(3)
 List("a", "b", "c").combinations(2)
 
 //: ### P26B (\*\*) Generate the permutations of K distinct objects chosen from the N elements of a list.
 //: In how many ways can 12 people sit on 3 chairs?
 //: Generate all the possible permutations. Eg. `P(12,3) = 660`.
-List(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12).permutations(3).length
-List("a", "b", "c", "d", "e", "f").permutations(3).length
+List(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12).permutations(3)?.length
+List("a", "b", "c", "d", "e", "f").permutations(3)?.length
 List(1, 1, 2, 3, 5, 8).permutations(3)
 List("a").permutations(3)
-List<String>().permutations(3)
 List("a", "b", "c").permutations(2)
 
-*/
 
 /*
 

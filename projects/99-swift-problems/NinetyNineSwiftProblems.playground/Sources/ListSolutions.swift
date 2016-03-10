@@ -366,8 +366,9 @@ extension List {
     }
 }
 
-/// P17
 extension List {
+    /// P17 (*) Split a list into two parts.
+    /// - complexity: O(n)
     public func split(atIndex: Int) -> (List?, List?) {
         var left: List?
         var leftLast: List?
@@ -399,8 +400,9 @@ extension List {
     }
 }
 
-/// P18
 extension List {
+    /// P18 (**) Extract a slice from a list.
+    /// - complexity: O(n)
     public func slice(from: Int, _ to: Int) -> List? {
         var resultList: List?
         var resultListLast: List?
@@ -423,10 +425,9 @@ extension List {
     }
 }
 
-/// P19
-/// TODO: Can we do negative rotation without knowing the length of the list?
-/// being lazy, let's use split and concatenate
 extension List {
+    /// P19 (**) Rotate a list N places to the left.
+    /// - complexity: O(n)
     public func rotate(amount: Int) -> List {
         // Split list in two pieces
         let listLength = length
@@ -439,39 +440,33 @@ extension List {
         while let next = current?.next {
             current = next
         }
-        var resultListLast = current
 
         // Append first piece
-        current = parts.0
-        while let value = current?.value {
-            let newItem = List(value)
-            if resultList == nil {
-                resultList = newItem
-            } else {
-                resultListLast?.next = newItem
-            }
-            resultListLast = newItem
-            current = current?.next
+        if resultList == nil {
+            resultList = parts.0
+        } else {
+            current?.next = parts.0
         }
         return resultList
     }
 }
-/*
-/// P20
+
 extension List {
-    public func removeAt(position: Int) -> (List, T?) {
-        let resultList = List()
-        var resultListLast = resultList.head
-        var current = head
+    /// P20 (*) Remove the Kth element from a list.
+    /// - complexity: O(n)
+    public func removeAt(position: Int) -> (List?, T?) {
+        var resultList: List?
+        var resultListLast: List?
+        var current: List? = self
         var index = 0
         var item: T?
         while let value = current?.value {
             if index == position {
                 item = value
             } else {
-                let newItem = ListItem(value: value)
-                if resultList.head == nil {
-                    resultList.head = newItem
+                let newItem = List(value)
+                if resultList == nil {
+                    resultList = newItem
                 } else {
                     resultListLast?.next = newItem
                 }
@@ -484,35 +479,45 @@ extension List {
     }
 }
 
-/// P21
 extension List {
-    public func insertAt(index: Int, _ value: T) {
-        var current = head
+    /// P21 (*) Insert an element at a given position into a list.
+    /// - complexity: O(n)
+    public func insertAt(index: Int, _ value: T) -> List {
+        var resultList: List!
+        var resultListLast: List!
+        var current: List? = self
         var currentIndex = 1
-        while current != nil {
+        while let val = current?.value {
+            let newItem = List(val)
+            if resultList == nil {
+                resultList = newItem
+            } else {
+                resultListLast?.next = newItem
+            }
+            resultListLast = newItem
             if currentIndex == index {
-                let newItem = ListItem(value: value)
-                newItem.next = current?.next
-                current?.next = newItem
-                break
+                newItem.next = List(value)
+                resultListLast = resultListLast.next
             }
             currentIndex++
             current = current?.next
         }
+        return resultList
     }
 }
 
-/// P22
 extension List {
+    /// P22 (*) Create a list containing all integers within a given range.
+    /// - complexity: O(n)
     public class func range(from: Int, _ to: Int) -> List<Int> {
-        let resultList = List<Int>()
-        var resultListLast = resultList.head
+        var resultList: List<Int>!
+        var resultListLast: List<Int>!
         for i in from...to {
-            let newItem = ListItem<Int>(value: i)
-            if resultList.head == nil {
-                resultList.head = newItem
+            let newItem = List<Int>(i)
+            if resultList == nil {
+                resultList = newItem
             } else {
-                resultListLast?.next = newItem
+                resultListLast.next = newItem
             }
             resultListLast = newItem
         }
@@ -520,26 +525,27 @@ extension List {
     }
 }
 
-/// P23
 extension List {
+    /// P23 (**) Extract a given number of randomly selected elements from a list.
+    /// - complexity: O(n)
     public func randomSelect(amount: Int) -> List {
-        let resultList = List()
-        var resultListLast = resultList.head
+        var resultList: List!
+        var resultListLast: List!
         var count = 0
-        var list = self
+        var list: List? = self
         while count < amount {
-            let length = list.length
+            let length = list?.length ?? 0
             let index = Int(arc4random_uniform(UInt32(length)))
-            let result = list.removeAt(index)
-            list = result.0
-            guard let value = result.1 else {
+            let result = list?.removeAt(index)
+            list = result?.0
+            guard let value = result?.1 else {
                 break
             }
-            let newItem = ListItem(value: value)
-            if resultList.head == nil {
-                resultList.head = newItem
+            let newItem = List(value)
+            if resultList == nil {
+                resultList = newItem
             } else {
-                resultListLast?.next = newItem
+                resultListLast.next = newItem
             }
             resultListLast = newItem
             count++
@@ -548,47 +554,48 @@ extension List {
     }
 }
 
-/// P24
 extension List {
+    /// P24 (*) Lotto: Draw N different random numbers from the set 1..M.
+    /// - complexity: O(n)
     public class func lotto(numbers: Int, _ maximum: Int) -> List<Int> {
         let numberList = List<Int>.range(1, maximum)
         return numberList.randomSelect(numbers)
     }
 }
 
-/// P25
 extension List {
+    /// P25 (*) Generate a random permutation of the elements of a list.
     public func randomPermute() -> List {
         return randomSelect(length)
     }
 }
 
-/// P26
 extension List {
-    public func combinations(group: Int) -> List<List<T>> {
-        let resultList = List<List<T>>()
-        var resultListLast = resultList.head
+    /// P26 (**) Generate the combinations of K distinct objects chosen from the N elements of a list.
+    /// - complexity: O(n)
+    public func combinations(group: Int) -> List<List<T>>? {
+        var resultList: List<List<T>>?
+        var resultListLast: List<List<T>>?
         if group > 1 {
-            let itemCount = length
-            var current = head
-            var theOthers = self
+            var current: List? = self
+            var theOthers: List? = self
             while let value = current?.value {
-                theOthers = theOthers.removeAt(0).0
-                let theirCombinations = theOthers.combinations(group-1)
-                var innerCurrent = theirCombinations.head
+                theOthers = theOthers?.removeAt(0).0
+                let theirCombinations = theOthers?.combinations(group-1)
+                var innerCurrent = theirCombinations
                 while let innerList = innerCurrent?.value {
                     let myCombinations = List(value)
-                    var myCombinationsLast = myCombinations.head
-                    var currentItem = innerList.head
+                    var myCombinationsLast = myCombinations
+                    var currentItem: List? = innerList
                     while let innerValue = currentItem?.value {
-                        let newCombinationItem = ListItem(value: innerValue)
+                        let newCombinationItem = List(innerValue)
                         myCombinationsLast?.next = newCombinationItem
                         myCombinationsLast = newCombinationItem
                         currentItem = currentItem?.next
                     }
-                    let newItem = ListItem(value: myCombinations)
-                    if resultList.head == nil {
-                        resultList.head = newItem
+                    let newItem = List<List<T>>(myCombinations)
+                    if resultList == nil {
+                        resultList = newItem
                     } else {
                         resultListLast?.next = newItem
                     }
@@ -599,11 +606,11 @@ extension List {
             }
         } else {
             // N groups of 1 item
-            var current = head
+            var current: List? = self
             while let value = current?.value {
-                let newList = ListItem(value: List(value))
-                if resultList.head == nil {
-                    resultList.head = newList
+                let newList = List<List<T>>(List(value))
+                if resultList == nil {
+                    resultList = newList
                 } else {
                     resultListLast?.next = newList
                 }
@@ -615,32 +622,32 @@ extension List {
     }
 }
 
-/// P26B
 extension List {
-    public func permutations(group: Int) -> List<List<T>> {
-        let resultList = List<List<T>>()
-        var resultListLast = resultList.head
+    /// P26B (**) Generate the permutations of K distinct objects chosen from the N elements of a list.
+    /// - complexity: O(n)
+    public func permutations(group: Int) -> List<List<T>>? {
+        var resultList: List<List<T>>?
+        var resultListLast: List<List<T>>?
         if group > 1 {
-            let itemCount = length
-            var current = head
+            var current: List? = self
             var index = 0
             while let value = current?.value {
                 let theOthers = self.removeAt(index).0
-                let theirCombinations = theOthers.combinations(group-1)
-                var innerCurrent = theirCombinations.head
+                let theirCombinations = theOthers?.combinations(group-1)
+                var innerCurrent = theirCombinations
                 while let innerList = innerCurrent?.value {
                     let myCombinations = List(value)
-                    var myCombinationsLast = myCombinations.head
-                    var currentItem = innerList.head
+                    var myCombinationsLast = myCombinations
+                    var currentItem: List? = innerList
                     while let innerValue = currentItem?.value {
-                        let newCombinationItem = ListItem(value: innerValue)
+                        let newCombinationItem = List(innerValue)
                         myCombinationsLast?.next = newCombinationItem
                         myCombinationsLast = newCombinationItem
                         currentItem = currentItem?.next
                     }
-                    let newItem = ListItem(value: myCombinations)
-                    if resultList.head == nil {
-                        resultList.head = newItem
+                    let newItem = List<List<T>>(myCombinations)
+                    if resultList == nil {
+                        resultList = newItem
                     } else {
                         resultListLast?.next = newItem
                     }
@@ -652,11 +659,11 @@ extension List {
             }
         } else {
             // N groups of 1 item
-            var current = head
+            var current: List? = self
             while let value = current?.value {
-                let newList = ListItem(value: List(value))
-                if resultList.head == nil {
-                    resultList.head = newList
+                let newList = List<List<T>>(List(value))
+                if resultList == nil {
+                    resultList = newList
                 } else {
                     resultListLast?.next = newList
                 }
@@ -667,5 +674,3 @@ extension List {
         return resultList
     }
 }
-
-*/
