@@ -40,22 +40,19 @@ For more information, see [Ninety-Nine Swift Problems](http://enekoalonso.com/99
   [Ninety-Nine Swift Problems](http://enekoalonso.com/99-swift-problems) page.
 */
 
+
 List<String>()
 List(1, 1, 2, 3, 5, 8)
 
 
-
-/*
 //: ### P01 (\*) Find the last element of a list.
 List(1, 1, 2, 3, 5, 8).last
 List(1).last
-List<Int>().last
 
 //: ### P02 (\*) Find the last but one element of a list.
 List(1, 1, 2, 3, 5, 8).pennultimate
 List(1, 1).pennultimate
 List(1).pennultimate
-List<Int>().pennultimate
 
 //: ### P03 (\*) Find the Kth element of a list.
 //: By convention, the first element in the list is element `0`.
@@ -63,29 +60,22 @@ List(1, 1, 2, 3, 5, 8).elementAtIndex(2)
 List(1, 1, 2, 3, 5, 8).elementAtIndex(0)
 List(1, 1, 2, 3, 5, 8).elementAtIndex(10)
 List(1).elementAtIndex(1)
-List<Int>().elementAtIndex(0)
 
 //: ### P04 (\*) Find the number of elements of a list.
 List(1, 1, 2, 3, 5, 8).length
 List(1, 1, 2, 3, 5, 8).length
 List(1).length
-List<Int>().length
 
 //: ### P05 (\*) Reverse a list.
-let listA = List(1, 1, 2, 3, 5, 8)
-listA.reverseInPlace()
-let listB = List(1, 1, 2, 1, 1)
-listB.reverseInPlace()
-let listC = List(1)
-listC.reverseInPlace()
-let listD = List<Int>()
-listD.reverseInPlace()
+List(1, 1, 2, 3, 5, 8).reverse()
+List(1, 1, 2, 1, 1).reverse()
+List(1).reverse()
 
 //: ### P06 (\*) Find out whether a list is a palindrome.
 List(1, 1, 2, 3, 5, 8).isPalindrome()
 List(1, 1, 2, 1, 1).isPalindrome()
 List(1).isPalindrome()
-List<Int>().isPalindrome()
+
 
 //: ### P07 (\*\*) Flatten a nested list structure.
 List<Any>(List<Any>(1, 1), 2, List<Any>(3, List<Any>(5, 8))).flatten()
@@ -95,17 +85,15 @@ List<Any>(List<Any>(List<Any>(List<Any>(List<Any>(1), List<Any>(2), List<Any>(3,
 //: ### P08 (\*\*) Eliminate consecutive duplicates of list elements.
 //: If a list contains repeated elements they should be replaced with a single copy
 //: of the element. The order of the elements should not be changed.
-List("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e").compressInPlace()
-List(1, 1, 2, 3, 5, 8).compressInPlace()
-List("a").compressInPlace()
-List<String>().compressInPlace()
+List("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e").compress()
+List(1, 1, 2, 3, 5, 8).compress()
+List("a").compress()
 
 //: ### P09 (\*\*) Pack consecutive duplicates of list elements into sublists.
 //: If a list contains repeated elements they should be placed in separate sublists.
 List("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e").pack()
 List(1, 1, 2, 3, 5, 8).pack()
 List("a").pack()
-List<String>().pack()
 
 //: ### P10 (\*) Run-length encoding of a list.
 //: Use the result of problem P09 to implement the so-called run-length encoding
@@ -114,7 +102,6 @@ List<String>().pack()
 List("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e").encode()
 List(1, 1, 2, 3, 5, 8).encode()
 List("a").encode()
-List<String>().encode()
 
 //: ### P11 (\*) Modified run-length encoding.
 //: Modify the result of problem P10 in such a way that if an element has no
@@ -123,13 +110,11 @@ List<String>().encode()
 List("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e").encodeModified()
 List(1, 1, 2, 3, 5, 8).encodeModified()
 List("a").encodeModified()
-List<String>().encodeModified()
 
 //: ### P12 (\*\*) Decode a run-length encoded list.
 //: Given a run-length code list generated as specified in problem [P10](#p10),
 //: construct its uncompressed version.
 List((4, "a"), (1, "b"), (2, "c"), (2, "a"), (1, "d"), (4, "e")).decode()
-List<(Int, String)>().decode()
 
 //: ### P13 (\*\*) Run-length encoding of a list (direct solution).
 //: Implement the so-called run-length encoding data compression method directly.
@@ -138,36 +123,37 @@ List<(Int, String)>().decode()
 List("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e").encodeDirect()
 List(1, 1, 2, 3, 5, 8).encodeDirect()
 List("a").encodeDirect()
-List<String>().encodeDirect()
 
 //: ### P14 (\*) Duplicate the elements of a list.
-List("a", "b", "c", "c", "d").duplicateInPlace()
-List(1, 1, 2, 3, 5, 8).duplicateInPlace()
-List("a").duplicateInPlace()
-List<String>().duplicateInPlace()
+List("a", "b", "c", "c", "d").duplicate()
+List(1, 1, 2, 3, 5, 8).duplicate()
+List("a").duplicate()
 
 //: ### P15 (\*\*) Duplicate the elements of a list a given number of times.
-List("a", "b", "c", "c", "d").duplicateInPlace(3)
-List(1, 1, 2, 3, 5, 8).duplicateInPlace(3)
-List("a").duplicateInPlace(3)
-List<String>().duplicateInPlace(3)
+List("a", "b", "c", "c", "d").duplicate(3)
+List(1, 1, 2, 3, 5, 8).duplicate(3)
+List("a").duplicate(9)
 
 //: ### P16 (\*\*) Drop every Nth element from a list.
 List("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k").drop(3)
 List(1, 1, 2, 3, 5, 8).drop(3)
 List("a").drop(3)
-List<String>().drop(3)
+List(1, 1, 2, 3, 5, 8).drop(2)
+List(1, 1, 2, 3, 5, 8).drop(1)
+List(1, 1, 2, 3, 5, 8).drop(0)
 
 //: ### P17 (\*) Split a list into two parts.
 //: The length of the first part is given. Use a Tuple for your result.
 List("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k").split(3).0
 List(1, 1, 2, 3, 5, 8).split(3).0
 List("a").split(3).0
-List<String>().split(3).0
+
 List("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k").split(3).1
 List(1, 1, 2, 3, 5, 8).split(3).1
 List("a").split(3).1
-List<String>().split(3).1
+
+List(1, 1, 2, 3, 5, 8).split(0).0
+List(1, 1, 2, 3, 5, 8).split(0).1
 
 //: ### P18 (\*\*) Extract a slice from a list.
 //: Given two indices, `I` and `K`, the slice is the list containing the elements
@@ -176,17 +162,17 @@ List<String>().split(3).1
 List("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k").slice(3, 7)
 List(1, 1, 2, 3, 5, 8).slice(3, 7)
 List("a").slice(3, 7)
-List<String>().slice(3, 7)
 
 //: ### P19 (\*\*) Rotate a list N places to the left.
 List("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k").rotate(3)
 List(1, 1, 2, 3, 5, 8).rotate(3)
 List("a").rotate(3)
-List<String>().rotate(3)
+
 List("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k").rotate(-2)
 List(1, 1, 2, 3, 5, 8).rotate(-2)
 List("a").rotate(-2)
-List<String>().rotate(-2)
+
+/*
 
 //: ### P20 (\*) Remove the Kth element from a list.
 //: Return the list and the removed element in a Tuple. Elements are numbered from `0`.
@@ -361,3 +347,11 @@ Tree("a", Tree("b", nil, Tree("c")))
 Tree<String>.cBalanced(4, "x")
 
 Tree(1, Tree(2), Tree(3))
+
+
+
+var a: Int?
+a? = 5
+a
+
+

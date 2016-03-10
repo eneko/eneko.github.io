@@ -1,7 +1,8 @@
 import Foundation
 
-/// P01 Find the last element of a linked list.
 extension List {
+    /// P01 (*) Find the last element of a linked list.
+    /// - complexity: O(n)
     public var last: T {
         var current = self
         while let next = current.next {
@@ -11,8 +12,9 @@ extension List {
     }
 }
 
-/// P02 Find the last but one element of a linked list.
 extension List {
+    /// P02 (*) Find the last but one element of a linked list.
+    /// - complexity: O(n)
     public var pennultimate: T? {
         var current = self
         while let next = current.next {
@@ -25,8 +27,9 @@ extension List {
     }
 }
 
-/// P03 Find the Kth element of a linked list.
 extension List {
+    /// P03 (*) Find the Kth element of a linked list.
+    /// - complexity: O(n)
     public func elementAtIndex(index: Int) -> T? {
         var count = 0
         var current = self
@@ -41,47 +44,51 @@ extension List {
     }
 }
 
-/*
-/// P04
 extension List {
+    /// P04 (*) Find the number of elements of a list.
+    /// - complexity: O(n)
     public var length: Int {
-        var count = 0
-        var current = head
-        while current != nil {
+        var count = 1
+        var current = self
+        while let next = current.next {
             count++
-            current = current?.next
+            current = next
         }
         return count
     }
 }
 
-/// P05
 extension List {
-    public func reverseInPlace() {
-        let current = head
-        if current == nil || current?.next == nil {
-            return
+    /// P05 (*) Reverse a list.
+    /// - complexity: O(n)
+    public func reverse() -> List {
+        var head = self
+        if next == nil {
+            return head
         }
-        while let next = current?.next {
-            current?.next = next.next
+        let current = head
+        while let next = current.next {
+            current.next = next.next
             next.next = head
             head = next
         }
+        return head
     }
 }
 
-/// P06
 extension List where T:Equatable {
+    /// P06 (*) Find out whether a list is a palindrome.
+    /// - complexity: O(2n) = O(n)
     public func isPalindrome() -> Bool {
         var stack: [T] = []
-        var current = head
-        while current != nil {
-            stack.append(current!.value)
+        var current: List? = self
+        while let value = current?.value {
+            stack.append(value)
             current = current?.next
         }
-        current = head
-        while current != nil {
-            if current?.value != stack.removeLast() {
+        current = self
+        while let value = current?.value {
+            if value != stack.removeLast() {
                 return false
             }
             current = current?.next
@@ -90,33 +97,34 @@ extension List where T:Equatable {
     }
 }
 
-/// P07
 extension List {
+    /// P07 (*) Flatten a nested list structure.
+    /// - complexity: O(n)
     public func flatten() -> List {
-        let resultList = List()
-        var resultListLast = resultList.head
-        var current = head
+        var resultList: List!
+        var resultListLast: List!
+        var current: List? = self
         while let value = current?.value {
             switch value {
             case let list as List:
-                let flattened = list.flatten()
-                var currentChild = flattened.head
-                while let innerValue = currentChild?.value {
-                    let newItem = ListItem(value: innerValue)
-                    if resultListLast == nil {
-                        resultList.head = newItem
+                let childrenList = list.flatten()
+                var currentChild: List! = childrenList
+                repeat {
+                    let newItem = List(currentChild.value)
+                    if resultList == nil {
+                        resultList = newItem
                     } else {
-                        resultListLast?.next = newItem
+                        resultListLast.next = newItem
                     }
                     resultListLast = newItem
-                    currentChild = currentChild?.next
-                }
+                    currentChild = currentChild.next
+                } while currentChild != nil
             default:
-                let newItem = ListItem(value: value)
-                if resultListLast == nil {
-                    resultList.head = newItem
+                let newItem = List(value)
+                if resultList == nil {
+                    resultList = newItem
                 } else {
-                    resultListLast?.next = newItem
+                    resultListLast.next = newItem
                 }
                 resultListLast = newItem
             }
@@ -126,46 +134,51 @@ extension List {
     }
 }
 
-/// P08
 extension List where T: Equatable {
-    public func compressInPlace() {
-        var current = head
-        while let value = current?.value {
-            if value == current?.next?.value {
-                current?.next = current?.next?.next
-            } else {
-                current = current?.next
+    /// P08 (**) Eliminate consecutive duplicates of list elements.
+    /// - complexity: O(n)
+    public func compress() -> List {
+        let resultList = List(value)
+        var resultListLast = resultList
+        var current = self
+        while let next = current.next {
+            if resultListLast.value != next.value {
+                resultListLast.next = List(next.value)
+                resultListLast = resultListLast.next
             }
+            current = next
         }
+        return resultList
     }
 }
 
-/// P09
 extension List where T: Equatable {
+    /// P09 (**) Pack consecutive duplicates of list elements into sublists.
+    /// - complexity: O(n)
     public func pack() -> List<List<T>> {
-        let resultList = List<List<T>>()
-        var resultListLast = resultList.head
-        var current = head
-        var innerList = List<T>()
-        var innerListLast = innerList.head
+        var resultList: List<List<T>>!
+        var resultListLast: List<List<T>>!
+        var current: List? = self
+        var innerList: List!
+        var innerListLast = innerList
         while let value = current?.value {
-            let newItem = ListItem(value: value)
-            if innerList.head == nil {
-                innerList.head = newItem
+            let newItem = List(value)
+            if innerList == nil {
+                innerList = newItem
             } else {
-                innerListLast?.next = newItem
+                innerListLast.next = newItem
             }
             innerListLast = newItem
             if value != current?.next?.value {
-                let newResultItem = ListItem(value: innerList)
-                if resultList.head == nil {
-                    resultList.head = newResultItem
+                let newResultItem = List<List<T>>(innerList)
+                if resultList == nil {
+                    resultList = newResultItem
                 } else {
-                    resultListLast?.next = newResultItem
+                    resultListLast.next = newResultItem
                 }
                 resultListLast = newResultItem
-                innerList = List<T>()
-                innerListLast = innerList.head
+                innerList = nil
+                innerListLast = nil
             }
             current = current?.next
         }
@@ -173,21 +186,20 @@ extension List where T: Equatable {
     }
 }
 
-/// P010
 extension List where T: Equatable {
+    /// P10 (*) Run-length encoding of a list.
+    /// - complexity: O(n)
     public func encode() -> List<(Int, T)> {
-        let packed = self.pack()
-        let resultList = List<(Int, T)>()
-        var resultListLast = resultList.head
-        var current = packed.head
-        while let sublist = current?.value {
-            let count = sublist.length
-            let value = sublist.head!.value
-            let newItem = ListItem(value: (count, value))
-            if resultList.head == nil {
-                resultList.head = newItem
+        let packed = pack()
+        var resultList: List<(Int, T)>!
+        var resultListLast: List<(Int, T)>!
+        var current: List<List<T>>? = packed
+        while let value = current?.value {
+            let newItem = List<(Int, T)>((value.length, value.value))
+            if resultList == nil {
+                resultList = newItem
             } else {
-                resultListLast?.next = newItem
+                resultListLast.next = newItem
             }
             resultListLast = newItem
             current = current?.next
@@ -196,27 +208,29 @@ extension List where T: Equatable {
     }
 }
 
-/// P011
 extension List where T: Equatable {
+    /// P11 (*) Modified run-length encoding.
+    /// - complexity: O(n)
     public func encodeModified() -> List<Any> {
-        let packed = self.pack()
-        let resultList = List<Any>()
-        var resultListLast = resultList.head
-        var current = packed.head
-        while let sublist = current?.value {
-            let count = sublist.length
-            let value = sublist.head!.value
-            var newItem: ListItem<Any>
+        let packed = pack()
+        var resultList: List<Any>!
+        var resultListLast: List<Any>!
+        var current: List<List<T>>? = packed
+        while let value = current?.value {
+            let count = value.length
+            let value = value.value
+            var newItem: List<Any>!
             if count == 1 {
-                newItem = ListItem(value: value)
+                newItem = List<Any>(value)
             } else {
+                // Tuples do not downcast to Any, so pack them as a List instead
                 let pack = List<Any>(count, value)
-                newItem = ListItem(value: pack)
+                newItem = List<Any>(pack)
             }
-            if resultList.head == nil {
-                resultList.head = newItem
+            if resultList == nil {
+                resultList = newItem
             } else {
-                resultListLast?.next = newItem
+                resultListLast.next = newItem
             }
             resultListLast = newItem
             current = current?.next
@@ -225,19 +239,20 @@ extension List where T: Equatable {
     }
 }
 
-/// P012
 extension List {
+    /// P12 (**) Decode a run-length encoded list.
+    /// - complexity: O(n)
     public func decode() -> List<String> {
-        let resultList = List<String>()
-        var resultListLast = resultList.head
-        var current = head
+        var resultList: List<String>!
+        var resultListLast: List<String>!
+        var current: List? = self
         while let value = current?.value as? (Int, String) {
             for _ in 1...value.0 {
-                let newItem = ListItem(value: value.1)
-                if resultList.head == nil {
-                    resultList.head = newItem
+                let newItem = List<String>(value.1)
+                if resultList == nil {
+                    resultList = newItem
                 } else {
-                    resultListLast?.next = newItem
+                    resultListLast.next = newItem
                 }
                 resultListLast = newItem
             }
@@ -247,22 +262,23 @@ extension List {
     }
 }
 
-/// P013
 extension List where T: Equatable {
+    /// P13 (**) Run-length encoding of a list (direct solution).
+    /// - complexity: O(n)
     public func encodeDirect() -> List<(Int, T)> {
-        let resultList = List<(Int, T)>()
-        var resultListLast = resultList.head
-        var current = head
+        var resultList: List<(Int, T)>!
+        var resultListLast: List<(Int, T)>!
+        var current: List? = self
         var count = 1
         while let value = current?.value {
             if value == current?.next?.value {
                 count++
             } else {
-                let newItem = ListItem(value: (count, value))
-                if resultList.head == nil {
-                    resultList.head = newItem
+                let newItem = List<(Int, T)>((count, value))
+                if resultList == nil {
+                    resultList = newItem
                 } else {
-                    resultListLast?.next = newItem
+                    resultListLast.next = newItem
                 }
                 resultListLast = newItem
                 count = 1
@@ -273,49 +289,71 @@ extension List where T: Equatable {
     }
 }
 
-/// P014
 extension List {
-    public func duplicateInPlace() -> List {
-        var current = head
+    /// P14 (*) Duplicate the elements of a list.
+    /// - complexity: O(n)
+    public func duplicate() -> List {
+        var resultList: List!
+        var resultListLast: List!
+        var current: List? = self
         while let value = current?.value {
-            let dupe = ListItem(value: value)
-            dupe.next = current?.next
-            current?.next = dupe
-            current = dupe.next
-        }
-        return self
-    }
-}
-
-/// P015
-extension List {
-    public func duplicateInPlace(times: Int) -> List {
-        var current = head
-        while let value = current?.value {
-            for _ in 1..<times {
-                let dupe = ListItem(value: value)
-                dupe.next = current?.next
-                current?.next = dupe
-                current = dupe
+            let newItem = List(value)
+            newItem.next = List(value)
+            if resultList == nil {
+                resultList = newItem
+            } else {
+                resultListLast.next = newItem
             }
+            resultListLast = newItem.next
             current = current?.next
         }
-        return self
+        return resultList
     }
 }
 
-/// P016
 extension List {
-    public func drop(every: Int) -> List {
-        let resultList = List()
-        var resultListLast = resultList.head
-        var current = head
+    /// P15 (**) Duplicate the elements of a list a given number of times.
+    /// - complexity: O(n*m)
+    public func duplicate(times: Int) -> List {
+        var resultList: List!
+        var resultListLast: List!
+        var current: List? = self
+        while let value = current?.value {
+            let newItem = List(value)
+            var newItemLast = newItem
+            for _ in 1..<times {
+                let dupe = List(value)
+                newItemLast.next = dupe
+                newItemLast = dupe
+            }
+            if resultList == nil {
+                resultList = newItem
+            } else {
+                resultListLast.next = newItem
+            }
+            resultListLast = newItemLast
+            current = current?.next
+        }
+        return resultList
+    }
+}
+
+extension List {
+    /// P16 (**) Drop every Nth element from a list.
+    /// - complexity: O(n)
+    public func drop(every: Int) -> List? {
+        if every < 2 {
+            return nil
+        }
+        var resultList: List?
+        var resultListLast: List?
+        var current: List? = self
         var index = 1
         while let value = current?.value {
             if index % every != 0 {
-                let newItem = ListItem(value: value)
-                if resultList.head == nil {
-                    resultList.head = newItem
+                let newItem = List(value)
+                if resultList == nil {
+                    resultList = newItem
                 } else {
                     resultListLast?.next = newItem
                 }
@@ -328,27 +366,27 @@ extension List {
     }
 }
 
-/// P017
+/// P17
 extension List {
-    public func split(atIndex: Int) -> (List, List) {
-        let left = List()
-        var leftLast = left.head
-        let right = List()
-        var rightLast = right.head
+    public func split(atIndex: Int) -> (List?, List?) {
+        var left: List?
+        var leftLast: List?
+        var right: List?
+        var rightLast: List?
         var index = 0
-        var current = head
+        var current: List? = self
         while let value = current?.value {
-            let newItem = ListItem(value: value)
+            let newItem = List(value)
             if index < atIndex {
-                if left.head == nil {
-                    left.head = newItem
+                if left == nil {
+                    left = newItem
                 } else {
                     leftLast?.next = newItem
                 }
                 leftLast = newItem
             } else {
-                if right.head == nil {
-                    right.head = newItem
+                if right == nil {
+                    right = newItem
                 } else {
                     rightLast?.next = newItem
                 }
@@ -361,18 +399,18 @@ extension List {
     }
 }
 
-/// P018
+/// P18
 extension List {
-    public func slice(from: Int, _ to: Int) -> List {
-        let resultList = List()
-        var resultListLast = resultList.head
-        var current = head
+    public func slice(from: Int, _ to: Int) -> List? {
+        var resultList: List?
+        var resultListLast: List?
+        var current: List? = self
         var index = 0
         while let value = current?.value {
             if index >= from && index < to {
-                let newItem = ListItem(value: value)
-                if resultList.head == nil {
-                    resultList.head = newItem
+                let newItem = List(value)
+                if resultList == nil {
+                    resultList = newItem
                 } else {
                     resultListLast?.next = newItem
                 }
@@ -385,30 +423,30 @@ extension List {
     }
 }
 
-/// P019
+/// P19
 /// TODO: Can we do negative rotation without knowing the length of the list?
 /// being lazy, let's use split and concatenate
 extension List {
     public func rotate(amount: Int) -> List {
         // Split list in two pieces
-        let listLength = self.length
+        let listLength = length
         let splitIndex = listLength > 0 ? (listLength + amount) % listLength : 0
         let parts = split(splitIndex)
 
-        // Start with second piece
-        let resultList = parts.1
-        var current = resultList.head
-        while current?.next != nil {
-            current = current?.next
+        // Start with second piece and walk to end
+        var resultList: List! = parts.1
+        var current: List? = resultList
+        while let next = current?.next {
+            current = next
         }
         var resultListLast = current
 
         // Append first piece
-        current = parts.0.head
+        current = parts.0
         while let value = current?.value {
-            let newItem = ListItem(value: value)
-            if resultList.head == nil {
-                resultList.head = newItem
+            let newItem = List(value)
+            if resultList == nil {
+                resultList = newItem
             } else {
                 resultListLast?.next = newItem
             }
@@ -418,8 +456,8 @@ extension List {
         return resultList
     }
 }
-
-/// P020
+/*
+/// P20
 extension List {
     public func removeAt(position: Int) -> (List, T?) {
         let resultList = List()
@@ -446,7 +484,7 @@ extension List {
     }
 }
 
-/// P021
+/// P21
 extension List {
     public func insertAt(index: Int, _ value: T) {
         var current = head
@@ -464,7 +502,7 @@ extension List {
     }
 }
 
-/// P022
+/// P22
 extension List {
     public class func range(from: Int, _ to: Int) -> List<Int> {
         let resultList = List<Int>()
@@ -482,7 +520,7 @@ extension List {
     }
 }
 
-/// P023
+/// P23
 extension List {
     public func randomSelect(amount: Int) -> List {
         let resultList = List()
@@ -510,7 +548,7 @@ extension List {
     }
 }
 
-/// P024
+/// P24
 extension List {
     public class func lotto(numbers: Int, _ maximum: Int) -> List<Int> {
         let numberList = List<Int>.range(1, maximum)
@@ -518,14 +556,14 @@ extension List {
     }
 }
 
-/// P025
+/// P25
 extension List {
     public func randomPermute() -> List {
         return randomSelect(length)
     }
 }
 
-/// P026
+/// P26
 extension List {
     public func combinations(group: Int) -> List<List<T>> {
         let resultList = List<List<T>>()
@@ -577,7 +615,7 @@ extension List {
     }
 }
 
-/// P026b
+/// P26B
 extension List {
     public func permutations(group: Int) -> List<List<T>> {
         let resultList = List<List<T>>()
@@ -629,4 +667,5 @@ extension List {
         return resultList
     }
 }
+
 */
