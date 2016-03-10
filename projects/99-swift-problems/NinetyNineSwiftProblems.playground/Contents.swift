@@ -31,13 +31,7 @@ For more information, see [Ninety-Nine Swift Problems](http://enekoalonso.com/99
  */
 
 /*: 
-  ## Working with _Linked_ Lists
-  While most of these problems can be solved using an Array and
-  built-in methods or extensions, the solutions on this Playground
-  implementing a generic 
-  [Linked List](https://en.wikipedia.org/wiki/Linked_list)
-  as instructed on the 
-  [Ninety-Nine Swift Problems](http://enekoalonso.com/99-swift-problems) page.
+  ## Working with Linked Lists
 */
 
 
@@ -62,7 +56,6 @@ List(1, 1, 2, 3, 5, 8).elementAtIndex(10)
 List(1).elementAtIndex(1)
 
 //: ### P04 (\*) Find the number of elements of a list.
-List(1, 1, 2, 3, 5, 8).length
 List(1, 1, 2, 3, 5, 8).length
 List(1).length
 
