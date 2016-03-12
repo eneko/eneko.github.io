@@ -1506,7 +1506,7 @@ Tree("a", Tree("b", Tree("d"), Tree("e")), Tree("c", nil, Tree("f", Tree("g"), n
 Throughout this section, we will be adding methods to the `Tree` class above
 as extensions to solve each problem.
 
-### <a name="p54"/>[P54](#p54) (\*) Check whether a given tree is completely balanced.
+### <a name="p54"/>[P54](#p54) (\*) Completely balanced trees.
 In a completely balanced binary tree, the following property holds for every
 node: The number of nodes in its left subtree and the number of nodes in its
 right subtree are almost equal, which means their difference is not greater
