@@ -1279,7 +1279,7 @@ if both `A` and `B` are `true`.
 - `nor` - [Logical NOR](http://en.wikipedia.org/wiki/Logical_NOR)
 - `xor` - [Exclusive Disjunction XOR](http://en.wikipedia.org/wiki/Exclusive_or)
 - `impl` - [Logical Implication](https://en.wikipedia.org/wiki/Material_conditional)
-- `equ` - [Logical Equality](https://en.wikipedia.org/wiki/Logical_equality)
+- `equ` - [Logical Equality XNOR](https://en.wikipedia.org/wiki/Logical_equality)
 
 Example #1:
 
@@ -1324,8 +1324,10 @@ with two parameters:
 { and(or($0, $1), nand($0, $1)) } // Shorthand Argument Names
 ~~~
 
-Now, write a function called `table` which prints the [truth table](https://en.wikipedia.org/wiki/Truth_table)
-of a given logical expression in two variables.
+Now, write a function called `table` which generates the
+[truth table](https://en.wikipedia.org/wiki/Truth_table)
+of a given logical expression in two variables and returns it as a series of
+linked lists.
 
 Example:
 
@@ -1333,20 +1335,22 @@ Example:
 table({ and($0, or($0, $1)) })
 ~~~
 
-Output:
+Result:
 
-~~~
-A     B     Result
-true  true  true
-true  false true
-false true  false
-false false false
+~~~swift
+//      A     B     Result
+List(
+  List(true, true, true),
+  List(true, false, true),
+  List(false, true, false),
+  List(false, false, false)
+)
 ~~~
 
 Implementation:
 
 ~~~swift
-func table(expression: (a: Bool, b: Bool) -> Bool) {
+func table(expression: (a: Bool, b: Bool) -> Bool) -> List<List<Bool>> {
     ...
 }
 ~~~
@@ -1363,7 +1367,7 @@ Use the following list of mathematical symbols:
 - `⊽` - [Logical NOR](http://en.wikipedia.org/wiki/Logical_NOR)
 - `⊕` - [Exclusive Disjunction  XOR](http://en.wikipedia.org/wiki/Exclusive_or)
 - `→` - [Logical Implication](https://en.wikipedia.org/wiki/Material_conditional)
-- `≡` - [Logical Equality](https://en.wikipedia.org/wiki/Logical_equality)
+- `≡` - [Logical Equality XNOR](https://en.wikipedia.org/wiki/Logical_equality)
 
 
 ~~~swift
