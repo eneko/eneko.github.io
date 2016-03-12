@@ -1,14 +1,16 @@
 ---
 layout: page
-title: Eneko Alonso, Software Engineer in iOS and tvOS
+title: Eneko Alonso, Swift Software Engineer
 permalink: /
-desc: Hi, I am Eneko Alonso, a software engineer specialized in iOS and tvOS living in San Luis Obispo, California.
+desc: Hi, I am Eneko Alonso, a software engineer specialized in Swift with many years of experience developing apps for iOS and tvOS. I live in San Luis Obispo, California.
 ---
+
+![Eneko Huffman Tree](/media/eneko-huffman-tree.png)
 
 ### Core Skills
 
-- iOS & tvOS
 - Swift & Objective-C
+- iOS, tvOS, OS X & Linux
 - Network Integrations & REST APIs
 - Databases
 
