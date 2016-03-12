@@ -21,11 +21,10 @@ public class List<T> {
 extension List: CustomStringConvertible {
     public var description: String {
         var buffer: [String] = []
-        var current = self
-        buffer.append(String(current.value))
-        while let next = current.next {
-            current = next
-            buffer.append(String(current.value))
+        var current: List? = self
+        while let value = current?.value {
+            buffer.append(String(value))
+            current = current?.next
         }
         return "[" + buffer.joinWithSeparator(", ") + "]"
     }

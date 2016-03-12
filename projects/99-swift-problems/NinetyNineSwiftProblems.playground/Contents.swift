@@ -295,11 +295,11 @@ func ∧ (a: Bool, b: Bool) -> Bool {
 
 
 func table(expression: (a: Bool, b: Bool) -> Bool) {
-    print("A\tB\tResult")
-    print(String(format: "%d\t%d\t%d", Int(false), Int(false), Int(expression(a: false, b: false))))
-    print(String(format: "%d\t%d\t%d", Int(false), Int(true), Int(expression(a: false, b: true))))
-    print(String(format: "%d\t%d\t%d", Int(true), Int(false), Int(expression(a: true, b: false))))
-    print(String(format: "%d\t%d\t%d", Int(true), Int(true), Int(expression(a: true, b: true))))
+//    print("A\tB\tResult")
+//    print(String(format: "%d\t%d\t%d", Int(false), Int(false), Int(expression(a: false, b: false))))
+//    print(String(format: "%d\t%d\t%d", Int(false), Int(true), Int(expression(a: false, b: true))))
+//    print(String(format: "%d\t%d\t%d", Int(true), Int(false), Int(expression(a: true, b: false))))
+//    print(String(format: "%d\t%d\t%d", Int(true), Int(true), Int(expression(a: true, b: true))))
 }
 
 table({ $0 ∧ $1 })
@@ -309,7 +309,7 @@ table({ or(or($0, $1), and(and($0, and($0, $1)), $1)) })
 
 
 func table2(expression: (a: [Bool]) -> Bool) {
-    print("A\tB\tResult")
+//    print("A\tB\tResult")
 //    print(String(format: "%d\t%d\t%d", Int(false), Int(false), Int(expression(a: [false, false]))))
 //    print(String(format: "%d\t%d\t%d", Int(false), Int(true), Int(expression(a: false, b: true))))
 //    print(String(format: "%d\t%d\t%d", Int(true), Int(false), Int(expression(a: true, b: false))))
@@ -321,21 +321,16 @@ func table2(expression: (a: [Bool]) -> Bool) {
 
 
 Tree("a", Tree("b", nil, nil), nil)
-
 Tree("a", Tree("b", Tree("d"), Tree("e")), Tree("c", nil, Tree("f", Tree("g"), nil)))
-
-
 Tree("a", Tree("b", nil, Tree("c")))
 
-
 Tree<String>.cBalanced(4, "x")
-
 Tree(1, Tree(2), Tree(3))
 
+let tree = Tree(2)
+tree.addValue(3)
+tree.addValue(0)
 
-
-var a: Int?
-a? = 5
-a
-
-
+Tree.fromList(List(3, 2, 5, 7, 1))
+Tree.fromList(List(5, 3, 18, 1, 4, 12, 21))
+Tree.fromList(List(3, 2, 5, 7, 4))
