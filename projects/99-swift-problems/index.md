@@ -56,7 +56,7 @@ more sense.
 
 You can also create Swift files without an Xcode project and use `swift`
 or `swiftc` on the terminal to run the code. Use `swift build` if you have
-Swift 2.2 installed.
+[Swift 2.2](https://swift.org/getting-started/) installed.
 
 
 * * *
@@ -80,15 +80,15 @@ class List<T> {
 
 The gist [List.swift](https://gist.github.com/eneko/98b0313fa2e7bb529ecf)
 contains the basics of the `List` class to get you started,
-including a convenience initializer to create lists in the `List(1,2,3...)` form
-and implementations of the `CustomStringConvertible` protocol.
+including a convenience initializer to create lists in the `List(1, 2, 3, ...)`
+form, and a implementation of the `CustomStringConvertible` protocol.
 
 Section rules:
 
 - Individual methods or computed properties will be added to the `List<T>`
-class as extensions to solve each of the problems.
+class as extensions to solve each problem.
 - Consider instances of `List` as immutable. All methods should
-return new linked lists instead of modifying the current list.
+return new instances of linked lists (instead of modifying the current list).
 
 ### <a name="p01"/>[P01](#p01) (\*) Find the last element of a linked list.
 Example:
@@ -137,12 +137,14 @@ extension List {
 ~~~
 
 ### <a name="p03"/>[P03](#p03) (\*) Find the Kth element of a linked list.
-By convention, the first element in the list is element `0`.
+By convention, the first element in the list is element `0`. Use Swift
+[subscripts](https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Subscripts.html) to get the value from the linked list.
 
 Example:
 
 ~~~swift
-List(1, 1, 2, 3, 5, 8).elementAtIndex(2)
+let list = List(1, 1, 2, 3, 5, 8)
+list[2]
 ~~~
 
 Result:
@@ -155,7 +157,7 @@ Implementation:
 
 ~~~swift
 extension List {
-    func elementAtIndex(index: Int) -> T? {
+    subscript(index: Int) -> T? {
         ...
     }
 }
@@ -524,7 +526,7 @@ Implementation:
 
 ~~~swift
 extension List {
-    func split(atIndex: Int) -> (List, List) {
+    func split(atIndex: Int) -> (left: List, right: List) {
         ...
     }
 }
@@ -596,8 +598,8 @@ extension List {
 ~~~
 
 ### <a name="p20"/>[P20](#p20) (\*) Remove the Kth element from a linked list.
-Return a linked list without the removed element and the removed element in a Tuple.
-Elements are numbered from `0`.
+Return a linked list without the removed element and the removed element in a
+Tuple. Elements are numbered from `0`.
 
 Example:
 
@@ -616,7 +618,7 @@ Implementation:
 
 ~~~swift
 extension List {
-    func removeAt(position: Int) -> (List, T?) {
+    func removeAt(position: Int) -> (rest: List?, removed: T?) {
         ...
     }
 }
@@ -803,10 +805,8 @@ extension List {
 }
 ~~~
 
-
-
 ### <a name="p27"/>[P27](#p27) (\*\*) Group the elements of a set into disjoint subsets.
-a) In how many ways can a group of 9 people work in 3 disjoint subgroups of
+In how many ways can a group of 9 people work in 3 disjoint subgroups of
 2, 3 and 4 persons? Write a function that generates all the possibilities.
 
 Example:
@@ -832,7 +832,16 @@ extension List {
 }
 ~~~
 
-b) Generalize the above predicate in a way that we can specify a list of group
+Note that we do not want permutations of the group members;
+i.e. ((Aldo, Beat), ...) is the same solution as ((Beat, Aldo), ...).
+However, we make a difference between ((Aldo, Beat), (Carla, David), ...)
+and ((Carla, David), (Aldo, Beat), ...).
+
+You may find more about this combinatorial problem in a good book on discrete
+mathematics under the term "multinomial coefficients".
+
+### <a name="p27b"/>[P27B](#p27b) (\*\*) Group the elements of a set into disjoint subsets - Part 2.
+Generalize the above predicate in a way that we can specify a list of group
 sizes and the predicate will return a list of groups.
 
 Example:
@@ -852,19 +861,11 @@ Implementation:
 
 ~~~swift
 extension List {
-    func group3(groups: List<Int>) -> List<List<List<T>>> {
+    func group(groups: List<Int>) -> List<List<List<T>>> {
         ...
     }
 }
 ~~~
-
-Note that we do not want permutations of the group members;
-i.e. ((Aldo, Beat), ...) is the same solution as ((Beat, Aldo), ...).
-However, we make a difference between ((Aldo, Beat), (Carla, David), ...)
-and ((Carla, David), (Aldo, Beat), ...).
-
-You may find more about this combinatorial problem in a good book on discrete
-mathematics under the term "multinomial coefficients".
 
 ### <a name="p28"/>[P28](#p28) (\*\*) Sorting a linked list of linked lists according to length of sublists.
 We suppose that a linked list contains elements that are linked lists themselves.
@@ -934,7 +935,7 @@ have length 2. This is the most frequent length.
 
 For the next section, we're going to take a different tack with the solutions.
 Instead of using a class, we will define the solutions as extensions to `Int`
-(both instance and class).
+(both instance and class methods).
 
 ### <a name="p31"/>[P31](#p31) (\*\*) Determine whether a given integer number is prime.
 Example:
@@ -1066,7 +1067,7 @@ extension Int {
 }
 ~~~
 
-### <a name="p36"/>[P36](#p36) (\*\*) Determine the prime factors of a given positive integer (2).
+### <a name="p36"/>[P36](#p36) (\*\*) Determine the prime factors of a given positive integer - Part 2.
 Construct a linked list containing tuples with the prime factors and their multiplicity.
 
 Example:
@@ -1272,11 +1273,11 @@ Define functions `and`, `or`, `nand`, `nor`, `xor`, `impl`, and `equ`
 result of their respective operations; e.g. `and(A, B)` is `true` if and only
 if both `A` and `B` are `true`.
 
-- `and` - [Logical Conjunction](http://en.wikipedia.org/wiki/Logical_conjunction)
-- `or` - [Logical Disjunction](http://en.wikipedia.org/wiki/Logical_disjunction)
+- `and` - [Logical Conjunction AND](http://en.wikipedia.org/wiki/Logical_conjunction)
+- `or` - [Logical Disjunction OR](http://en.wikipedia.org/wiki/Logical_disjunction)
 - `nand` - [Logical NAND](http://en.wikipedia.org/wiki/Logical_NAND)
 - `nor` - [Logical NOR](http://en.wikipedia.org/wiki/Logical_NOR)
-- `xor` - [Exclusive Disjunction](http://en.wikipedia.org/wiki/Exclusive_or)
+- `xor` - [Exclusive Disjunction XOR](http://en.wikipedia.org/wiki/Exclusive_or)
 - `impl` - [Logical Implication](https://en.wikipedia.org/wiki/Material_conditional)
 - `equ` - [Logical Equality](https://en.wikipedia.org/wiki/Logical_equality)
 
@@ -1350,15 +1351,17 @@ func table(expression: (a: Bool, b: Bool) -> Bool) {
 }
 ~~~
 
-### <a name="p47"/>[P47](#p47) (\*) Truth tables for logical expressions (2).
-Continue problem [P46](#p46) by redefining `and`, `or`, etc. as operators. Use
-the following list of mathematical symbols:
+### <a name="p47"/>[P47](#p47) (\*) Truth tables for logical expressions - Part 2.
+Continue problem [P46](#p46) by redefining `and`, `or`, etc. as infix operators
+with left associativity and the corresponding precedence.
 
-- `∧` - [Logical Conjunction](http://en.wikipedia.org/wiki/Logical_conjunction)
-- `∨` - [Logical Disjunction](http://en.wikipedia.org/wiki/Logical_disjunction)
+Use the following list of mathematical symbols:
+
+- `∧` - [Logical Conjunction AND](http://en.wikipedia.org/wiki/Logical_conjunction)
+- `∨` - [Logical Disjunction OR](http://en.wikipedia.org/wiki/Logical_disjunction)
 - `⊼` - [Logical NAND](http://en.wikipedia.org/wiki/Logical_NAND)
 - `⊽` - [Logical NOR](http://en.wikipedia.org/wiki/Logical_NOR)
-- `⊕` - [Logical XOR](http://en.wikipedia.org/wiki/Exclusive_or)
+- `⊕` - [Exclusive Disjunction  XOR](http://en.wikipedia.org/wiki/Exclusive_or)
 - `→` - [Logical Implication](https://en.wikipedia.org/wiki/Material_conditional)
 - `≡` - [Logical Equality](https://en.wikipedia.org/wiki/Logical_equality)
 
@@ -1377,22 +1380,25 @@ false true  false
 false false false
 ~~~
 
-Implementation:
+<!-- Implementation:
 
 ~~~swift
 infix operator ∧ { associativity left precedence 140 }
 func ∧ (a: Bool, b: Bool) -> Bool) {
     ...
 }
-~~~
+~~~ -->
 
 _Note: Use operator precedence to avoid the need of parentheses._
 
-### <a name="p48"/>[P48](#p48) (\*\*) Truth tables for logical expressions (3).
+### <a name="p48"/>[P48](#p48) (\*\*) Truth tables for logical expressions - Part 3.
 Generalize problem [P47](#p47) in such a way that the logical expression may
 contain any number of logical variables. Define `table` in a way that
 `tableN(List, Expr)` prints the truth table for the expression `Expr`, which
 contains the logical variables enumerated in List.
+
+![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
+
 
 ### <a name="p48"/>[P48](#p49) (\*\*) Gray code.
 An n-bit Gray code is a sequence of n-bit strings constructed according to
@@ -1458,55 +1464,105 @@ func huffman(symbols: List<(String, Int)>) -> List<(String, String)> {
 }
 ~~~
 
+
+
 * * *
 
 ## <a name="binary-trees"/> [Section 4:](#binary-trees) Binary Trees
 
 > A binary tree is either empty or it is composed of a root element and two successors, which are binary trees themselves.
 
-_Hint: Use a class to allow for recursive value types._
+We will define our generic tree as follows:
 
-The example tree on the right is given by:
+~~~swift
+class Tree<T> {
+    var value: T
+    var left: Tree<T>?
+    var right: Tree<T>?
+
+    init(_ value: T, _ left: Tree<T>? = nil, _ right: Tree<T>? = nil) {
+        self.value = value
+        self.left = left
+        self.right = right
+    }
+}
+~~~
+
+
+A tree with only a root node would be `Tree("a")` and an empty tree would be `nil`.
+
+![](/media/99-swift-projects/p67.gif)
+
+The example tree above is given by:
 
 ~~~swift
 Tree("a", Tree("b", Tree("d"), Tree("e")), Tree("c", nil, Tree("f", Tree("g"), nil)))
 ~~~
 
-A tree with only a root node would be `Tree("a")` and an empty tree would be `nil`.
+Throughout this section, we will be adding methods to the `Tree` class above
+as extensions to solve each problem.
 
-Throughout this section, we will be adding methods to the `Tree` class above.
-
-### <a name="p54"/>[P54](#p54) Omitted; our tree representation will only allow well-formed trees.
-Score one for static typing.
-
-### <a name="p55"/>[P55](#p55) (\*\*) Construct completely balanced binary trees.
+### <a name="p54"/>[P54](#p54) (\*) Check whether a given tree is completely balanced.
 In a completely balanced binary tree, the following property holds for every
 node: The number of nodes in its left subtree and the number of nodes in its
 right subtree are almost equal, which means their difference is not greater
-than one.
-
-Write a class method `Tree<T>.cBalanced()` to construct
-completely balanced binary trees for a given number of nodes. The function
-should generate all solutions. The function should take as parameters the
-number of nodes and a single value to put in all of them.
+than one (_do not confuse with height-balanced trees where the difference in
+height is less or equal than one_).
 
 Example:
 
 ~~~swift
-Tree<String>.cBalanced(4, "x")
+Tree(1, Tree(2), Tree(3)).isCompletelyBalanced()
 ~~~
 
 Result:
 
 ~~~swift
-List(Tree("x", Tree("x"), Tree("x", nil, Tree("x"))), Tree("x", Tree("x"), Tree("x", Tree("x"), nil)), ...
+true
 ~~~
 
 Implementation:
 
 ~~~swift
 extension Tree {
-    class func cBalanced(number: Int, _ value: T) -> List<Tree<T>> {
+    func isCompletelyBalanced() -> Bool {
+        ...
+    }
+}
+~~~
+
+_Note: Original problem 'P54 Check whether a given term represents a binary tree'
+does not apply to Swift, since our tree representation will only allow
+well-formed trees._
+
+### <a name="p55"/>[P55](#p55) (\*\*) Construct completely balanced binary trees.
+Write a class method `Tree<T>.makeBalancedTrees()` to construct
+completely balanced binary trees for a given number of nodes. The function
+should generate all solutions, returning them on a linked list.
+The function should take as parameters the
+number of nodes and a single value to put in all of them.
+
+Example:
+
+~~~swift
+Tree<String>.makeBalancedTrees(4, "x")
+~~~
+
+Result:
+
+~~~swift
+List(
+    Tree("x", Tree("x"), Tree("x", nil, Tree("x"))),
+    Tree("x", Tree("x"), Tree("x", Tree("x"), nil)),
+    ...
+)
+~~~
+
+Implementation:
+
+~~~swift
+extension Tree {
+    class func makeBalancedTrees(number: Int, _ value: T) -> List<Tree<T>> {
         ...
     }
 }
@@ -1515,109 +1571,244 @@ extension Tree {
 ### <a name="p56"/>[P56](#p56) (\*\*) Symmetric binary trees.
 Let us call a binary tree symmetric if you can draw a vertical line through
 the root node and then the right subtree is the mirror image of the left
-subtree. Add an isSymmetric method to the Tree class to check whether a given
-binary tree is symmetric.
+subtree. Add an `isSymmetric()` method to the `Tree` class to check whether a
+given binary tree is symmetric.
 
-_Hint:_ Write an isMirrorOf method first to check
+_Hint:_ Write an `isMirrorOf()` method first to check
 whether one tree is the mirror image of another. We are only interested in
 the structure, not in the contents of the nodes.
 
-scala> Node('a', Node('b'), Node('c')).isSymmetric
-res0: Boolean = true
+Example:
 
-### <a name="p57"/>[P57](#p57) (\*\*) Binary search trees (dictionaries).
+~~~swift
+Tree("a", Tree("b"), Tree("c")).isSymmetric()
+~~~
+
+Result:
+
+~~~swift
+true
+~~~
+
+Implementation:
+
+~~~swift
+extension Tree {
+    func isSymetric() -> Bool {
+        ...
+    }
+}
+~~~
+
+### <a name="p57"/>[P57](#p57) (\*\*) Binary search trees.
 Write a function to add an element to a binary search tree.
-scala> End.addValue(2)
-res0: Node[Int] = T(2 . .)
 
-scala> res0.addValue(3)
-res1: Node[Int] = T(2 . T(3 . .))
+Example:
 
-scala> res1.addValue(0)
-res2: Node[Int] = T(2 T(0 . .) T(3 . .))
+~~~swift
+let tree = Tree(2)
+tree.addValue(3)
+~~~
 
-_Hint:_ The abstract definition of addValue in Tree should be
-def addValue[U >: T <% Ordered[U]](x: U): Tree[U]. The >: T is because
-addValue's parameters need to be contravariant in T. (Conceptually, we're
-adding nodes above existing nodes. In order for the subnodes to be of type
-T or any subtype, the upper nodes must be of type T or any supertype.)
-The <% Ordered[U] allows us to use the < operator on the values in the tree.
+Result:
 
-Use that function to construct a binary tree from a list of integers.
+~~~swift
+Tree(2, nil, Tree(3, nil, nil))
+~~~
 
-scala> Tree.fromList(List(3, 2, 5, 7, 1))
-res3: Node[Int] = T(3 T(2 T(1 . .) .) T(5 . T(7 . .)))
-Finally, use that function to test your solution to P56.
+Continue:
 
-scala> Tree.fromList(List(5, 3, 18, 1, 4, 12, 21)).isSymmetric
-res4: Boolean = true
+~~~swift
+tree.addValue(0)
+~~~
 
-scala> Tree.fromList(List(3, 2, 5, 7, 4)).isSymmetric
-res5: Boolean = false
+Result:
+
+~~~swift
+Tree(2, Tree(0, nil, nil), Tree(3, nil, nil))
+~~~
+
+Implementation:
+
+~~~swift
+extension Tree {
+    func addValue(value: T) -> Tree {
+        ...
+    }
+}
+~~~
+
+### <a name="p57b"/>[P57B](#p57b) (\*\*) Binary search trees from Linked List.
+Use the function from [P57](#p57) to construct a binary tree from a list of
+integers.
+
+Example:
+
+~~~swift
+Tree.fromList(List(3, 2, 5, 7, 1))
+~~~
+
+Result:
+
+~~~swift
+Tree(3, Tree(2, Tree(1, nil, nil), nil), Tree(5, nil, Tree(7, nil, nil)))
+~~~
+
+Then, use that function to test your solution to [P56](#p56).
+
+Example:
+
+~~~swift
+Tree.fromList(List(5, 3, 18, 1, 4, 12, 21)).isSymmetric()
+~~~
+
+Result:
+
+~~~swift
+true
+~~~
+
+Example:
+
+~~~swift
+Tree.fromList(List(3, 2, 5, 7, 4)).isSymmetric()
+~~~
+
+Result:
+
+~~~swift
+false
+~~~
 
 ### <a name="p58"/>[P58](#p58) (\*\*) Generate-and-test paradigm.
 Apply the generate-and-test paradigm to construct all symmetric, completely
 balanced binary trees with a given number of nodes.
-scala> Tree.symmetricBalancedTrees(5, "x")
-res0: List[Node[String]] = List(T(x T(x . T(x . .)) T(x T(x . .) .)), T(x T(x T(x . .) .) T(x . T(x . .))))
+
+Example:
+
+~~~swift
+Tree<String>.makeSymmetricBalancedTrees(5, "x")
+~~~
+
+Result:
+
+~~~swift
+List(
+    Tree("x", Tree("x", nil, Tree("x")), Tree("x", Tree("x"), nil)),
+    Tree("x", Tree("x", Tree("x"), nil), Tree("x", nil, Tree("x")))
+)
+~~~
+
+Implementation:
+
+~~~swift
+extension Tree {
+    class func makeSymmetricBalancedTrees(number: Int, _ value: T) -> List<Tree<T>> {
+        ...
+    }
+}
+~~~
 
 ### <a name="p59"/>[P59](#p59) (\*\*) Construct height-balanced binary trees.
 In a height-balanced binary tree, the following property holds for every node:
 The height of its left subtree and the height of its right subtree are almost
 equal, which means their difference is not greater than one.
-Write a method Tree.hbalTrees to construct height-balanced binary trees for a
-given height with a supplied value for the nodes. The function should generate
-all solutions.
 
-scala> Tree.hbalTrees(3, "x")
-res0: List[Node[String]] = List(T(x T(x T(x . .) T(x . .)) T(x T(x . .) T(x . .))), T(x T(x T(x . .) T(x . .)) T(x T(x . .) .)), ...
+Write a method `Tree<T>.makeHeightBalancedTrees()` to construct height-balanced
+binary trees for a given height with a supplied value for the nodes. The
+function should generate all solutions.
+
+Example:
+
+~~~swift
+Tree<String>.makeHeightBalancedTrees(3, "x")
+~~~
+
+Result:
+
+~~~swift
+List(
+    Tree("x", Tree("x", Tree("x"), Tree("x")), Tree("x", Tree("x"), Tree("x"))),
+    Tree("x", Tree("x", Tree("x"), Tree("x")), Tree("x", Tree("x"), nil),
+    ...
+)
+~~~
+
+Implementation:
+
+~~~swift
+extension Tree {
+    class func makeHeightBalancedTrees(height: Int, _ value: T) -> List<Tree<T>> {
+        ...
+    }
+}
+~~~
 
 ### <a name="p60"/>[P60](#p60) (\*\*) Construct height-balanced binary trees with a given number of nodes.
-Consider a height-balanced binary tree of height H. What is the maximum number
-of nodes it can contain? Clearly, MaxN = 2H - 1. However, what is the minimum
-number MinN? This question is more difficult. Try to find a recursive
+Consider a height-balanced binary tree of height `H`. What is the maximum number
+of nodes it can contain? Clearly, `MaxN = 2^H - 1`. However, what is the minimum
+number `MinN`? This question is more difficult. Try to find a recursive
 statement and turn it into a function minHbalNodes that takes a height and
 returns MinN.
+
 scala> minHbalNodes(3)
 res0: Int = 4
+
 On the other hand, we might ask: what is the maximum height H a height-balanced
 binary tree with N nodes can have? Write a maxHbalHeight function.
 
 scala> maxHbalHeight(4)
 res1: Int = 3
+
 Now, we can attack the main problem: construct all the height-balanced binary
-trees with a given nuber of nodes.
+trees with a given number of nodes.
 
 scala> Tree.hbalTreesWithNodes(4, "x")
 res2: List[Node[String]] = List(T(x T(x T(x . .) .) T(x . .)), T(x T(x . T(x . .)) T(x . .)), ...
+
 Find out how many height-balanced trees exist for N = 15.
+
+![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
 
 ### <a name="p61"/>[P61](#p61) (\*) Count the leaves of a binary tree.
 A leaf is a node with no successors. Write a method leafCount to count them.
+
 scala> Node('x', Node('x'), End).leafCount
 res0: Int = 1
+
+![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
 
 ### <a name="p61a"/>[P61A](#p61a) (\*) Collect the leaves of a binary tree in a list.
 A leaf is a node with no successors. Write a method leafList to collect them
 in a list.
+
 scala> Node('a', Node('b'), Node('c', Node('d'), Node('e'))).leafList
 res0: List[Char] = List(b, d, e)
+
+![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
 
 ### <a name="p62"/>[P62](#p62) (\*) Collect the internal nodes of a binary tree in a list.
 An internal node of a binary tree has either one or two non-empty successors.
 Write a method internalList to collect them in a list.
+
 scala> Node('a', Node('b'), Node('c', Node('d'), Node('e'))).internalList
 res0: List[Char] = List(a, c)
+
+![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
 
 ### <a name="p62b"/>[P62B](#p62b) (\*) Collect the nodes at a given level in a list.
 A node of a binary tree is at level N if the path from the root to the node
 has length N-1. The root node is at level 1. Write a method atLevel to collect
 all nodes at a given level in a list.
+
 scala> Node('a', Node('b'), Node('c', Node('d'), Node('e'))).atLevel(2)
 res0: List[Char] = List(b, c)
+
 Using atLevel it is easy to construct a method levelOrder which creates the
 level-order sequence of the nodes. However, there are more efficient ways to
 do that.
+
+![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
 
 ### <a name="p63"/>[P63](#p63) (\*\*) Construct a complete binary tree.
 A complete binary tree with height H is defined as follows: The levels
@@ -1642,7 +1833,9 @@ and the value to put in each node.
 scala> Tree.completeBinaryTree(6, "x")
 res0: Node[String] = T(x T(x T(x . .) T(x . .)) T(x T(x . .) .))
 
-### <a name="p64"/>[P64](#p64) (\*\*) Layout a binary tree (1).
+![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
+
+### <a name="p64"/>[P64](#p64) (\*\*) Layout a binary tree.
 As a preparation for drawing a tree, a layout algorithm is required to
 determine the position of each node in a rectangular grid. Several layout
 methods are conceivable, one of them is shown in the illustration on the right.
@@ -1665,9 +1858,12 @@ tree of PositionedNodes.
 
 scala> Node('a', Node('b', End, Node('c')), Node('d')).layoutBinaryTree
 res0: PositionedNode[Char] = T[3,1](a T[1,2](b . T[2,3](c . .)) T[4,2](d . .))
+
 The tree at right may be constructed with Tree.fromList(List('n','k','m','c','a','h','g','e','u','p','s','q')). Use it to check your code.
 
-### <a name="p65"/>[P65](#p65) (\*\*) Layout a binary tree (2).
+![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
+
+### <a name="p65"/>[P65](#p65) (\*\*) Layout a binary tree - Part 2.
 An alternative layout method is depicted in the illustration opposite. Find
 out the rules and write the corresponding method.
 
@@ -1677,9 +1873,12 @@ Use the same conventions as in problem [P64](#p64).
 
 scala> Node('a', Node('b', End, Node('c')), Node('d')).layoutBinaryTree2
 res0: PositionedNode[Char] = T[3,1]('a T[1,2]('b . T[2,3]('c . .)) T[5,2]('d . .))
+
 The tree at right may be constructed with Tree.fromList(List('n','k','m','c','a','e','d','g','u','p','q')). Use it to check your code.
 
-### <a name="p66"/>[P66](#p66) (\*\*\*) Layout a binary tree (3).
+![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
+
+### <a name="p66"/>[P66](#p66) (\*\*\*) Layout a binary tree - Part 3.
 Yet another layout strategy is shown in the illustration opposite. The method
 yields a very compact layout while maintaining a certain symmetry in every
 node. Find out the rules and write the corresponding method.
@@ -1692,12 +1891,17 @@ problem. Don't give up too early!
 
 scala> Node('a', Node('b', End, Node('c')), Node('d')).layoutBinaryTree3
 res0: PositionedNode[Char] = T[2,1]('a T[1,2]('b . T[2,3]('c . .)) T[3,2]('d . .))
+
 Which layout do you like most?
+
+![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
 
 ### <a name="p67"/>[P67](#p67) (\*\*) A string representation of binary trees.
 Somebody represents binary trees as strings of the following type
 (see example opposite):
+
 a(b(d,e),c(,f(g,)))
+
 Write a method which generates this string representation, if the tree is
 given as usual (in Nodes and Ends). Use that method for the Tree class's and
 subclass's toString methods. Then write a method (on the Tree object) which
@@ -1713,44 +1917,54 @@ res0: String = a(b(d,e),c(,f(g,)))
 scala> Tree.fromString("a(b(d,e),c(,f(g,)))")
 res1: Node[Char] = a(b(d,e),c(,f(g,)))
 
+![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
+
 ### <a name="p68"/>[P68](#p68) (\*\*) Preorder and inorder sequences of binary trees.
 We consider binary trees with nodes that are identified by single lower-case
 letters, as in the example of problem [P67](#p67).
+
 a) Write methods preorder and inorder that construct the preorder and inorder
 sequence of a given binary tree, respectively. The results should be lists,
 e.g. List('a','b','d','e','c','f','g') for the preorder sequence of the
-example in problem P67.
+example in problem [P67](#p67).
 
 scala> Tree.string2Tree("a(b(d,e),c(,f(g,)))").preorder
 res0: List[Char] = List(a, b, d, e, c, f, g)
 
 scala> Tree.string2Tree("a(b(d,e),c(,f(g,)))").inorder
 res1: List[Char] = List(d, b, e, a, c, g, f)
+
 b) If both the preorder sequence and the inorder sequence of the nodes of a
 binary tree are given, then the tree is determined unambiguously. Write a
 method preInTree that does the job.
 
 scala> Tree.preInTree(List('a', 'b', 'd', 'e', 'c', 'f', 'g'), List('d', 'b', 'e', 'a', 'c', 'g', 'f'))
 res2: Node[Char] = a(b(d,e),c(,f(g,)))
+
 What happens if the same character appears in more than one node? Try, for
 instance, Tree.preInTree(List('a', 'b', 'a'), List('b', 'a', 'a')).
 
+![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
+
 ### <a name="p69"/>[P69](#p69) (\*\*) Dotstring representation of binary trees.
 We consider again binary trees with nodes that are identified by single
-lower-case letters, as in the example of problem P67. Such a tree can be
-represented by the preorder sequence of its nodes in which dots (.) are
-inserted where an empty subtree (End) is encountered during the tree
-traversal. For example, the tree shown in problem P67 is represented as
-"abd..e..c.fg...". First, try to establish a syntax (BNF or syntax diagrams)
+lower-case letters, as in the example of problem [P67](#p67). Such a tree can be
+represented by the preorder sequence of its nodes in which dots `.` are
+inserted where an empty subtree (`nil`) is encountered during the tree
+traversal. For example, the tree shown in problem [P67](#p67) is represented as
+`"abd..e..c.fg..."`. First, try to establish a syntax (BNF or syntax diagrams)
 and then write two methods, toDotstring and fromDotstring, which do the
 conversion in both directions.
+
 scala> Tree.string2Tree("a(b(d,e),c(,f(g,)))").toDotstring
 res0: String = abd..e..c.fg...
 
 scala> Tree.fromDotstring("abd..e..c.fg...")
 res1: Node[Char] = a(b(d,e),c(,f(g,)))
+
 The file containing the full class definitions for this section is tree.scala.
 
+![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
 
 
 * * *
@@ -1784,13 +1998,15 @@ The example tree is, thus:
 MTree('a', List(MTree('f', List(MTree('g'))), MTree('c'), MTree('b', List(MTree('d'), MTree('e')))))
 The starting code skeleton for this section is mtree1.scala.
 
-P70B Omitted; we can only create well-formed trees.
+### <a name="p70b"/>[P70B](#p70b) Omitted; we can only create well-formed trees.
 
-P70C (\*) Count the nodes of a multiway tree.
+### <a name="p70c"/>[P70C](#p70c) (\*) Count the nodes of a multiway tree.
 Write a method nodeCount which counts the nodes of a given multiway tree.
 
 scala> MTree('a', List(MTree('f'))).nodeCount
 res0: Int = 2
+
+![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
 
 ### <a name="p70"/>[P70](#p70) (\*\*) Tree construction from a node string.
 We suppose that the nodes of a multiway tree contain single characters.
@@ -1801,6 +2017,7 @@ to the previous level.
 By this rule, the tree in the figure opposite is represented as:
 
 afg^^c^bd^e^^^
+
 Define the syntax of the string and write a function string2MTree to construct
 an MTree from a String. Make the function an implicit conversion from String.
 Write the reverse function, and make it the toString method of MTree.
@@ -1808,19 +2025,27 @@ Write the reverse function, and make it the toString method of MTree.
 scala> MTree('a', List(MTree('f', List(MTree('g'))), MTree('c'), MTree('b', List(MTree('d'), MTree('e'))))).toString
 res0: String = afg^^c^bd^e^^^
 
+![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
+
 ### <a name="p71"/>[P71](#p71) (\*) Determine the internal path length of a tree.
 We define the internal path length of a multiway tree as the total sum of the
 path lengths from the root to all nodes of the tree. By this definition, the
 tree in the figure of problem P70 has an internal path length of 9. Write a
 method internalPathLength to return that sum.
+
 scala> "afg^^c^bd^e^^^".internalPathLength
 res0: Int = 9
+
+![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
 
 ### <a name="p72"/>[P72](#p72) (\*) Construct the postorder sequence of the tree nodes.
 Write a method postorder which constructs the postorder sequence of the
 nodes of a multiway tree. The result should be a List.
+
 scala> "afg^^c^bd^e^^^".postorder
 res0: List[Char] = List(g, f, c, d, e, b, a)
+
+![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
 
 ### <a name="p73"/>[P73](#p73) (\*\*) Lisp-like tree representation.
 There is a particular notation for multiway trees in Lisp. Lisp is a
@@ -1837,6 +2062,7 @@ constructs a "lispy string" from an MTree.
 
 scala> MTree("a", List(MTree("b", List(MTree("c"))))).lispyTree
 res0: String = (a (b c))
+
 As a second, even more interesting, exercise try to write a method that
 takes a "lispy" string and turns it into a multiway tree.
 
@@ -1847,6 +2073,7 @@ I can elaborate more on this, if requested. <PMG>]
 
 The complete source file for this section is mtree.scala.
 
+![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
 
 
 * * *
@@ -1944,6 +2171,7 @@ lists the nodes and edges separately:
 
 Graph.term(List('b', 'c', 'd', 'f', 'g', 'h', 'k'),
            List(('b', 'c'), ('b', 'f'), ('c', 'f'), ('f', 'k'), ('g', 'h')))
+
 The adjacency-list form associates each node with its adjacent nodes. In an
 undirected graph, care must be taken to ensure that all links are
 symmetric--if b is adjacent to c, c must also be adjacent to b.
@@ -1951,6 +2179,7 @@ symmetric--if b is adjacent to c, c must also be adjacent to b.
 Graph.adjacent(List(('b', List('c', 'f')), ('c', List('b', 'f')), ('d', Nil),
                     ('f', List('b', 'c', 'k')), ('g', List('h')), ('h', List('g')),
                     ('k', List('f'))))
+
 The representations we introduced so far are bound to our implementation and
 therefore well suited for automated processing, but their syntax is not very
 user-friendly. Typing the terms by hand is cumbersome and error-prone. We can
@@ -1961,6 +2190,7 @@ If an X appears as an endpoint of an edge, it is automatically defined as a
 node. Our example could be written as:
 
 [b-c, f-c, g-h, d, f-b, k-f, h-g]
+
 We call this the human-friendly form. As the example shows, the list does not
 have to be sorted and may even contain the same edge multiple times. Notice
 the isolated node d.
@@ -1974,15 +2204,18 @@ graph-term form:
 
 Digraph.term(List('r', 's', 't', 'u', 'v'),
              List(('s', 'r'), ('s', 'u'), ('u', 'r'), ('u', 's'), ('v', 'u')))
+
 adjacency-list form:
 
 Digraph.adjacent(List(('r', Nil), ('s', List('r', 'u')), ('t', Nil),
                       ('u', List('r', 's')), ('v', List('u'))))
+
 (Note that the adjacency-list form is the same for graphs and digraphs.)
 
 human-friendly form:
 
 [s>r, t, u>r, s>u, u>s, v>u]
+
 Finally, graphs and digraphs may have additional information attached to nodes
 and edges (arcs). For the nodes, this is no problem, as we can put any type
 into them. On the other hand, for edges we have to extend our notation. Graphs
@@ -1992,6 +2225,7 @@ graph-term form:
 
 Digraph.termLabel(List('k', 'm', 'p', 'q'),
                   List(('m', 'q', 7), ('p', 'm', 5), ('p', 'q', 9)))
+
 adjacency-list form:
 
 Digraph.adjacentLabel(
@@ -2000,8 +2234,11 @@ Digraph.adjacentLabel(
 human-friendly form:
 
 [p>q/9, m>q/7, k, p>m/5]
+
 The notation for labeled graphs can also be used for so-called multi-graphs,
 where more than one edge (or arc) is allowed between two given nodes.
+
+![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
 
 ### <a name="p80"/>[P80](#p80) (\*\*\*) Conversions.
 Write methods to generate the graph-term and adjacency-list forms from a Graph.
@@ -2017,20 +2254,28 @@ res0: (List[String], List[(String, String, Unit)]) = (List(d, k, h, c, f, g, b),
 scala> Digraph.fromStringLabel("[p>q/9, m>q/7, k, p>m/5]").toAdjacentForm
 res1: List[(String, List[(String, Int)])] = List((m,List((q,7))), (p,List((m,5), (q,9))), (k,List()), (q,List()))
 
+![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
+
 ### <a name="p81"/>[P81](#p81) (\*\*) Path from one node to another one.
 Write a method named findPaths to find acyclic paths from one node to another
 in a graph. The method should return all paths.
+
 scala> Digraph.fromStringLabel("[p>q/9, m>q/7, k, p>m/5]").findPaths("p", "q")
 res0: List[List[String]] = List(List(p, q), List(p, m, q))
 
 scala> Digraph.fromStringLabel("[p>q/9, m>q/7, k, p>m/5]").findPaths("p", "k")
 res1: List[List[String]] = List()
 
+![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
+
 ### <a name="p82"/>[P82](#p82) (\*) Cycle from a given node.
 Write a method named findCycles to find closed paths (cycles) starting at a
 given node in a graph. The method should return all cycles.
+
 scala> Graph.fromString("[b-c, f-c, g-h, d, f-b, k-f, h-g]").findCycles("f")
 res0: List[List[String]] = List(List(f, c, b, f), List(f, b, c, f))
+
+![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
 
 ### <a name="p83"/>[P83](#p83) (\*\*) Construct all spanning trees.
 Write a method spanningTrees to construct all spanning trees of a given graph.
@@ -2041,12 +2286,15 @@ other useful methods: isTree and isConnected. Both are five-minute tasks!
 
 Graph:
 
-Graph.term(List('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'),
+        Graph.term(List('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'),
            List(('a', 'b'), ('a', 'd'), ('b', 'c'), ('b', 'e'),
                 ('c', 'e'), ('d', 'e'), ('d', 'f'), ('d', 'g'),
                 ('e', 'h'), ('f', 'g'), ('g', 'h')))
+
 scala> Graph.fromString("[a-b, b-c, a-c]").spanningTrees
 res0: List[Graph[String,Unit]] = List([a-b, b-c], [a-c, b-c], [a-b, a-c])
+
+![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
 
 ### <a name="p84"/>[P84](#p84) (\*\*) Construct the minimal spanning tree.
 Write a method minimalSpanningTree to construct the minimal spanning tree of a
@@ -2058,13 +2306,16 @@ be found below.
 
 Graph:
 
-Graph.termLabel(
-  List('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'),
-       List(('a', 'b', 5), ('a', 'd', 3), ('b', 'c', 2), ('b', 'e', 4),
+    Graph.termLabel(
+        List('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'),
+        List(('a', 'b', 5), ('a', 'd', 3), ('b', 'c', 2), ('b', 'e', 4),
             ('c', 'e', 6), ('d', 'e', 7), ('d', 'f', 4), ('d', 'g', 3),
             ('e', 'h', 5), ('f', 'g', 4), ('g', 'h', 1)))
+
 scala> Graph.fromStringLabel("[a-b/1, b-c/2, a-c/3]").minimalSpanningTree
 res0: Graph[String,Int] = [a-b/1, b-c/2]
+
+![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
 
 ### <a name="p85"/>[P85](#p85) (\*\*) Graph isomorphism.
 Two graphs G1(N1,E1) and G2(N2,E2) are isomorphic if there is a bijection f:
@@ -2075,15 +2326,20 @@ Write a method that determines whether two graphs are isomorphic.
 scala> Graph.fromString("[a-b]").isIsomorphicTo(Graph.fromString("[5-7]"))
 res0: Boolean = true
 
+![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
+
 ### <a name="p86"/>[P86](#p86) (\*\*) Node degree and graph coloration.
 a) Write a method Node.degree that determines the degree of a given node.
+
 scala> Graph.fromString("[a-b, b-c, a-c, a-d]").nodes("a").degree
 res0: Int = 3
+
 b) Write a method that lists all nodes of a graph sorted according to
 decreasing degree.
 
 scala> Graph.fromString("[a-b, b-c, a-c, a-d]").nodesByDegree
 res1: List[Graph[String,Unit]#Node] = List(Node(a), Node(c), Node(b), Node(d))
+
 c) Use Welsh-Powell's algorithm to paint the nodes of a graph in such a way
 that adjacent nodes have different colors. Make a method colorNodes that
 returns a list of tuples, each of which contains a node and an integer
@@ -2092,20 +2348,30 @@ representing its color.
 scala> Graph.fromString("[a-b, b-c, a-c, a-d]").colorNodes
 res2: List[(Graph[String,Unit]#Node,Int)] = List((Node(a),1), (Node(b),2), (Node(c), 3), (Node(d), 2))
 
+![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
+
 ### <a name="p87"/>[P87](#p87) (\*\*) Depth-first order graph traversal.
 Write a method that generates a depth-first order graph traversal sequence.
 The starting point should be specified, and the output should be a list of
 nodes that are reachable from this starting point (in depth-first order).
+
 scala> Graph.fromString("[a-b, b-c, e, a-c, a-d]").nodesByDepthFrom("d")
 res0: List[String] = List(c, b, a, d)
 
+![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
+
 ### <a name="p88"/>[P88](#p88) (\*\*) Connected components.
 Write a function that splits a graph into its connected components.
+
 scala> Graph.fromString("[a-b, c]").splitGraph
 res0: List[Graph[String,Unit]] = List([a-b], [c])
 
+![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
+
+
 ### <a name="p89"/>[P89](#p89) (\*\*) Bipartite graphs.
 Write a function that determines whether a given graph is bipartite.
+
 scala> Digraph.fromString("[a>b, c>a, d>b]").isBipartite
 res0: Boolean = true
 
@@ -2117,7 +2383,11 @@ res2: Boolean = true
 
 scala> Graph.fromString("[a-b, b-c, d, e-f, f-g, g-e, h]").isBipartite
 res3: Boolean = false
+
 The complete source file for this section is graph.scala.
+
+![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
+
 
 * * *
 
@@ -2133,6 +2403,8 @@ _Hint:_ Represent the positions of the queens as a list of numbers 1..N. Example
 List(4, 2, 7, 3, 6, 8, 5, 1) means that the queen in the first column is in row
 4, the queen in the second column is in row 2, etc. Use the generate-and-test
 paradigm.
+
+![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
 
 ### <a name="p91"/>[P91](#p91) (\*\*) Knight's tour.
 Another famous problem is this one: How can a knight jump on an NÃ—N chessboard
@@ -2150,6 +2422,8 @@ calculates the tours as needed?
 
 Can you find only "closed tours", where the knight can jump from its final
 position back to its starting position?
+
+![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
 
 ### <a name="p92"/>[P92](#p92) (\*\*\*) Von Koch's conjecture.
 Several years ago I met a mathematician who was intrigued by a problem for
@@ -2172,11 +2446,15 @@ solution!
 Write a function that calculates a numbering scheme for a given tree.
 What is the solution for the larger tree pictured below?
 
+![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
+
 ### <a name="p93"/>[P93](#p93) (\*\*\*) An arithmetic puzzle.
 Given a list of integer numbers, find a correct way of inserting arithmetic
 signs (operators) such that the result is a correct equation. Example: With
 the list of numbers List(2,3,5,7,11) we can form the equations 2-3+5+7 = 11
 or 2 = (3*5+7)/11 (and ten others!).
+
+![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
 
 ### <a name="p94"/>[P94](#p94) (\*\*\*) Generate K-regular simple graphs with N nodes.
 In a K-regular graph all nodes have a degree of K; i.e. the number of edges
@@ -2184,10 +2462,14 @@ incident in each node is K. How many (non-isomorphic!) 3-regular graphs with
 6 nodes are there? See also a table of results and a Java applet that can
 represent graphs geometrically.
 
+![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
+
 ### <a name="p95"/>[P95](#p95) (\*\*) English number words.
 On financial documents, like checks, numbers must sometimes be written in full
 words. Example: 175 must be written as one-seven-five. Write a function
 fullWords(num: Int) to print (non-negative) integer numbers in full words.
+
+![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
 
 ### <a name="p96"/>[P96](#p96) (\*\*) Syntax checker.
 In a certain programming language (Ada) identifiers are defined by the syntax
@@ -2195,6 +2477,8 @@ diagram (railroad chart) opposite. Transform the syntax diagram into a system
 of syntax diagrams which do not contain loops; i.e. which are purely recursive.
 Using these modified diagrams, write a function isIdentifier that can check
 whether or not a given string is a legal identifier.
+
+![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
 
 ### <a name="p97"/>[P97](#p97) (\*\*) Sudoku. (alternate solution)
 Sudoku puzzles go like this:
@@ -2226,6 +2510,8 @@ short). At the beginning, some of the spots carry a single-digit number
 between 1 and 9. The problem is to fill the missing spots with digits in
 such a way that every number between 1 and 9 appears exactly once in each
 row, in each column, and in each square.
+
+![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
 
 ### <a name="p98"/>[P98](#p98) (\*\*\*) Nonograms.
 Around 1994, a certain kind of puzzles was very popular in England. The
@@ -2262,6 +2548,8 @@ the rows and columns, top-to-bottom and left-to-right, respectively.
 Published puzzles are larger than this example, e.g. 25Ã—20, and apparently
 always have unique solutions.
 
+![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
+
 ### <a name="p99"/>[P99](#p99) (\*\*\*) Crossword puzzle.
 Given an empty (or almost empty) framework of a crossword puzzle and a set of
 words. The problem is to place the words into the framework.
@@ -2278,10 +2566,14 @@ Words are strings of at least two characters. A horizontal or vertical
 sequence of character places in the crossword puzzle framework is called
 a site. Our problem is to find a compatible way of placing words onto sites.
 
-Hints: (1) The problem is not easy. You will need some time to thoroughly
+Hints:
+
+(1) The problem is not easy. You will need some time to thoroughly
 understand it. So, don't give up too early! And remember that the objective
 is a clean solution, not just a quick-and-dirty hack!
 
 (2) For efficiency reasons it is important, at least for larger puzzles, to
 sort the words and the sites in a particular order. For this part of the
 problem, the solution of P28 may be very helpful.
+
+![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
