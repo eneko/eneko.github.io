@@ -306,17 +306,29 @@ table({ $0 ∧ $1 })
 table({ and($0, and($0, $1)) })
 table({ or(or($0, $1), and(and($0, and($0, $1)), $1)) })
 
-
-
-func table2(expression: (a: [Bool]) -> Bool) {
-//    print("A\tB\tResult")
-//    print(String(format: "%d\t%d\t%d", Int(false), Int(false), Int(expression(a: [false, false]))))
-//    print(String(format: "%d\t%d\t%d", Int(false), Int(true), Int(expression(a: false, b: true))))
-//    print(String(format: "%d\t%d\t%d", Int(true), Int(false), Int(expression(a: true, b: false))))
-//    print(String(format: "%d\t%d\t%d", Int(true), Int(true), Int(expression(a: true, b: true))))
+import Foundation
+func bitCombinations(digits: Int) -> [[Bool]]{
+    var results = [[Bool]]()
+    let combinations = Int(pow(2.0, Double(digits)))
+    for var i in 0..<combinations {
+        var result = [Bool]()
+        for _ in 0..<digits {
+            result.insert(i & 1 == 1, atIndex: 0)
+            i = i / 2
+        }
+        results.append(result)
+    }
+    return results
 }
 
-//table2({ vars in vars[0] ||| vars[1] })
+func table(variables: Int, expression: (vars: [Bool]) -> Bool) {
+    let combinations = bitCombinations(variables)
+    for combination in combinations {
+        expression(vars: combination)
+    }
+}
+
+table(2, expression: { vars in vars[0] ∧ vars[1] })
 
 
 

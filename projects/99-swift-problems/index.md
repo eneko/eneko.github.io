@@ -16,7 +16,8 @@ This list is an adaptation by me, [Eneko Alonso](http://enekoalonso.com), of the
 [Ninety-Nine Scala Problems](http://aperiodic.net/phil/scala/s-99/) written by
 [Phil Gold](http://aperiodic.net/phil/), which in turn was an adaptation of the
 original [Ninety-Nine Prolog Problems](https://prof.ti.bfh.ch/hew1/informatik3/prolog/p-99/)
-written by Werner Hett at Berne University of Applied Sciences in Berne, Switzerland.
+written by [Werner Hett](https://sites.google.com/site/prologsite/author) at
+Berne University of Applied Sciences in Berne, Switzerland.
 
 From the original:
 
@@ -50,9 +51,11 @@ Solutions for these problems can be written in Swift by creating a
 Playground in Xcode. Classes and structures can be placed on the source files
 folder to keep the Playground clean.
 
-Another way, of course, is to crate an application for iOS, OS X or tvOS. From
-those, probably a command line application for OS X is the one that would make
-more sense.
+A better way, maybe, would be creating an Xcode project for an iOS, OS X or
+tvOS application or framework. This would make it very easy to test your
+solutions with Unit Tests and to guarantee 100% code coverage. An OS X
+command line application would also work, but it will require more
+configuration to get the unit tests ready.
 
 You can also create Swift files without an Xcode project and use `swift`
 or `swiftc` on the terminal to run the code. Use `swift build` if you have
@@ -1341,11 +1344,11 @@ table({ and($0, or($0, $1)) })
 Result:
 
 ~~~swift
-//      A     B     Result
+// (A, B, Result)
 List(
-  List(true, true, true),
-  List(true, false, true),
-  List(false, true, false),
+  List(true,  true,  true ),
+  List(true,  false, true ),
+  List(false, true,  false),
   List(false, false, false)
 )
 ~~~
@@ -1372,26 +1375,29 @@ Use the following list of mathematical symbols:
 - `→` - [Logical Implication](https://en.wikipedia.org/wiki/Material_conditional)
 - `≡` - [Logical Equality XNOR](https://en.wikipedia.org/wiki/Logical_equality)
 
+Example:
 
 ~~~swift
 table({ $0 ∧ $0 ∨ $1 })
 ~~~
 
-Output:
+Result:
 
-~~~
-A     B     Result
-true  true  true
-true  false true
-false true  false
-false false false
+~~~swift
+// (A, B, Result)
+List(
+  List(true,  true,  true ),
+  List(true,  false, true ),
+  List(false, true,  false),
+  List(false, false, false)
+)
 ~~~
 
 <!-- Implementation:
 
 ~~~swift
 infix operator ∧ { associativity left precedence 140 }
-func ∧ (a: Bool, b: Bool) -> Bool) {
+func ∧ (a: Bool, b: Bool) -> Bool {
     ...
 }
 ~~~ -->
@@ -1401,11 +1407,38 @@ _Note: Use operator precedence to avoid the need of parentheses._
 ### <a name="p48"/>[P48](#p48) (\*\*) Truth tables for logical expressions - Part 3.
 Generalize problem [P47](#p47) in such a way that the logical expression may
 contain any number of logical variables. Define `table` in a way that
-`tableN(List, Expr)` prints the truth table for the expression `Expr`, which
-contains the logical variables enumerated in List.
+`table(variableNum, expression)` generates the truth table for the expression for
+all the logical variables, and returns it as a series of linked lists.
 
-![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
+Example:
 
+~~~swift
+table(3, expression: { vars in vars[0] ∧ vars[1] ∨ vars[2] })
+~~~
+
+Result:
+
+~~~swift
+// (A, B, C, Result)
+List(
+  List(true,  true,  true,  true ),
+  List(true,  true,  false, true ),
+  List(true,  false, true,  true ),
+  List(true,  false, false, false),
+  List(false, true,  true,  true ),
+  List(false, true,  false, false),
+  List(false, false, true,  true ),
+  List(false, false, false, false)
+)
+~~~
+
+Implementation:
+
+~~~swift
+func table(variables: Int, expression: (vars: [Bool]) -> Bool) -> List<List<Bool>> {
+    ...
+}
+~~~
 
 ### <a name="p48"/>[P48](#p49) (\*\*) Gray code.
 An n-bit Gray code is a sequence of n-bit strings constructed according to
