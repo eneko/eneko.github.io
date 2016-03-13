@@ -1124,10 +1124,13 @@ as follows: Let `[[p1, m1], [p2, m2], [p3, m3], ...]` be the list of prime facto
 (and their multiplicities) of a given number `m`. Then `phi(m)` can be
 calculated with the following formula:
 
-~~~
+<!-- ~~~
 phi(m) = (p1-1)*p1^(m1-1) * (p2-1)*p2^(m2-1) * (p3-1)*p3^(m3-1) * ...
 ~~~
-_Note: `a^b` stands for the `bth` power of `a`._
+_Note: `a^b` stands for the `bth` power of `a`._ -->
+
+phi(m) = (p1-1)\*p1<sup>(m1-1)</sup> * (p2-1)\*p2<sup>(m2-1)</sup> * (p3-1)\*p3<sup>(m3-1)</sup> * ...
+
 
 Implementation:
 
@@ -1494,7 +1497,7 @@ class Tree<T> {
 
 A tree with only a root node would be `Tree("a")` and an empty tree would be `nil`.
 
-![](/media/99-swift-projects/p67.gif)
+![](/media/99-swift-problems/p67.gif)
 
 The example tree above is given by:
 
@@ -1763,11 +1766,11 @@ extension Tree {
 ~~~
 
 ### <a name="p60"/>[P60](#p60) (\*\*) Construct height-balanced binary trees with a given number of nodes.
-Consider a height-balanced binary tree of height `H`. What is the maximum number
-of nodes it can contain? Clearly, `MaxN = 2^H - 1`. However, what is the minimum
-number `MinN`? This question is more difficult. Try to find a recursive
+Consider a height-balanced binary tree of height *h*. What is the maximum number
+of nodes it can contain? Clearly, *MaxN = 2<sup>h</sup> - 1*. However, what is the minimum
+number *MinN*? This question is more difficult. Try to find a recursive
 statement and turn it into a function `minNodesForBalancedTreeOfHeight()`
-that takes a height and returns `MinN`.
+that takes a height and returns *MinN*.
 
 Example:
 
@@ -1781,8 +1784,8 @@ Result:
 4
 ~~~
 
-On the other hand, we might ask: what is the maximum height `H` a
-height-balanced binary tree with `N` nodes can have? Write a
+On the other hand, we might ask: what is the maximum height *h* a
+height-balanced binary tree with *n* nodes can have? Write a
 `maxHeightForBalancedTreeWithNodeCount()` function.
 
 Example:
@@ -1829,85 +1832,183 @@ extension Tree {
 Find out how many height-balanced trees exist for `N = 15`.
 
 ### <a name="p61"/>[P61](#p61) (\*) Count the leaves of a binary tree.
-A leaf is a node with no successors. Write a method leafCount to count them.
+A leaf is a node with no successors. Write a computed property `leafCount` to
+count them.
 
-scala> Node('x', Node('x'), End).leafCount
-res0: Int = 1
+Example:
 
-![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
+~~~swift
+Tree("x", Tree("x"), nil).leafCount
+~~~
 
-### <a name="p61a"/>[P61A](#p61a) (\*) Collect the leaves of a binary tree in a list.
-A leaf is a node with no successors. Write a method leafList to collect them
-in a list.
+Result:
 
-scala> Node('a', Node('b'), Node('c', Node('d'), Node('e'))).leafList
-res0: List[Char] = List(b, d, e)
+~~~swift
+1
+~~~
 
-![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
+Implementation:
 
-### <a name="p62"/>[P62](#p62) (\*) Collect the internal nodes of a binary tree in a list.
+~~~swift
+extension Tree {
+    var leafCount: Int {
+        ...
+    }
+}
+~~~
+
+### <a name="p61a"/>[P61A](#p61a) (\*) Collect the leaves of a binary tree in a linked list.
+A leaf is a node with no successors. Write a method `leafList()` to collect them
+in a linked list.
+
+Example:
+
+~~~swift
+Tree("a", Tree("b"), Tree("c", Tree("d"), Tree("e"))).leafList()
+~~~
+
+Result:
+
+~~~swift
+List("b", "d", "e")
+~~~
+
+Implementation:
+
+~~~swift
+extension Tree {
+    func leafList() -> List<T> {
+        ...
+    }
+}
+~~~
+
+### <a name="p62"/>[P62](#p62) (\*) Collect the internal nodes of a binary tree in a linked list.
 An internal node of a binary tree has either one or two non-empty successors.
-Write a method internalList to collect them in a list.
+Write a method `internalList()` to collect them in a linked list.
 
-scala> Node('a', Node('b'), Node('c', Node('d'), Node('e'))).internalList
-res0: List[Char] = List(a, c)
+Example:
 
-![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
+~~~swift
+Tree("a", Tree("b"), Tree("c", Tree("d"), Tree("e"))).internalList()
+~~~
 
-### <a name="p62b"/>[P62B](#p62b) (\*) Collect the nodes at a given level in a list.
-A node of a binary tree is at level N if the path from the root to the node
-has length N-1. The root node is at level 1. Write a method atLevel to collect
-all nodes at a given level in a list.
+Result:
 
-scala> Node('a', Node('b'), Node('c', Node('d'), Node('e'))).atLevel(2)
-res0: List[Char] = List(b, c)
+~~~swift
+List("a", "c")
+~~~
 
-Using atLevel it is easy to construct a method levelOrder which creates the
-level-order sequence of the nodes. However, there are more efficient ways to
-do that.
+Implementation:
 
-![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
+~~~swift
+extension Tree {
+    func internalList() -> List<T> {
+        ...
+    }
+}
+~~~
+
+### <a name="p62b"/>[P62B](#p62b) (\*) Collect the nodes at a given level in a linked list.
+A node of a binary tree is at level *n* if the path from the root to the node
+has length *n-1*. The root node is at level 1. Write a method `atLevelList()`
+to collect all nodes at a given level in a linked list.
+
+Example:
+
+~~~swift
+Tree("a", Tree("b"), Tree("c", Tree("d"), Tree("e"))).atLevelList(2)
+~~~
+
+Result:
+
+~~~swift
+List("b", "c")
+~~~
+
+Implementation:
+
+~~~swift
+extension Tree {
+    func atLevelList() -> List<T> {
+        ...
+    }
+}
+~~~
+
+Using `atLevelList()` it is easy to construct a method `levelOrder()` which
+creates the level-order sequence (traversal) of the nodes. However, there are
+more efficient ways to do that.
 
 ### <a name="p63"/>[P63](#p63) (\*\*) Construct a complete binary tree.
-A complete binary tree with height H is defined as follows: The levels
-1,2,3,...,H-1 contain the maximum number of nodes (i.e 2(i-1) at the level i,
-note that we start counting the levels from 1 at the root). In level H, which
-may contain less than the maximum possible number of nodes, all the nodes are
-"left-adjusted". This means that in a levelorder tree traversal all internal
-nodes come first, the leaves come second, and empty successors (the Ends which
-are not really nodes!) come last.
+A *complete* binary tree with height *h* is defined as follows: The levels
+*1,2,3,...,h-1* contain the maximum number of nodes (i.e 2<sup>(i-1)</sup> at
+the level *i*, note that we start counting the levels from 1 at the root).
+In level *h*, which may contain less than the maximum possible number of
+nodes, all the nodes are "left-adjusted". This means that in a level-order
+tree traversal all internal nodes come first, the leaves come second,
+and empty successors (the *nils* which are not really nodes!) come last.
+
 Particularly, complete binary trees are used as data structures (or addressing
 schemes) for heaps.
 
 We can assign an address number to each node in a complete binary tree by
-enumerating the nodes in levelorder, starting at the root with number 1.
-In doing so, we realize that for every node X with address A the following
-property holds: The address of X's left and right successors are 2*A and
-2*A+1, respectively, supposed the successors do exist. This fact can be
+enumerating the nodes in level-order, starting at the root with number 1.
+In doing so, we realize that for every node *x* with address *a* the following
+property holds: The address of *x* left and right successors are *2\*a* and
+*2\*a+1*, respectively, supposed the successors do exist. This fact can be
 used to elegantly construct a complete binary tree structure. Write a
-method completeBinaryTree that takes as parameters the number of nodes
+method `makeCompleteBinaryTree()` that takes as parameters the number of nodes
 and the value to put in each node.
 
-scala> Tree.completeBinaryTree(6, "x")
-res0: Node[String] = T(x T(x T(x . .) T(x . .)) T(x T(x . .) .))
+Example:
 
-![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
+~~~swift
+Tree.makeCompleteTree(nodes: 6, value: "x")
+~~~
+
+Result:
+
+~~~swift
+Tree("x", Tree("x", Tree("x"), Tree("x")), Tree("x", T("x"), nil))
+~~~
+
+Implementation:
+
+~~~swift
+extension Tree {
+    class func makeCompleteTree(nodes nodes: Int, value: T) -> Tree<T>? {
+        ...
+    }
+}
+~~~
 
 ### <a name="p64"/>[P64](#p64) (\*\*) Layout a binary tree.
 As a preparation for drawing a tree, a layout algorithm is required to
 determine the position of each node in a rectangular grid. Several layout
-methods are conceivable, one of them is shown in the illustration on the right.
-In this layout strategy, the position of a node v is obtained by the
+methods are conceivable, one of them is shown in the illustration below.
+
+![p64](/media/99-swift-problems/p64.gif)
+
+In this layout strategy, the position of a node *v* is obtained by the
 following two rules:
 
-x(v) is equal to the position of the node v in the inorder sequence
-y(v) is equal to the depth of the node v in the tree
+- *x(v)* is equal to the position of the node *v* in the in-order sequence
+- *y(v)* is equal to the depth of the node *v* in the tree
+
 In order to store the position of the nodes, we add a new class with the
 additional information.
 
-~~~
-case class PositionedNode[+T](override val value: T, override val left: Tree[T], override val right: Tree[T], x: Int, y: Int) extends Node[T](value, left, right) {
-  override def toString = "T[" + x.toString + "," + y.toString + "](" + value.toString + " " + left.toString + " " + right.toString + ")"
+~~~swift
+public class PositionedTree<T> : Tree<T> {
+    var x: Int
+    var y: Int
+
+    public init(_ value: T, _ left: Tree<T>? = nil, _ right: Tree<T>? = nil, x: Int, y: Int) {
+        self.x = x
+        self.y = y
+        super.init(value, left, right)
+    }
 }
 ~~~
 
@@ -1917,13 +2018,21 @@ tree of PositionedNodes.
 scala> Node('a', Node('b', End, Node('c')), Node('d')).layoutBinaryTree
 res0: PositionedNode[Char] = T[3,1](a T[1,2](b . T[2,3](c . .)) T[4,2](d . .))
 
-The tree at right may be constructed with Tree.fromList(List('n','k','m','c','a','h','g','e','u','p','s','q')). Use it to check your code.
+The tree above may be constructed with:
+
+~~~swift
+Tree(list: List("n", "k", "m", "c", "a", "h", "g", "e", "u", "p", "s", "q"))
+~~~
+
+Use it to check your code.
 
 ![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
 
 ### <a name="p65"/>[P65](#p65) (\*\*) Layout a binary tree - Part 2.
-An alternative layout method is depicted in the illustration opposite. Find
+An alternative layout method is depicted in the following illustration. Find
 out the rules and write the corresponding method.
+
+![p65](/media/99-swift-problems/p65.gif)
 
 _Hint:_ On a given level,
 the horizontal distance between neighboring nodes is constant.
@@ -1937,9 +2046,11 @@ The tree at right may be constructed with Tree.fromList(List('n','k','m','c','a'
 ![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
 
 ### <a name="p66"/>[P66](#p66) (\*\*\*) Layout a binary tree - Part 3.
-Yet another layout strategy is shown in the illustration opposite. The method
+Yet another layout strategy is shown in the following illustration. The method
 yields a very compact layout while maintaining a certain symmetry in every
 node. Find out the rules and write the corresponding method.
+
+![p66](/media/99-swift-problems/p66.gif)
 
 _Hint:_ Consider
 the horizontal distance between a node and its successor nodes. How tight
@@ -1955,14 +2066,17 @@ Which layout do you like most?
 ![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
 
 ### <a name="p67"/>[P67](#p67) (\*\*) A string representation of binary trees.
-Somebody represents binary trees as strings of the following type
-(see example opposite):
 
-a(b(d,e),c(,f(g,)))
+![p67](/media/99-swift-problems/p67.gif)
+
+Somebody represents binary trees as strings of the following type:
+
+    a(b(d,e),c(,f(g,)))
 
 Write a method which generates this string representation, if the tree is
-given as usual (in Nodes and Ends). Use that method for the Tree class's and
-subclass's toString methods. Then write a method (on the Tree object) which
+given as usual (using our `Tree` class). Use that method for the `Tree` class's
+`description` methods (`CustomStringConvertible` protocol).
+Then write a new convenience initializer which
 does this inverse; i.e. given the string representation, construct the tree
 in the usual form.
 
@@ -2035,6 +2149,8 @@ The file containing the full class definitions for this section is tree.scala.
 > successors which are multiway trees themselves. A multiway tree is never empty.
 > The set of successor trees is sometimes called a forest.
 
+![](/media/99-swift-problems/p70.gif)
+
 The code to represent these is somewhat simpler than the code for binary
 trees, partly because we don't separate classes for nodes and terminators,
 and partly because we don't need the restriction that the value type be ordered.
@@ -2071,6 +2187,8 @@ We suppose that the nodes of a multiway tree contain single characters.
 In the depth-first order sequence of its nodes, a special character ^ has
 been inserted whenever, during the tree traversal, the move is a backtrack
 to the previous level.
+
+![p70](/media/99-swift-problems/p70.gif)
 
 By this rule, the tree in the figure opposite is represented as:
 
@@ -2109,7 +2227,10 @@ res0: List[Char] = List(g, f, c, d, e, b, a)
 There is a particular notation for multiway trees in Lisp. Lisp is a
 prominent functional programming language. In Lisp almost everything is a list.
 Our example tree would be represented in Lisp as (a (f g) c (b d e)).
+
 The following pictures give some more examples.
+
+![p73](/media/99-swift-problems/p73.png)
 
 Note that in the "lispy" notation a node with successors (children) in the
 tree is always the first element in a list, followed by its children.
@@ -2538,7 +2659,7 @@ whether or not a given string is a legal identifier.
 
 ![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
 
-### <a name="p97"/>[P97](#p97) (\*\*) Sudoku. (alternate solution)
+### <a name="p97"/>[P97](#p97) (\*\*) Sudoku.
 Sudoku puzzles go like this:
 
    Problem statement                 Solution
