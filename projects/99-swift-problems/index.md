@@ -1552,7 +1552,7 @@ number of nodes and a single value to put in all of them.
 Example:
 
 ~~~swift
-Tree<String>.makeBalancedTrees(4, "x")
+Tree.makeBalancedTrees(nodes: 4, value: "x")
 ~~~
 
 Result:
@@ -1570,7 +1570,7 @@ Implementation:
 
 ~~~swift
 extension Tree {
-    class func makeBalancedTrees(number: Int, _ value: T) -> List<Tree<T>> {
+    class func makeBalancedTrees(nodes nodes: Int, value: T) -> List<Tree<T>>? {
         ...
     }
 }
@@ -1648,12 +1648,12 @@ extension Tree {
 
 ### <a name="p57b"/>[P57B](#p57b) (\*\*) Binary search trees from Linked List.
 Use the function from [P57](#p57) to construct a binary tree from a list of
-integers.
+integers. Define a convenience initializer as follows:
 
 Example:
 
 ~~~swift
-Tree.fromList(List(3, 2, 5, 7, 1))
+Tree(list: List(3, 2, 5, 7, 1))
 ~~~
 
 Result:
@@ -1662,12 +1662,22 @@ Result:
 Tree(3, Tree(2, Tree(1), nil), Tree(5, nil, Tree(7)))
 ~~~
 
-Then, use that function to test your solution to [P56](#p56).
+Implementation:
+
+~~~swift
+extension Tree {
+    convenience init(list: List<T>) {
+        ...
+    }
+}
+~~~
+
+Then, use this initializer to test your solution to [P56](#p56).
 
 Example:
 
 ~~~swift
-Tree.fromList(List(5, 3, 18, 1, 4, 12, 21)).isSymmetric()
+Tree(list: List(5, 3, 18, 1, 4, 12, 21)).isSymmetric()
 ~~~
 
 Result:
@@ -1679,7 +1689,7 @@ true
 Example:
 
 ~~~swift
-Tree.fromList(List(3, 2, 5, 7, 4)).isSymmetric()
+Tree(list: List(3, 2, 5, 7, 4)).isSymmetric()
 ~~~
 
 Result:
@@ -1695,7 +1705,7 @@ balanced binary trees with a given number of nodes.
 Example:
 
 ~~~swift
-Tree<String>.makeSymmetricBalancedTrees(5, "x")
+Tree.makeSymmetricBalancedTrees(nodes: 5, value: "x")
 ~~~
 
 Result:
@@ -1711,7 +1721,7 @@ Implementation:
 
 ~~~swift
 extension Tree {
-    class func makeSymmetricBalancedTrees(number: Int, _ value: T) -> List<Tree<T>> {
+    class func makeSymmetricBalancedTrees(nodes nodes: Int, value: T) -> List<Tree<T>>? {
         ...
     }
 }
@@ -1729,7 +1739,7 @@ function should generate all solutions.
 Example:
 
 ~~~swift
-Tree<String>.makeHeightBalancedTrees(3, "x")
+Tree.makeHeightBalancedTrees(height: 3, value: "x")
 ~~~
 
 Result:
@@ -1746,7 +1756,7 @@ Implementation:
 
 ~~~swift
 extension Tree {
-    class func makeHeightBalancedTrees(height: Int, _ value: T) -> List<Tree<T>> {
+    class func makeHeightBalancedTrees(height height: Int, value: T) -> List<Tree<T>>? {
         ...
     }
 }
@@ -1756,27 +1766,67 @@ extension Tree {
 Consider a height-balanced binary tree of height `H`. What is the maximum number
 of nodes it can contain? Clearly, `MaxN = 2^H - 1`. However, what is the minimum
 number `MinN`? This question is more difficult. Try to find a recursive
-statement and turn it into a function minHbalNodes that takes a height and
-returns MinN.
+statement and turn it into a function `minNodesForBalancedTreeOfHeight()`
+that takes a height and returns `MinN`.
 
-scala> minHbalNodes(3)
-res0: Int = 4
+Example:
 
-On the other hand, we might ask: what is the maximum height H a height-balanced
-binary tree with N nodes can have? Write a maxHbalHeight function.
+~~~swift
+minNodesForBalancedTreeOfHeight(3)
+~~~
 
-scala> maxHbalHeight(4)
-res1: Int = 3
+Result:
+
+~~~swift
+4
+~~~
+
+On the other hand, we might ask: what is the maximum height `H` a
+height-balanced binary tree with `N` nodes can have? Write a
+`maxHeightForBalancedTreeWithNodeCount()` function.
+
+Example:
+
+~~~swift
+maxHeightForBalancedTreeWithNodeCount(4)
+~~~
+
+Result:
+
+~~~swift
+3
+~~~
 
 Now, we can attack the main problem: construct all the height-balanced binary
 trees with a given number of nodes.
 
-scala> Tree.hbalTreesWithNodes(4, "x")
-res2: List[Node[String]] = List(T(x T(x T(x . .) .) T(x . .)), T(x T(x . T(x . .)) T(x . .)), ...
+Example:
 
-Find out how many height-balanced trees exist for N = 15.
+~~~swift
+Tree.makeHeightBalancedTrees(nodes: 4, value: "x")
+~~~
 
-![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
+Result:
+
+~~~swift
+List(
+    Tree("x", Tree("x", Tree("x"), nil), Tree("x"),
+    Tree("x", Tree("x", nil, Tree("x")), Tree("x"),
+    ...
+)
+~~~
+
+Implementation:
+
+~~~swift
+extension Tree {
+    class func makeHeightBalancedTrees(nodes nodes: Int, value: T) -> List<Tree<T>>? {
+        ...
+    }
+}
+~~~
+
+Find out how many height-balanced trees exist for `N = 15`.
 
 ### <a name="p61"/>[P61](#p61) (\*) Count the leaves of a binary tree.
 A leaf is a node with no successors. Write a method leafCount to count them.
