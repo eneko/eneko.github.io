@@ -1492,7 +1492,6 @@ class Tree<T> {
 }
 ~~~
 
-
 A tree with only a root node would be `Tree("a")` and an empty tree would be `nil`.
 
 ![](/media/99-swift-projects/p67.gif)
@@ -1505,6 +1504,10 @@ Tree("a", Tree("b", Tree("d"), Tree("e")), Tree("c", nil, Tree("f", Tree("g"), n
 
 Throughout this section, we will be adding methods to the `Tree` class above
 as extensions to solve each problem.
+
+Leaf nodes (nodes with no subtrees) will be displayed in the results below as
+`Tree("a")` instead of `Tree("a", nil, nil)`. However, nodes with one subtree
+will always display the tree constructor parameters.
 
 ### <a name="p54"/>[P54](#p54) (\*) Completely balanced trees.
 In a completely balanced binary tree, the following property holds for every
@@ -1558,7 +1561,8 @@ Result:
 List(
     Tree("x", Tree("x"), Tree("x", nil, Tree("x"))),
     Tree("x", Tree("x"), Tree("x", Tree("x"), nil)),
-    ...
+    Tree("x", Tree("x", nil, Tree("x")), Tree("x")),
+    Tree("x", Tree("x", Tree("x"), nil), Tree("x"))
 )
 ~~~
 
@@ -1617,7 +1621,7 @@ tree.addValue(3)
 Result:
 
 ~~~swift
-Tree(2, nil, Tree(3, nil, nil))
+Tree(2, nil, Tree(3))
 ~~~
 
 Continue:
@@ -1629,7 +1633,7 @@ tree.addValue(0)
 Result:
 
 ~~~swift
-Tree(2, Tree(0, nil, nil), Tree(3, nil, nil))
+Tree(2, Tree(0), Tree(3))
 ~~~
 
 Implementation:
@@ -1655,7 +1659,7 @@ Tree.fromList(List(3, 2, 5, 7, 1))
 Result:
 
 ~~~swift
-Tree(3, Tree(2, Tree(1, nil, nil), nil), Tree(5, nil, Tree(7, nil, nil)))
+Tree(3, Tree(2, Tree(1), nil), Tree(5, nil, Tree(7)))
 ~~~
 
 Then, use that function to test your solution to [P56](#p56).
