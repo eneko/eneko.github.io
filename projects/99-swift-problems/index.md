@@ -1378,7 +1378,7 @@ Use the following list of mathematical symbols:
 Example:
 
 ~~~swift
-table({ $0 ∧ $0 ∨ $1 })
+table({ $0 ∧ ($0 ∨ $1) })
 ~~~
 
 Result:
@@ -1402,7 +1402,11 @@ func ∧ (a: Bool, b: Bool) -> Bool {
 }
 ~~~ -->
 
-_Note: Use operator precedence to avoid the need of parentheses._
+Use the following operator precedences:
+
+- `and`, `nand` => 120
+- `or`, `nor`, `xor`, `xnor`, `impl`, `equ` => 110
+
 
 ### <a name="p48"/>[P48](#p48) (\*\*) Truth tables for logical expressions - Part 3.
 Generalize problem [P47](#p47) in such a way that the logical expression may
@@ -1890,7 +1894,7 @@ extension Tree {
 }
 ~~~
 
-### <a name="p61a"/>[P61A](#p61a) (\*) Collect the leaves of a binary tree in a linked list.
+### <a name="p61b"/>[P61B](#p61b) (\*) Collect the leaves of a binary tree in a linked list.
 A leaf is a node with no successors. Write a method `leafList()` to collect them
 in a linked list.
 
@@ -2037,7 +2041,7 @@ public class PositionedTree<T> : Tree<T> {
     var x: Int
     var y: Int
 
-    public init(_ value: T, _ left: Tree<T>? = nil, _ right: Tree<T>? = nil, x: Int, y: Int) {
+    public init(x: Int, y: Int, value: T, _ left: Tree<T>? = nil, _ right: Tree<T>? = nil) {
         self.x = x
         self.y = y
         super.init(value, left, right)
@@ -2045,21 +2049,44 @@ public class PositionedTree<T> : Tree<T> {
 }
 ~~~
 
-Write a method layoutBinaryTree that turns a tree of normal Nodes into a
-tree of PositionedNodes.
+Write a method `layoutBinaryTree()` that turns a tree of normal `Tree`
+nodes into a tree of `PositionedTree` nodes.
 
-scala> Node('a', Node('b', End, Node('c')), Node('d')).layoutBinaryTree
-res0: PositionedNode[Char] = T[3,1](a T[1,2](b . T[2,3](c . .)) T[4,2](d . .))
+Example:
 
-The tree above may be constructed with:
+~~~swift
+Tree("a", Tree("b", nil, Tree("c")), Tree("d")).layoutBinaryTree()
+~~~
+
+Result:
+
+~~~swift
+PositionedTree(x: 3, y: 1, value: "a",
+  PositionedTree(x: 1, y: 2, value: "b",
+    nil,
+    PositionedTree(x: 2, y: 3, value: "c")
+  ),
+  PositionedTree(x: 4, y: 2, value: "d")
+)
+~~~
+
+Implementation:
+
+~~~swift
+extension Tree {
+    func layoutBinaryTree() -> PositionedTree<T> {
+        ...
+    }
+}
+~~~
+
+The tree at the beginning of the problem may be constructed with:
 
 ~~~swift
 Tree(list: List("n", "k", "m", "c", "a", "h", "g", "e", "u", "p", "s", "q"))
 ~~~
 
 Use it to check your code.
-
-![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
 
 ### <a name="p65"/>[P65](#p65) (\*\*) Layout a binary tree - Part 2.
 An alternative layout method is depicted in the following illustration. Find
