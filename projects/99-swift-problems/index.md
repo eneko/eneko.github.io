@@ -1314,7 +1314,7 @@ false
 Implementation:
 
 ~~~swift
-func and(a: Bool, b: Bool) -> Bool) {
+func and(a: Bool, _ b: Bool) -> Bool) {
     ...
 }
 ~~~
@@ -2094,16 +2094,44 @@ out the rules and write the corresponding method.
 
 ![p65](/media/99-swift-problems/p65.gif)
 
-_Hint:_ On a given level,
-the horizontal distance between neighboring nodes is constant.
-Use the same conventions as in problem [P64](#p64).
+_Hint:_ On a given level, the horizontal distance between neighboring nodes
+is constant. Use the same conventions as in problem [P64](#p64).
 
-scala> Node('a', Node('b', End, Node('c')), Node('d')).layoutBinaryTree2
-res0: PositionedNode[Char] = T[3,1]('a T[1,2]('b . T[2,3]('c . .)) T[5,2]('d . .))
+Example:
 
-The tree at right may be constructed with Tree.fromList(List('n','k','m','c','a','e','d','g','u','p','q')). Use it to check your code.
+~~~swift
+Tree("a", Tree("b", nil, Tree("c")), Tree("d")).layoutBinaryTree2()
+~~~
 
-![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
+Result:
+
+~~~swift
+PositionedTree(x: 3, y: 1, value: "a",
+  PositionedTree(x: 1, y: 2, value: "b",
+    nil,
+    PositionedTree(x: 2, y: 3, value: "c")
+  ),
+  PositionedTree(x: 5, y: 2, value: "d")
+)
+~~~
+
+Implementation:
+
+~~~swift
+extension Tree {
+    func layoutBinaryTree2() -> PositionedTree<T> {
+        ...
+    }
+}
+~~~
+
+The tree at the beginning of the problem may be constructed with:
+
+~~~swift
+Tree(list: List("n", "k", "m", "c", "a", "e", "d", "g", "u", "p", "q"))
+~~~
+
+Use it to check your code.
 
 ### <a name="p66"/>[P66](#p66) (\*\*\*) Layout a binary tree - Part 3.
 Yet another layout strategy is shown in the following illustration. The method
@@ -2115,15 +2143,38 @@ node. Find out the rules and write the corresponding method.
 _Hint:_ Consider
 the horizontal distance between a node and its successor nodes. How tight
 can you pack together two subtrees to construct the combined binary tree?
-Use the same conventions as in problem P64 and P65. Note: This is a difficult
-problem. Don't give up too early!
+Use the same conventions as in problem [P64](#p64) and [P65](#p65).
+Note: This is a difficult problem. Don't give up too early!
 
-scala> Node('a', Node('b', End, Node('c')), Node('d')).layoutBinaryTree3
-res0: PositionedNode[Char] = T[2,1]('a T[1,2]('b . T[2,3]('c . .)) T[3,2]('d . .))
+Example:
+
+~~~swift
+Tree("a", Tree("b", nil, Tree("c")), Tree("d")).layoutBinaryTree3()
+~~~
+
+Result:
+
+~~~swift
+PositionedTree(x: 2, y: 1, value: "a",
+  PositionedTree(x: 1, y: 2, value: "b",
+    nil,
+    PositionedTree(x: 2, y: 3, value: "c")
+  ),
+  PositionedTree(x: 3, y: 2, value: "d")
+)
+~~~
+
+Implementation:
+
+~~~swift
+extension Tree {
+    func layoutBinaryTree3() -> PositionedTree<T> {
+        ...
+    }
+}
+~~~
 
 Which layout do you like most?
-
-![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
 
 ### <a name="p67"/>[P67](#p67) (\*\*) A string representation of binary trees.
 
@@ -2133,70 +2184,205 @@ Somebody represents binary trees as strings of the following type:
 
     a(b(d,e),c(,f(g,)))
 
-Write a method which generates this string representation, if the tree is
-given as usual (using our `Tree` class). Use that method for the `Tree` class's
-`description` methods (`CustomStringConvertible` protocol).
-Then write a new convenience initializer which
-does this inverse; i.e. given the string representation, construct the tree
-in the usual form.
+Implement the `CustomStringConvertible` protocol to generate this string
+representation, if the tree is given as usual (using our `Tree` class).
+
+Example:
+
+~~~swift
+Tree("a", Tree("b", Tree("d"), Tree("e")), Tree("c", nil, Tree("f", Tree("g"), nil))).description
+~~~
+
+Result:
+
+~~~
+"a(b(d,e),c(,f(g,)))"
+~~~
+
+Implementation:
+
+~~~swift
+extension Tree: CustomStringConvertible {
+    var description: String {
+        ...
+    }
+}
+~~~
+
+### <a name="p67b"/>[P67B](#p67b) (\*\*) Construct a binary tree from a string representation.
+Write a new convenience initializer which does the inverse of [P67](#p67);
+i.e. given the string representation, construct the tree in the usual form.
+
+Example:
+
+~~~swift
+Tree(string: "a(b(d,e),c(,f(g,)))")
+~~~
+
+Result:
+
+~~~swift
+Tree("a", Tree("b", Tree("d"), Tree("e")), Tree("c", nil, Tree("f", Tree("g"), nil)))
+~~~
+
+Implementation:
+
+~~~swift
+extension Tree {
+    convenience init(string: String) {
+        ...
+    }
+}
+~~~
 
 For simplicity, suppose the information in the nodes is a single letter and
 there are no spaces in the string.
 
-scala> Node('a', Node('b', Node('d'), Node('e')), Node('c', End, Node('f', Node('g'), End))).toString
-res0: String = a(b(d,e),c(,f(g,)))
-
-scala> Tree.fromString("a(b(d,e),c(,f(g,)))")
-res1: Node[Char] = a(b(d,e),c(,f(g,)))
-
-![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
-
-### <a name="p68"/>[P68](#p68) (\*\*) Preorder and inorder sequences of binary trees.
+### <a name="p68"/>[P68](#p68) (\*\*) Pre-order and in-order sequences of binary trees.
 We consider binary trees with nodes that are identified by single lower-case
 letters, as in the example of problem [P67](#p67).
 
-a) Write methods preorder and inorder that construct the preorder and inorder
-sequence of a given binary tree, respectively. The results should be lists,
-e.g. List('a','b','d','e','c','f','g') for the preorder sequence of the
-example in problem [P67](#p67).
+Write methods `preorder()` and `inorder()` that construct the pre-order and
+in-order sequence of a given binary tree, respectively.
+The results should be linked lists, e.g. `List("a", "b", "d", "e", "c", "f", "g")`
+for the pre-order sequence of the example in problem [P67](#p67).
 
-scala> Tree.string2Tree("a(b(d,e),c(,f(g,)))").preorder
-res0: List[Char] = List(a, b, d, e, c, f, g)
+Example #1:
 
-scala> Tree.string2Tree("a(b(d,e),c(,f(g,)))").inorder
-res1: List[Char] = List(d, b, e, a, c, g, f)
+~~~swift
+Tree(string: "a(b(d,e),c(,f(g,)))").preorder()
+~~~
 
-b) If both the preorder sequence and the inorder sequence of the nodes of a
-binary tree are given, then the tree is determined unambiguously. Write a
-method preInTree that does the job.
+Result:
 
-scala> Tree.preInTree(List('a', 'b', 'd', 'e', 'c', 'f', 'g'), List('d', 'b', 'e', 'a', 'c', 'g', 'f'))
-res2: Node[Char] = a(b(d,e),c(,f(g,)))
+~~~swift
+List("a", "b", "d", "e", "c", "f", "g")
+~~~
+
+Implementation:
+
+~~~swift
+extension Tree {
+    func preorder() -> List<T> {
+        ...
+    }
+}
+~~~
+
+Example #2:
+
+~~~swift
+Tree(string: "a(b(d,e),c(,f(g,)))").inorder()
+~~~
+
+Result:
+
+~~~swift
+List("d", "b", "e", "a", "c", "g", "f")
+~~~
+
+Implementation:
+
+~~~swift
+extension Tree {
+    func inorder() -> List<T> {
+        ...
+    }
+}
+~~~
+
+### <a name="p68b"/>[P68B](#p68b) (\*\*) Construct a binary tree from pre-order and in-order sequences.
+If both the pre-order sequence and the in-order sequence of the nodes of a
+binary tree are given, then the tree is determined unambiguously. Write a new
+convenience initializer that does the job.
+
+Example:
+
+~~~swift
+Tree(
+    preorder: List("a", "b", "d", "e", "c", "f", "g"),
+    inorder: List("d", "b", "e", "a", "c", "g", "f")
+)
+~~~
+
+Result:
+
+~~~swift
+Tree("a", Tree("b", Tree("d"), Tree("e")), Tree("c", nil, Tree("f", Tree("g"), nil)))
+~~~
+
+Implementation:
+
+~~~swift
+extension Tree {
+    convenience init(preorder: List<T>, inorder: List<T>) {
+        ...
+    }
+}
+~~~
 
 What happens if the same character appears in more than one node? Try, for
-instance, Tree.preInTree(List('a', 'b', 'a'), List('b', 'a', 'a')).
-
-![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
+instance, `Tree(preorder: List("a", "b", "a"), inorder: List("b", "a", "a"))`.
 
 ### <a name="p69"/>[P69](#p69) (\*\*) Dotstring representation of binary trees.
 We consider again binary trees with nodes that are identified by single
 lower-case letters, as in the example of problem [P67](#p67). Such a tree can be
 represented by the preorder sequence of its nodes in which dots `.` are
 inserted where an empty subtree (`nil`) is encountered during the tree
-traversal. For example, the tree shown in problem [P67](#p67) is represented as
+traversal.
+
+For example, the tree shown in problem [P67](#p67) is represented as
 `"abd..e..c.fg..."`. First, try to establish a syntax (BNF or syntax diagrams)
-and then write two methods, toDotstring and fromDotstring, which do the
-conversion in both directions.
+and then write a method `toDotstring()` to convert the tree to Dotstring format.
 
-scala> Tree.string2Tree("a(b(d,e),c(,f(g,)))").toDotstring
-res0: String = abd..e..c.fg...
+Example:
 
-scala> Tree.fromDotstring("abd..e..c.fg...")
-res1: Node[Char] = a(b(d,e),c(,f(g,)))
+~~~swift
+Tree(string: "a(b(d,e),c(,f(g,)))").toDotstring()
+~~~
 
-The file containing the full class definitions for this section is tree.scala.
+Result:
 
-![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
+~~~swift
+"abd..e..c.fg..."
+~~~
+
+Implementation:
+
+~~~swift
+extension Tree {
+    func toDotstring() -> String {
+        ...
+    }
+}
+~~~
+
+### <a name="p69b"/>[P69B](#p69b) (\*\*) Construct a binary tree from a Dotstring representation.
+Now, write another convenience initializer to construct a tree from a given
+string in Dotstring format.
+
+Example:
+
+~~~swift
+Tree(dotstring: "abd..e..c.fg...")
+~~~
+
+Result:
+
+~~~swift
+Tree("a", Tree("b", Tree("d"), Tree("e")), Tree("c", nil, Tree("f", Tree("g"), nil)))
+~~~
+
+Implementation:
+
+~~~swift
+extension Tree {
+    convenience init(dotstring: String) {
+        ...
+    }
+}
+~~~
+
 
 
 * * *
@@ -2229,7 +2415,7 @@ object MTree {
 
 The example tree is, thus:
 
-MTree('a', List(MTree('f', List(MTree('g'))), MTree('c'), MTree('b', List(MTree('d'), MTree('e')))))
+MTree("a", List(MTree("f", List(MTree("g"))), MTree("c"), MTree("b", List(MTree("d"), MTree("e")))))
 The starting code skeleton for this section is mtree1.scala.
 
 ### <a name="p70b"/>[P70B](#p70b) Omitted; we can only create well-formed trees.
@@ -2237,7 +2423,7 @@ The starting code skeleton for this section is mtree1.scala.
 ### <a name="p70c"/>[P70C](#p70c) (\*) Count the nodes of a multiway tree.
 Write a method nodeCount which counts the nodes of a given multiway tree.
 
-scala> MTree('a', List(MTree('f'))).nodeCount
+scala> MTree("a", List(MTree("f"))).nodeCount
 res0: Int = 2
 
 ![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
@@ -2258,7 +2444,7 @@ Define the syntax of the string and write a function string2MTree to construct
 an MTree from a String. Make the function an implicit conversion from String.
 Write the reverse function, and make it the toString method of MTree.
 
-scala> MTree('a', List(MTree('f', List(MTree('g'))), MTree('c'), MTree('b', List(MTree('d'), MTree('e'))))).toString
+scala> MTree("a", List(MTree("f", List(MTree("g"))), MTree("c"), MTree("b", List(MTree("d"), MTree("e"))))).toString
 res0: String = afg^^c^bd^e^^^
 
 ![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
@@ -2408,16 +2594,16 @@ is in graph1.scala.
 There are a few ways to create a graph from primitives. The graph-term form
 lists the nodes and edges separately:
 
-Graph.term(List('b', 'c', 'd', 'f', 'g', 'h', 'k'),
-           List(('b', 'c'), ('b', 'f'), ('c', 'f'), ('f', 'k'), ('g', 'h')))
+Graph.term(List("b", "c", "d", "f", "g", "h", "k"),
+           List(("b", "c"), ("b", "f"), ("c", "f"), ("f", "k"), ("g", "h")))
 
 The adjacency-list form associates each node with its adjacent nodes. In an
 undirected graph, care must be taken to ensure that all links are
 symmetric--if b is adjacent to c, c must also be adjacent to b.
 
-Graph.adjacent(List(('b', List('c', 'f')), ('c', List('b', 'f')), ('d', Nil),
-                    ('f', List('b', 'c', 'k')), ('g', List('h')), ('h', List('g')),
-                    ('k', List('f'))))
+Graph.adjacent(List(("b", List("c", "f")), ("c", List("b", "f")), ("d", Nil),
+                    ("f", List("b", "c", "k")), ("g", List("h")), ("h", List("g")),
+                    ("k", List("f"))))
 
 The representations we introduced so far are bound to our implementation and
 therefore well suited for automated processing, but their syntax is not very
@@ -2441,13 +2627,13 @@ modified. The example graph opposite is represented as follows:
 
 graph-term form:
 
-Digraph.term(List('r', 's', 't', 'u', 'v'),
-             List(('s', 'r'), ('s', 'u'), ('u', 'r'), ('u', 's'), ('v', 'u')))
+Digraph.term(List("r", "s", "t", "u", "v"),
+             List(("s", "r"), ("s", "u"), ("u", "r"), ("u", "s"), ("v", "u")))
 
 adjacency-list form:
 
-Digraph.adjacent(List(('r', Nil), ('s', List('r', 'u')), ('t', Nil),
-                      ('u', List('r', 's')), ('v', List('u'))))
+Digraph.adjacent(List(("r", Nil), ("s", List("r", "u")), ("t", Nil),
+                      ("u", List("r", "s")), ("v", List("u"))))
 
 (Note that the adjacency-list form is the same for graphs and digraphs.)
 
@@ -2462,14 +2648,14 @@ with additional information attached to edges are called labeled graphs.
 
 graph-term form:
 
-Digraph.termLabel(List('k', 'm', 'p', 'q'),
-                  List(('m', 'q', 7), ('p', 'm', 5), ('p', 'q', 9)))
+Digraph.termLabel(List("k", "m", "p", "q"),
+                  List(("m", "q", 7), ("p", "m", 5), ("p", "q", 9)))
 
 adjacency-list form:
 
 Digraph.adjacentLabel(
-  List(('k', Nil), ('m', List(('q', 7))), ('p', List(('m', 5), ('q', 9))),
-       ('q', Nil)))
+  List(("k", Nil), ("m", List(("q", 7))), ("p", List(("m", 5), ("q", 9))),
+       ("q", Nil)))
 human-friendly form:
 
 [p>q/9, m>q/7, k, p>m/5]
@@ -2525,10 +2711,10 @@ other useful methods: isTree and isConnected. Both are five-minute tasks!
 
 Graph:
 
-        Graph.term(List('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'),
-           List(('a', 'b'), ('a', 'd'), ('b', 'c'), ('b', 'e'),
-                ('c', 'e'), ('d', 'e'), ('d', 'f'), ('d', 'g'),
-                ('e', 'h'), ('f', 'g'), ('g', 'h')))
+        Graph.term(List("a", "b", "c", "d", "e", "f", "g", "h"),
+           List(("a", "b"), ("a", "d"), ("b", "c"), ("b", "e"),
+                ("c", "e"), ("d", "e"), ("d", "f"), ("d", "g"),
+                ("e", "h"), ("f", "g"), ("g", "h")))
 
 scala> Graph.fromString("[a-b, b-c, a-c]").spanningTrees
 res0: List[Graph[String,Unit]] = List([a-b, b-c], [a-c, b-c], [a-b, a-c])
@@ -2546,10 +2732,10 @@ be found below.
 Graph:
 
     Graph.termLabel(
-        List('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'),
-        List(('a', 'b', 5), ('a', 'd', 3), ('b', 'c', 2), ('b', 'e', 4),
-            ('c', 'e', 6), ('d', 'e', 7), ('d', 'f', 4), ('d', 'g', 3),
-            ('e', 'h', 5), ('f', 'g', 4), ('g', 'h', 1)))
+        List("a", "b", "c", "d", "e", "f", "g", "h"),
+        List(("a", "b", 5), ("a", "d", 3), ("b", "c", 2), ("b", "e", 4),
+            ("c", "e", 6), ("d", "e", 7), ("d", "f", 4), ("d", "g", 3),
+            ("e", "h", 5), ("f", "g", 4), ("g", "h", 1)))
 
 scala> Graph.fromStringLabel("[a-b/1, b-c/2, a-c/3]").minimalSpanningTree
 res0: Graph[String,Int] = [a-b/1, b-c/2]

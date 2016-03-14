@@ -16,6 +16,7 @@ desc: Hi, I am Eneko Alonso, a software engineer specialized in Swift with many 
 
 ### Recent Projects
 
+- [Ninety-Nine Swift Problems](/99-swift-problems)
 - [Grand Prix Stats Apple TV Application](/projects/grand-prix-stats)
 
 ### Recent Articles
