@@ -2486,12 +2486,12 @@ extension MTree {
 }
 ~~~
 
-Now, write the reverse function `toString()` of `MTree`.
+Now, implement the `CustomStringConvertible` protocol on `MTree`.
 
 Example:
 
 ~~~swift
-MTree("a", List(MTree("f", List(MTree("g"))), MTree("c"), MTree("b", List(MTree("d"), MTree("e"))))).toString()
+MTree("a", List(MTree("f", List(MTree("g"))), MTree("c"), MTree("b", List(MTree("d"), MTree("e"))))).description
 ~~~
 
 Result:
@@ -2503,8 +2503,8 @@ Result:
 Implementation:
 
 ~~~swift
-extension MTree {
-    func toString() -> String {
+extension MTree: CustomStringConvertible {
+    var description: String {
         ...
     }
 }
@@ -2579,13 +2579,13 @@ Note that in the "lispy" notation, a node with successors (children) in the
 tree is always the first element in a list, followed by its children.
 The "lispy" representation of a multiway tree is a sequence of atoms and
 parentheses '(' and ')', with the atoms separated by spaces. We can
-represent this syntax as a String. Write a method `lispyTree()` which
+represent this syntax as a String. Write a method `lispyString()` which
 constructs a "lispy string" from an `MTree`.
 
 Example:
 
 ~~~swift
-MTree("a", List(MTree("b", List(MTree("c"))))).lispyTree()
+MTree("a", List(MTree("b", List(MTree("c"))))).lispyString()
 ~~~
 
 Result:
@@ -2598,7 +2598,7 @@ Implementation:
 
 ~~~swift
 extension MTree {
-    func lispyTree() -> String {
+    func lispyString() -> String {
         ...
     }
 }
@@ -2643,160 +2643,153 @@ but it's not how the language actually represents that syntax internally.]
 > A graph is defined as a set of nodes and a set of edges, where each edge is
 > a pair of nodes.
 
-The class to represent a graph is mutable, which isn't in keeping with pure
-functional programming, but a pure functional data structure would make
-things much, much more complicated. [Pure functional graphs with cycles
-require laziness; I think Scala can handle it, but I think that would add
-too much of a barrier to the following questions. <PMG>]
+![Indirected Graph](/projects/99-swift-problems/graph1.gif)
 
-Our Graphs use an incidence list internally. Each has a list of nodes and a
-list of edges. Each node also has a list of edges that connect it to other
-nodes. In a directed graph, nodes that are the target of arcs do not have
-references to those arcs in their adjacency list.
+We will define our generic graph as follows:
 
-~~~
-abstract class GraphBase[T, U] {
-  case class Edge(n1: Node, n2: Node, value: U) {
-    def toTuple = (n1.value, n2.value, value)
-  }
-  case class Node(value: T) {
-    var adj: List[Edge] = Nil
-    def neighbors: List[Node] = adj.map(edgeTarget(_, this).get)
-  }
-
-  var nodes: Map[T, Node] = Map()
-  var edges: List[Edge] = Nil
-
-  // If the edge E connects N to another node, returns the other node,
-  // otherwise returns None.
-  def edgeTarget(e: Edge, n: Node): Option[Node]
-
-  override def equals(o: Any) = o match {
-    case g: GraphBase[T,U] => (nodes.keys.toList -- g.nodes.keys.toList == Nil &&
-                               edges.map(_.toTuple) -- g.edges.map(_.toTuple) == Nil)
-    case _ => false
-  }
-
-  def addNode(value: T) = {
-    val n = new Node(value)
-    nodes = Map(value -> n) ++ nodes
-    n
-  }
+~~~swift
+class Graph<T, U> {
+    var direction: GraphDirection {
+        return .Indirected
+    }
+    var nodes: List<T>?
+    var edges: List<(T, T, U)>?
 }
 
-class Graph[T, U] extends GraphBase[T, U] {
-  override def equals(o: Any) = o match {
-    case g: Graph[T,U] => super.equals(g)
-    case _ => false
-  }
-
-  def edgeTarget(e: Edge, n: Node): Option[Node] =
-    if (e.n1 == n) Some(e.n2)
-    else if (e.n2 == n) Some(e.n1)
-    else None
-
-  def addEdge(n1: T, n2: T, value: U) = {
-    val e = new Edge(nodes(n1), nodes(n2), value)
-    edges = e :: edges
-    nodes(n1).adj = e :: nodes(n1).adj
-    nodes(n2).adj = e :: nodes(n2).adj
-  }
+class Digraph<T, U> : Graph<T, U> {
+    override var direction: GraphDirection { return .Directed }
 }
 
-class Digraph[T, U] extends GraphBase[T, U] {
-  override def equals(o: Any) = o match {
-    case g: Digraph[T,U] => super.equals(g)
-    case _ => false
-  }
-
-  def edgeTarget(e: Edge, n: Node): Option[Node] =
-    if (e.n1 == n) Some(e.n2)
-    else None
-
-  def addArc(source: T, dest: T, value: U) = {
-    val e = new Edge(nodes(source), nodes(dest), value)
-    edges = e :: edges
-    nodes(source).adj = e :: nodes(source).adj
-  }
+enum GraphDirection {
+    case Indirected
+    case Directed
 }
 ~~~
 
-The full initial Graph code, which also includes objects for creating graphs,
-is in graph1.scala.
-
-There are a few ways to create a graph from primitives. The graph-term form
+There are a few ways to create a graph from primitives. The *graph-term* form
 lists the nodes and edges separately:
 
-Graph.term(List("b", "c", "d", "f", "g", "h", "k"),
-           List(("b", "c"), ("b", "f"), ("c", "f"), ("f", "k"), ("g", "h")))
+~~~swift
+Graph<String, Int>(
+    nodes: List("b", "c", "d", "f", "g", "h", "k"),
+    edges: List(("b", "c"), ("b", "f"), ("c", "f"), ("f", "k"), ("g", "h"))
+)
+~~~
 
-The adjacency-list form associates each node with its adjacent nodes. In an
+The *adjacency-list* form associates each node with its adjacent nodes. In an
 undirected graph, care must be taken to ensure that all links are
-symmetric--if b is adjacent to c, c must also be adjacent to b.
+symmetric—if *b* is adjacent to *c*, *c* must also be adjacent to *b*.
 
-Graph.adjacent(List(("b", List("c", "f")), ("c", List("b", "f")), ("d", Nil),
-                    ("f", List("b", "c", "k")), ("g", List("h")), ("h", List("g")),
-                    ("k", List("f"))))
+~~~swift
+Graph<String, Int>(adjacentList: List(
+    ("b", List("c", "f")),
+    ("c", List("b", "f")),
+    ("d", nil),
+    ("f", List("b", "c", "k")),
+    ("g", List("h")),
+    ("h", List("g")),
+    ("k", List("f"))
+))
+~~~
 
 The representations we introduced so far are bound to our implementation and
 therefore well suited for automated processing, but their syntax is not very
-user-friendly. Typing the terms by hand is cumbersome and error-prone. We can
+user-friendly. Typing the terms by hand is cumbersome and error-prone.
+
+We can
 define a more compact and "human-friendly" notation as follows: A graph is
-represented by a string of terms of the type X or Y-Z separated by commas.
-The standalone terms stand for isolated nodes, the Y-Z terms describe edges.
-If an X appears as an endpoint of an edge, it is automatically defined as a
+represented by a string of terms of the type *X* or *Y-Z* separated by commas.
+The standalone terms stand for isolated nodes, the *Y-Z* terms describe edges.
+If an *X* appears as an endpoint of an edge, it is automatically defined as a
 node. Our example could be written as:
 
+~~~
 [b-c, f-c, g-h, d, f-b, k-f, h-g]
+~~~
 
-We call this the human-friendly form. As the example shows, the list does not
+We call this the *human-friendly* form. As the example shows, the list does not
 have to be sorted and may even contain the same edge multiple times. Notice
-the isolated node d.
+the isolated node *d*.
 
-When the edges of a graph are directed, we call them arcs. These are
+#### Directed Graphs
+
+![Directed Graph](/projects/99-swift-problems/graph2.gif)
+
+When the edges of a graph are *directed*, we call them arcs. These are
 represented by ordered pairs. Such a graph is called directed graph.
 To represent a directed graph, the forms discussed above are slightly
-modified. The example graph opposite is represented as follows:
+modified. The example graph above is represented as follows.
 
-graph-term form:
+*Graph-term* form:
 
-Digraph.term(List("r", "s", "t", "u", "v"),
-             List(("s", "r"), ("s", "u"), ("u", "r"), ("u", "s"), ("v", "u")))
+~~~swift
+Digraph<String, Int>(
+    nodes: List("r", "s", "t", "u", "v"),
+    edges: List(("s", "r"), ("s", "u"), ("u", "r"), ("u", "s"), ("v", "u"))
+)
+~~~
 
-adjacency-list form:
+*Adjacency-list* form:
 
-Digraph.adjacent(List(("r", Nil), ("s", List("r", "u")), ("t", Nil),
-                      ("u", List("r", "s")), ("v", List("u"))))
+~~~swift
+Digraph<String, Int>(adjacentList: List(
+    ("r", nil),
+    ("s", List("r", "u")),
+    ("t", nil),
+    ("u", List("r", "s")),
+    ("v", List("u"))
+))
+~~~
 
-(Note that the adjacency-list form is the same for graphs and digraphs.)
+*Human-friendly* form:
 
-human-friendly form:
-
+~~~
 [s>r, t, u>r, s>u, u>s, v>u]
+~~~
+
+#### Labeled Graphs
+
+![Labeled Graph](/projects/99-swift-problems/graph3.gif)
 
 Finally, graphs and digraphs may have additional information attached to nodes
 and edges (arcs). For the nodes, this is no problem, as we can put any type
 into them. On the other hand, for edges we have to extend our notation. Graphs
 with additional information attached to edges are called labeled graphs.
 
-graph-term form:
+*Graph-term* form:
 
-Digraph.termLabel(List("k", "m", "p", "q"),
-                  List(("m", "q", 7), ("p", "m", 5), ("p", "q", 9)))
+~~~swift
+Digraph(
+    nodes: List("k", "m", "p", "q"),
+    labeledEdges: List(("m", "q", 7), ("p", "m", 5), ("p", "q", 9))
+)
+~~~
 
-adjacency-list form:
+Note that Swift can infer the types of both nodes and edges in this case, as
+long as there is at least one edge.
 
-Digraph.adjacentLabel(
-  List(("k", Nil), ("m", List(("q", 7))), ("p", List(("m", 5), ("q", 9))),
-       ("q", Nil)))
-human-friendly form:
+*Adjacency-list* form:
 
+~~~swift
+Digraph(adjacentLabeledList: List(
+    ("k", nil),
+    ("m", List(("q", 7))),
+    ("p", List(("m", 5), ("q", 9))),
+    ("q", nil)
+))
+~~~
+
+Note that Swift can infer the types of both nodes and edges in this case, as
+long as there is at least one edge.
+
+*Human-friendly* form:
+
+~~~
 [p>q/9, m>q/7, k, p>m/5]
+~~~
 
 The notation for labeled graphs can also be used for so-called multi-graphs,
 where more than one edge (or arc) is allowed between two given nodes.
-
-![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
 
 ### <a name="p80"/>[P80](#p80) (\*\*\*) Conversions.
 Write methods to generate the graph-term and adjacency-list forms from a Graph.

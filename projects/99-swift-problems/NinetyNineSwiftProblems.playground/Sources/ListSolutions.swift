@@ -30,7 +30,7 @@ extension List {
 extension List {
     /// P03 (*) Find the Kth element of a linked list.
     /// - complexity: O(n)
-    public func elementAtIndex(index: Int) -> T? {
+    public subscript(index: Int) -> T? {
         var count = 0
         var current = self
         while count < index {
@@ -369,7 +369,7 @@ extension List {
 extension List {
     /// P17 (*) Split a list into two parts.
     /// - complexity: O(n)
-    public func split(atIndex: Int) -> (List?, List?) {
+    public func split(atIndex: Int) -> (left: List?, right: List?) {
         var left: List?
         var leftLast: List?
         var right: List?
@@ -454,7 +454,7 @@ extension List {
 extension List {
     /// P20 (*) Remove the Kth element from a list.
     /// - complexity: O(n)
-    public func removeAt(position: Int) -> (List?, T?) {
+    public func removeAt(position: Int) -> (rest: List?, removed: T?) {
         var resultList: List?
         var resultListLast: List?
         var current: List? = self

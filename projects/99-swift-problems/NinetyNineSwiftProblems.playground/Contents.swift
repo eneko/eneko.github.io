@@ -50,10 +50,10 @@ List(1).pennultimate
 
 //: ### P03 (\*) Find the Kth element of a list.
 //: By convention, the first element in the list is element `0`.
-List(1, 1, 2, 3, 5, 8).elementAtIndex(2)
-List(1, 1, 2, 3, 5, 8).elementAtIndex(0)
-List(1, 1, 2, 3, 5, 8).elementAtIndex(10)
-List(1).elementAtIndex(1)
+List(1, 1, 2, 3, 5, 8)[2]
+List(1, 1, 2, 3, 5, 8)[0]
+List(1, 1, 2, 3, 5, 8)[10]
+List(1)[1]
 
 //: ### P04 (\*) Find the number of elements of a list.
 List(1, 1, 2, 3, 5, 8).length
@@ -363,3 +363,121 @@ class MTree<T> {
 MTree("a", List(MTree("f", List(MTree("g"))), MTree("c"), MTree("b", List(MTree("d"), MTree("e")))))
 
 
+
+
+
+//class Graph<T, U> {
+//    typealias Edge = (from: T, to: T, value: U?)
+//    var nodes: List<T>?
+//    var edges: List<Edge>?
+//
+//    init(nodes: List<T>, edges: List<Edge>?) {
+//        self.nodes = nodes
+//        self.edges = edges
+//    }
+//}
+//
+//let nodes = List("b", "c", "d", "f", "g", "h", "k")!
+////let edges = List<Graph<String, Int>.Edge>(("b", "c", 2), ("b", "f", 2), ("c", "f", nil), ("f", "k", 6), ("g", "h", 1))
+//let edges = List<Graph<String, Int>.Edge>(("b", "c", nil), ("b", "f", nil), ("c", "f", nil), ("f", "k", nil), ("g", "h", nil))
+//
+//Graph(
+//    nodes: nodes,
+//    edges: edges
+//)
+
+
+//struct Edge<T, U> {
+//    var from: T
+//    var to: T
+//    var value: U?
+//
+//    init(_ from: T, _ to: T, _ value: U? = nil) {
+//        self.from = from
+//        self.to = to
+//        self.value = value
+//    }
+//}
+
+class Graph<T, U> {
+    var direction: GraphDirection { return .Indirected }
+    var nodes: List<T>?
+//    var edges: List<Edge<T, U>>?
+    var edges: List<(T, T, U)>?
+}
+
+class Digraph<T, U> : Graph<T, U> {
+    override var direction: GraphDirection { return .Directed }
+}
+
+enum GraphDirection {
+    case Indirected
+    case Directed
+}
+
+
+extension Graph {
+    convenience init(nodes: List<T>, edges: List<(T, T)>?) {
+        self.init()
+        self.nodes = nodes
+        //        self.edges = edges.map { edge in (edge.0, edge.1, 0) }
+    }
+}
+
+extension Graph {
+    convenience init(adjacentList: List<(T, List<T>?)>) {
+        self.init(nodes: List(adjacentList[0]!.0), edges: nil) // FIXME
+    }
+}
+
+extension Graph {
+    convenience init(nodes: List<T>, labeledEdges: List<(T, T, U)>?) {
+        self.init(nodes: nodes, edges: nil)
+    }
+}
+
+extension Graph {
+    convenience init(adjacentLabeledList: List<(T, List<(T, U)>?)>) {
+        self.init(nodes: List(adjacentLabeledList[0]!.0), edges: nil) // FIXME
+    }
+}
+
+
+
+
+//Graph<String, Int>(
+//    nodes: List("b", "c", "d", "f", "g", "h", "k"),
+//    edges: List(Edge("b", "c"), Edge("b", "f"), Edge("c", "f"), Edge("f", "k"), Edge("g", "h"))
+//)
+
+Graph<String, Int>(
+    nodes: List("b", "c", "d", "f", "g", "h", "k"),
+    edges: List(("b", "c"), ("b", "f"), ("c", "f"), ("f", "k"), ("g", "h"))
+)
+
+Digraph<String, Int>(adjacentList: List(
+    ("b", List("c", "f")),
+    ("c", List("b", "f")),
+    ("d", nil),
+    ("f", List("b", "c", "k")),
+    ("g", List("h")),
+    ("h", List("g")),
+    ("k", List("f"))
+))
+
+//Graph<String, Int>(
+//    nodes: List("k", "m", "p", "q"),
+//    edges: List(Edge("m", "q", 7), Edge("p", "m", 5), Edge("p", "q", 9))
+//)
+
+Digraph(
+    nodes: List("k", "m", "p", "q"),
+    labeledEdges: List(("m", "q", 7), ("p", "m", 5), ("p", "q", 9))
+)
+
+Graph(adjacentLabeledList: List(
+    ("k", nil),
+    ("m", List(("q", 7))),
+    ("p", List(("m", 5), ("q", 9))),
+    ("q", nil)
+))
