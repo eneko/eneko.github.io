@@ -346,3 +346,20 @@ tree.addValue(0)
 Tree.fromList(List(3, 2, 5, 7, 1))
 Tree.fromList(List(5, 3, 18, 1, 4, 12, 21))
 Tree.fromList(List(3, 2, 5, 7, 4))
+
+
+
+
+class MTree<T> {
+    let value: T
+    var children: List<MTree<T>>?
+
+    init(_ value: T, _ children: List<MTree<T>>? = nil) {
+        self.value = value
+        self.children = children
+    }
+}
+
+MTree("a", List(MTree("f", List(MTree("g"))), MTree("c"), MTree("b", List(MTree("d"), MTree("e")))))
+
+

@@ -35,7 +35,9 @@ problems can be trivially solved using built-in functions. However, in these
 cases, you learn more if you try to find your own solution.
 
 I have maintained the difficulties from the Scala and Prolog problems, as they
-should also apply to Swift.
+should also apply to Swift. The problem numbers have also been preserved to
+match the originals, with a few exceptions where I have split the problems in
+multiple parts.
 
 Problems are divided in seven categories:
 
@@ -1520,7 +1522,7 @@ We will define our generic tree as follows:
 
 ~~~swift
 class Tree<T> {
-    var value: T
+    let value: T
     var left: Tree<T>?
     var right: Tree<T>?
 
@@ -2195,7 +2197,7 @@ Tree("a", Tree("b", Tree("d"), Tree("e")), Tree("c", nil, Tree("f", Tree("g"), n
 
 Result:
 
-~~~
+~~~swift
 "a(b(d,e),c(,f(g,)))"
 ~~~
 
@@ -2397,108 +2399,239 @@ extension Tree {
 
 ![](/projects/99-swift-problems/p70.gif)
 
-The code to represent these is somewhat simpler than the code for binary
-trees, partly because we don't separate classes for nodes and terminators,
-and partly because we don't need the restriction that the value type be ordered.
+We will implement our multiway trees as follows:
 
-~~~
-case class MTree[+T](value: T, children: List[MTree[T]]) {
-  def this(value: T) = this(value, List())
-  override def toString = "M(" + value.toString + " {" + children.map(_.toString).mkString(",") + "})"
-}
+~~~swift
+class MTree<T> {
+  let value: T
+  var children: List<MTree<T>>?
 
-object MTree {
-  def apply[T](value: T) = new MTree(value, List())
-  def apply[T](value: T, children: List[MTree[T]]) = new MTree(value, children)
+  init(_ value: T, _ children: List<MTree<T>>? = nil) {
+    ...
+  }
 }
 ~~~
 
-The example tree is, thus:
+The example tree from the image above is:
 
+~~~swift
 MTree("a", List(MTree("f", List(MTree("g"))), MTree("c"), MTree("b", List(MTree("d"), MTree("e")))))
-The starting code skeleton for this section is mtree1.scala.
+~~~
 
-### <a name="p70b"/>[P70B](#p70b) Omitted; we can only create well-formed trees.
+### <a name="p70b"/>[P70B](#p70b) (\*) Check whether a given term represents a multiway tree.
+Omitted; we can only create well-formed trees.
 
 ### <a name="p70c"/>[P70C](#p70c) (\*) Count the nodes of a multiway tree.
-Write a method nodeCount which counts the nodes of a given multiway tree.
+Write a computed variable `nodeCount` which counts the nodes of a given
+multiway tree.
 
-scala> MTree("a", List(MTree("f"))).nodeCount
-res0: Int = 2
+Example:
 
-![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
+~~~swift
+MTree("a", List(MTree("f"))).nodeCount
+~~~
+
+Result:
+
+~~~swift
+2
+~~~
+
+Implementation:
+
+~~~swift
+extension MTree {
+    var nodeCount: Int {
+        ...
+    }
+}
+~~~
 
 ### <a name="p70"/>[P70](#p70) (\*\*) Tree construction from a node string.
 We suppose that the nodes of a multiway tree contain single characters.
-In the depth-first order sequence of its nodes, a special character ^ has
+In the depth-first order sequence of its nodes, a special character `^` has
 been inserted whenever, during the tree traversal, the move is a backtrack
 to the previous level.
 
 ![p70](/projects/99-swift-problems/p70.gif)
 
-By this rule, the tree in the figure opposite is represented as:
+By this rule, the tree in the figure is represented as:
 
+~~~
 afg^^c^bd^e^^^
+~~~
 
-Define the syntax of the string and write a function string2MTree to construct
-an MTree from a String. Make the function an implicit conversion from String.
-Write the reverse function, and make it the toString method of MTree.
+Define the syntax of the string and write a convenience initializer to construct
+an `MTree` from a string.
 
-scala> MTree("a", List(MTree("f", List(MTree("g"))), MTree("c"), MTree("b", List(MTree("d"), MTree("e"))))).toString
-res0: String = afg^^c^bd^e^^^
+Example:
 
-![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
+~~~swift
+MTree(string: "afg^^c^bd^e^^^")
+~~~
+
+Result:
+
+~~~swift
+MTree("a", List(MTree("f", List(MTree("g"))), MTree("c"), MTree("b", List(MTree("d"), MTree("e")))))
+~~~
+
+Implementation:
+
+~~~swift
+extension MTree {
+    convenience init(string: String) {
+        ...
+    }
+}
+~~~
+
+Now, write the reverse function `toString()` of `MTree`.
+
+Example:
+
+~~~swift
+MTree("a", List(MTree("f", List(MTree("g"))), MTree("c"), MTree("b", List(MTree("d"), MTree("e"))))).toString()
+~~~
+
+Result:
+
+~~~swift
+"afg^^c^bd^e^^^"
+~~~
+
+Implementation:
+
+~~~swift
+extension MTree {
+    func toString() -> String {
+        ...
+    }
+}
+~~~
 
 ### <a name="p71"/>[P71](#p71) (\*) Determine the internal path length of a tree.
 We define the internal path length of a multiway tree as the total sum of the
 path lengths from the root to all nodes of the tree. By this definition, the
-tree in the figure of problem P70 has an internal path length of 9. Write a
-method internalPathLength to return that sum.
+tree in the figure of problem [P70](#p70) has an internal path length of 9.
+Write a computed variable `internalPathLength` to return that sum.
 
-scala> "afg^^c^bd^e^^^".internalPathLength
-res0: Int = 9
+Example:
 
-![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
+~~~swift
+MTree(string: "afg^^c^bd^e^^^").internalPathLength
+~~~
 
-### <a name="p72"/>[P72](#p72) (\*) Construct the postorder sequence of the tree nodes.
-Write a method postorder which constructs the postorder sequence of the
-nodes of a multiway tree. The result should be a List.
+Result:
 
-scala> "afg^^c^bd^e^^^".postorder
-res0: List[Char] = List(g, f, c, d, e, b, a)
+~~~swift
+9
+~~~
 
-![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
+Implementation:
+
+~~~swift
+extension MTree {
+    var internalPathLength: Int {
+        ...
+    }
+}
+~~~
+
+### <a name="p72"/>[P72](#p72) (\*) Construct the post-order sequence of the tree nodes.
+Write a method `postOrder()` which constructs the post-order sequence of the
+nodes of a multiway tree. The result should be a `List`.
+
+Example:
+
+~~~swift
+MTree(string: "afg^^c^bd^e^^^").postOrder()
+~~~
+
+Result:
+
+~~~swift
+List("g", "f", "c", "d", "e", "b", "a")
+~~~
+
+Implementation:
+
+~~~swift
+extension MTree {
+    func postOrder() -> List<T> {
+        ...
+    }
+}
+~~~
 
 ### <a name="p73"/>[P73](#p73) (\*\*) Lisp-like tree representation.
 There is a particular notation for multiway trees in Lisp. Lisp is a
 prominent functional programming language. In Lisp almost everything is a list.
-Our example tree would be represented in Lisp as (a (f g) c (b d e)).
+Our example tree would be represented in Lisp as:
 
-The following pictures give some more examples.
+    (a (f g) c (b d e))
+
+The following pictures give some more examples:
 
 ![p73](/projects/99-swift-problems/p73.png)
 
-Note that in the "lispy" notation a node with successors (children) in the
+Note that in the "lispy" notation, a node with successors (children) in the
 tree is always the first element in a list, followed by its children.
 The "lispy" representation of a multiway tree is a sequence of atoms and
 parentheses '(' and ')', with the atoms separated by spaces. We can
-represent this syntax as a Scala String. Write a method lispyTree which
-constructs a "lispy string" from an MTree.
+represent this syntax as a String. Write a method `lispyTree()` which
+constructs a "lispy string" from an `MTree`.
 
-scala> MTree("a", List(MTree("b", List(MTree("c"))))).lispyTree
-res0: String = (a (b c))
+Example:
 
-As a second, even more interesting, exercise try to write a method that
-takes a "lispy" string and turns it into a multiway tree.
+~~~swift
+MTree("a", List(MTree("b", List(MTree("c"))))).lispyTree()
+~~~
+
+Result:
+
+~~~swift
+"(a (b c))"
+~~~
+
+Implementation:
+
+~~~swift
+extension MTree {
+    func lispyTree() -> String {
+        ...
+    }
+}
+~~~
+
+As a second, even more interesting, exercise try to write another convenience
+initializer that takes a "lispy" string and turns it into a multiway tree.
+
+Example:
+
+~~~swift
+MTree(lispyString: "(a (b c))")
+~~~
+
+Result:
+
+~~~swift
+MTree("a", List(MTree("b", List(MTree("c")))))
+~~~
+
+Implementation:
+
+~~~swift
+extension MTree {
+    convenience init(lispyString: String) {
+        ...
+    }
+}
+~~~
 
 [Note: Much of this problem is taken from the wording of the same problem
 in the Prolog set. This is certainly one way of looking at Lisp notation,
-but it's not how the language actually represents that syntax internally.
-I can elaborate more on this, if requested. <PMG>]
-
-The complete source file for this section is mtree.scala.
-
-![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
+but it's not how the language actually represents that syntax internally.]
 
 
 * * *

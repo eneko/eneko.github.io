@@ -1,6 +1,6 @@
 
 public class Tree<T> {
-    var value: T
+    let value: T
     var left: Tree<T>?
     var right: Tree<T>?
 
