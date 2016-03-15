@@ -3,7 +3,7 @@ layout: page
 permalink: /99-swift-problems/
 title: Ninety-Nine Swift Problems
 desc: Ninety-Nine Swift Problems is an adaptation from the Ninety-Nine Scala problems.
-keywords: swift, problems, programming, computer, science, cs, swiftlang
+keywords: swift, problems, programming, computer, science, cs, challenge, linkedlist, binarytree, graph
 image: /media/99-swift-problems/screenshot.jpg
 ---
 
@@ -1534,7 +1534,7 @@ class Tree<T> {
 
 A tree with only a root node would be `Tree("a")` and an empty tree would be `nil`.
 
-![](/media/99-swift-problems/p67.gif)
+![](/projects/99-swift-problems/p67.gif)
 
 The example tree above is given by:
 
@@ -1895,13 +1895,13 @@ extension Tree {
 ~~~
 
 ### <a name="p61b"/>[P61B](#p61b) (\*) Collect the leaves of a binary tree in a linked list.
-A leaf is a node with no successors. Write a method `leafList()` to collect them
+A leaf is a node with no successors. Write a method `leaves()` to collect them
 in a linked list.
 
 Example:
 
 ~~~swift
-Tree("a", Tree("b"), Tree("c", Tree("d"), Tree("e"))).leafList()
+Tree("a", Tree("b"), Tree("c", Tree("d"), Tree("e"))).leaves()
 ~~~
 
 Result:
@@ -1914,7 +1914,7 @@ Implementation:
 
 ~~~swift
 extension Tree {
-    func leafList() -> List<T> {
+    func leaves() -> List<T> {
         ...
     }
 }
@@ -1922,12 +1922,12 @@ extension Tree {
 
 ### <a name="p62"/>[P62](#p62) (\*) Collect the internal nodes of a binary tree in a linked list.
 An internal node of a binary tree has either one or two non-empty successors.
-Write a method `internalList()` to collect them in a linked list.
+Write a method `internalNodes()` to collect them in a linked list.
 
 Example:
 
 ~~~swift
-Tree("a", Tree("b"), Tree("c", Tree("d"), Tree("e"))).internalList()
+Tree("a", Tree("b"), Tree("c", Tree("d"), Tree("e"))).internalNodes()
 ~~~
 
 Result:
@@ -1940,7 +1940,7 @@ Implementation:
 
 ~~~swift
 extension Tree {
-    func internalList() -> List<T> {
+    func internalNodes() -> List<T> {
         ...
     }
 }
@@ -1948,13 +1948,13 @@ extension Tree {
 
 ### <a name="p62b"/>[P62B](#p62b) (\*) Collect the nodes at a given level in a linked list.
 A node of a binary tree is at level *n* if the path from the root to the node
-has length *n-1*. The root node is at level 1. Write a method `atLevelList()`
+has length *n-1*. The root node is at level 1. Write a method `nodesAtLevel()`
 to collect all nodes at a given level in a linked list.
 
 Example:
 
 ~~~swift
-Tree("a", Tree("b"), Tree("c", Tree("d"), Tree("e"))).atLevelList(2)
+Tree("a", Tree("b"), Tree("c", Tree("d"), Tree("e"))).nodesAtLevel(2)
 ~~~
 
 Result:
@@ -1967,13 +1967,13 @@ Implementation:
 
 ~~~swift
 extension Tree {
-    func atLevelList() -> List<T> {
+    func nodesAtLevel() -> List<T> {
         ...
     }
 }
 ~~~
 
-Using `atLevelList()` it is easy to construct a method `levelOrder()` which
+Using `nodesAtLevel()` it is easy to construct a method `levelOrder()` which
 creates the level-order sequence (traversal) of the nodes. However, there are
 more efficient ways to do that.
 
@@ -2025,7 +2025,7 @@ As a preparation for drawing a tree, a layout algorithm is required to
 determine the position of each node in a rectangular grid. Several layout
 methods are conceivable, one of them is shown in the illustration below.
 
-![p64](/media/99-swift-problems/p64.gif)
+![p64](/projects/99-swift-problems/p64.gif)
 
 In this layout strategy, the position of a node *v* is obtained by the
 following two rules:
@@ -2092,7 +2092,7 @@ Use it to check your code.
 An alternative layout method is depicted in the following illustration. Find
 out the rules and write the corresponding method.
 
-![p65](/media/99-swift-problems/p65.gif)
+![p65](/projects/99-swift-problems/p65.gif)
 
 _Hint:_ On a given level, the horizontal distance between neighboring nodes
 is constant. Use the same conventions as in problem [P64](#p64).
@@ -2138,7 +2138,7 @@ Yet another layout strategy is shown in the following illustration. The method
 yields a very compact layout while maintaining a certain symmetry in every
 node. Find out the rules and write the corresponding method.
 
-![p66](/media/99-swift-problems/p66.gif)
+![p66](/projects/99-swift-problems/p66.gif)
 
 _Hint:_ Consider
 the horizontal distance between a node and its successor nodes. How tight
@@ -2178,7 +2178,7 @@ Which layout do you like most?
 
 ### <a name="p67"/>[P67](#p67) (\*\*) A string representation of binary trees.
 
-![p67](/media/99-swift-problems/p67.gif)
+![p67](/projects/99-swift-problems/p67.gif)
 
 Somebody represents binary trees as strings of the following type:
 
@@ -2242,15 +2242,15 @@ there are no spaces in the string.
 We consider binary trees with nodes that are identified by single lower-case
 letters, as in the example of problem [P67](#p67).
 
-Write methods `preorder()` and `inorder()` that construct the pre-order and
+Write methods `preOrder()` and `inOrder()` that construct the pre-order and
 in-order sequence of a given binary tree, respectively.
 The results should be linked lists, e.g. `List("a", "b", "d", "e", "c", "f", "g")`
 for the pre-order sequence of the example in problem [P67](#p67).
 
-Example #1:
+Pre-order example:
 
 ~~~swift
-Tree(string: "a(b(d,e),c(,f(g,)))").preorder()
+Tree(string: "a(b(d,e),c(,f(g,)))").preOrder()
 ~~~
 
 Result:
@@ -2263,16 +2263,16 @@ Implementation:
 
 ~~~swift
 extension Tree {
-    func preorder() -> List<T> {
+    func preOrder() -> List<T> {
         ...
     }
 }
 ~~~
 
-Example #2:
+In-order example:
 
 ~~~swift
-Tree(string: "a(b(d,e),c(,f(g,)))").inorder()
+Tree(string: "a(b(d,e),c(,f(g,)))").inOrder()
 ~~~
 
 Result:
@@ -2285,7 +2285,7 @@ Implementation:
 
 ~~~swift
 extension Tree {
-    func inorder() -> List<T> {
+    func inOrder() -> List<T> {
         ...
     }
 }
@@ -2300,8 +2300,8 @@ Example:
 
 ~~~swift
 Tree(
-    preorder: List("a", "b", "d", "e", "c", "f", "g"),
-    inorder: List("d", "b", "e", "a", "c", "g", "f")
+    preOrder: List("a", "b", "d", "e", "c", "f", "g"),
+    inOrder: List("d", "b", "e", "a", "c", "g", "f")
 )
 ~~~
 
@@ -2315,19 +2315,19 @@ Implementation:
 
 ~~~swift
 extension Tree {
-    convenience init(preorder: List<T>, inorder: List<T>) {
+    convenience init(preOrder: List<T>, inOrder: List<T>) {
         ...
     }
 }
 ~~~
 
 What happens if the same character appears in more than one node? Try, for
-instance, `Tree(preorder: List("a", "b", "a"), inorder: List("b", "a", "a"))`.
+instance, `Tree(preOrder: List("a", "b", "a"), inOrder: List("b", "a", "a"))`.
 
 ### <a name="p69"/>[P69](#p69) (\*\*) Dotstring representation of binary trees.
 We consider again binary trees with nodes that are identified by single
 lower-case letters, as in the example of problem [P67](#p67). Such a tree can be
-represented by the preorder sequence of its nodes in which dots `.` are
+represented by the pre-order sequence of its nodes in which dots `.` are
 inserted where an empty subtree (`nil`) is encountered during the tree
 traversal.
 
@@ -2395,7 +2395,7 @@ extension Tree {
 > successors which are multiway trees themselves. A multiway tree is never empty.
 > The set of successor trees is sometimes called a forest.
 
-![](/media/99-swift-problems/p70.gif)
+![](/projects/99-swift-problems/p70.gif)
 
 The code to represent these is somewhat simpler than the code for binary
 trees, partly because we don't separate classes for nodes and terminators,
@@ -2434,7 +2434,7 @@ In the depth-first order sequence of its nodes, a special character ^ has
 been inserted whenever, during the tree traversal, the move is a backtrack
 to the previous level.
 
-![p70](/media/99-swift-problems/p70.gif)
+![p70](/projects/99-swift-problems/p70.gif)
 
 By this rule, the tree in the figure opposite is represented as:
 
@@ -2476,7 +2476,7 @@ Our example tree would be represented in Lisp as (a (f g) c (b d e)).
 
 The following pictures give some more examples.
 
-![p73](/media/99-swift-problems/p73.png)
+![p73](/projects/99-swift-problems/p73.png)
 
 Note that in the "lispy" notation a node with successors (children) in the
 tree is always the first element in a list, followed by its children.
