@@ -2971,7 +2971,10 @@ Implement for both `Graph` and `Digraph`.
 ![Graph](/projects/99-swift-problems/p83.gif)
 
 Write a method `spanningTrees()` to construct all spanning trees of a given
-graph. With this method, find out how many spanning trees there are for the
+graph. The method should return a linked list of sub-graphs for each spanning
+tree.
+
+With this method, find out how many spanning trees there are for the
 graph depicted above. When you have a correct solution for the `spanningTrees`
 method, use it to define two other useful methods: `isTree()` and
 `isConnected()`. Both are five-minute tasks!
@@ -2997,25 +3000,23 @@ Result:
 
 ~~~swift
 List(
-    Tree("a", Tree("b"), Tree("c")),
-    Tree("c", Tree("a"), Tree("b")),
-    Tree("b", Tree("a"), Tree("c"))
-) <- Return a list of graphs instead!
+    Graph(adjacentList: List(("a", List("b")), ("b", List("c")))),
+    Graph(adjacentList: List(("a", List("c")), ("b", List("c")))),
+    Graph(adjacentList: List(("a", List("b")), ("a", List("c"))))
+)
 ~~~
 
 Implementation:
 
 ~~~swift
 extension Graph {
-    func spanningTrees() -> List<Tree<T>>? {
+    func spanningTrees() -> List<Graph<T, U>>? {
         ...
     }
 }
 ~~~
 
 Implement for both `Graph` and `Digraph`.
-
-![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
 
 ### <a name="p84"/>[P84](#p84) (\*\*) Construct the minimal spanning tree.
 
@@ -3048,19 +3049,54 @@ Graph(labeledString: "[a-b/1, b-c/2, a-c/3]").minimalSpanningTree()
 Result:
 
 ~~~swift
-[a-b/1, b-c/2]   <- Return a graph!
+Graph(adjacentList: List(
+  ("a", List(("b", 1))),
+  ("b", List(("c", 2)))
+))
 ~~~
 
-![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
+Implementation:
+
+~~~swift
+extension Graph {
+    func minimalSpanningTree() -> Graph<T, U>? {
+        ...
+    }
+}
+~~~
+
+Implement for both `Graph` and `Digraph`.
 
 ### <a name="p85"/>[P85](#p85) (\*\*) Graph isomorphism.
-Two graphs G1(N1,E1) and G2(N2,E2) are isomorphic if there is a bijection f:
-N1 â†’ N2 such that for any nodes X,Y of N1, X and Y are adjacent if and only
-if f(X) and f(Y) are adjacent.
+Two graphs *G<sub>1</sub>(N<sub>1</sub>, E<sub>1</sub>)* and
+*G<sub>2</sub>(N<sub>2</sub>, E<sub>2</sub>)* are isomorphic if there is a
+bijection *f: N<sub>1</sub> ↦ N<sub>2</sub>* such that for any nodes *X*, *Y*
+of *N<sub>1</sub>*, *X* and *Y* are adjacent if and only if *f(X)* and *f(Y)*
+are adjacent.
+
 Write a method that determines whether two graphs are isomorphic.
 
-scala> Graph.fromString("[a-b]").isIsomorphicTo(Graph.fromString("[5-7]"))
-res0: Boolean = true
+Example:
+
+~~~swift
+Graph(string: "[a-b]").isIsomorphicTo(Graph(string: "[5-7]"))
+~~~
+
+Result:
+
+~~~swift
+true
+~~~
+
+Implementation:
+
+~~~swift
+extension Graph {
+    func isIsomorphicTo(graph: Graph<V, W>) -> Bool {
+        ...
+    }
+}
+~~~
 
 ![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
 
