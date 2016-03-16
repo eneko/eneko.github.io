@@ -2786,6 +2786,15 @@ and edges (arcs). For the nodes, this is no problem, as we can put any type
 into them. On the other hand, for edges we have to extend our notation. Graphs
 with additional information attached to edges are called labeled graphs.
 
+In our `Graph` class definition above, we store edges as a list of tuples where
+each tuple contains two nodes of type `T` and a label of type `U`, so we can
+handle both non-labeled and labeled graphs (for non-labeled graphs you can set
+a default value of zero, for example).
+
+~~~swift
+var edges: List<(T, T, U)>?
+~~~
+
 *Graph-term* form:
 
 ~~~swift
@@ -2822,79 +2831,225 @@ The notation for labeled graphs can also be used for so-called multi-graphs,
 where more than one edge (or arc) is allowed between two given nodes.
 
 ### <a name="p80"/>[P80](#p80) (\*\*\*) Conversions.
-Write methods to generate the graph-term and adjacency-list forms from a Graph.
- Write another method to output the human-friendly form for a graph. Make it
- the toString method for Graph. Write more functions to create graphs from
- strings.
+Write methods to generate the *graph-term* and *adjacency-list* forms from both
+`Graph` and `Digraph`. Implement `CustomStringConvertible` to output the
+*human-friendly* form. Then, write convenience initializers to create graphs
+from *human-friendly* form strings.
 
 _Hint:_ You might need separate functions for labeled and unlabeled graphs.
 
-scala> Graph.fromString("[b-c, f-c, g-h, d, f-b, k-f, h-g]").toTermForm
-res0: (List[String], List[(String, String, Unit)]) = (List(d, k, h, c, f, g, b),List((h,g,()), (k,f,()), (f,b,()), (g,h,()), (f,c,()), (b,c,())))
+Example #1:
 
-scala> Digraph.fromStringLabel("[p>q/9, m>q/7, k, p>m/5]").toAdjacentForm
-res1: List[(String, List[(String, Int)])] = List((m,List((q,7))), (p,List((m,5), (q,9))), (k,List()), (q,List()))
+~~~swift
+Graph(string: "[b-c, f-c, g-h, d, f-b, k-f, h-g]").toTermForm()
+~~~
 
-![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
+Result:
+
+~~~swift
+(
+  List("d", "k", "h", "c", "f", "g", "b"),
+  List(("h", "g"), ("k", "f"), ("f", "b"), ("g", "h"), ("f", "c"), ("b", "c"))
+)
+~~~
+
+Implementation:
+
+~~~swift
+extension Graph {
+    convenience init(string: String) {
+        ...
+    }
+
+    func toTermForm() -> (List<T>, List<(T, T)>?) {
+        ...
+    }
+}
+~~~
+
+Example #2:
+
+~~~swift
+Digraph(labeledString: "[p>q/9, m>q/7, k, p>m/5]").toAdjacentFormLabeled()
+~~~
+
+Result:
+
+~~~swift
+List(
+  ("m", List(("q", 7))),
+  ("p", List(("m", 5), ("q", 9))),
+  ("k", nil),
+  ("q", nil)
+)
+~~~
+
+Implementation:
+
+~~~swift
+extension Digraph {
+    convenience init(labeledString: String) {
+        ...
+    }
+
+    func toAdjacentFormLabeled() -> List<(T, List<(T, U)>?)> {
+        ...
+    }
+}
+~~~
 
 ### <a name="p81"/>[P81](#p81) (\*\*) Path from one node to another one.
-Write a method named findPaths to find acyclic paths from one node to another
+Write a method named `findPaths()` to find acyclic paths from one node to another
 in a graph. The method should return all paths.
 
-scala> Digraph.fromStringLabel("[p>q/9, m>q/7, k, p>m/5]").findPaths("p", "q")
-res0: List[List[String]] = List(List(p, q), List(p, m, q))
+Example #1:
 
-scala> Digraph.fromStringLabel("[p>q/9, m>q/7, k, p>m/5]").findPaths("p", "k")
-res1: List[List[String]] = List()
+~~~swift
+Digraph(labeledString: "[p>q/9, m>q/7, k, p>m/5]").findPathsFrom("p", to: "q")
+~~~
 
-![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
+Result:
+
+~~~swift
+List(List("p", "q"), List("p", "m", "q"))
+~~~
+
+Example #2:
+
+~~~swift
+Digraph(labeledString: "[p>q/9, m>q/7, k, p>m/5]").findPathsFrom("p", to: "k")
+~~~
+
+Result:
+
+~~~swift
+nil
+~~~
+
+Implementation:
+
+~~~swift
+extension Digraph {
+    func findPathsFrom(from: T, to: T) -> List<List<T>>? {
+        ...
+    }
+}
+~~~
+
+Implement for both `Graph` and `Digraph`.
 
 ### <a name="p82"/>[P82](#p82) (\*) Cycle from a given node.
-Write a method named findCycles to find closed paths (cycles) starting at a
+Write a method named `findCyclesFrom()` to find closed paths (cycles) starting at a
 given node in a graph. The method should return all cycles.
 
-scala> Graph.fromString("[b-c, f-c, g-h, d, f-b, k-f, h-g]").findCycles("f")
-res0: List[List[String]] = List(List(f, c, b, f), List(f, b, c, f))
+Example:
 
-![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
+~~~swift
+Graph(string: "[b-c, f-c, g-h, d, f-b, k-f, h-g]").findCyclesFrom("f")
+~~~
+
+Result:
+
+~~~swift
+List(List("f", "c", "b", "f"), List("f", "b", "c", "f"))
+~~~
+
+Implementation:
+
+~~~swift
+extension Graph {
+    func findCyclesFrom(from: T) -> List<List<T>>? {
+        ...
+    }
+}
+~~~
+
+Implement for both `Graph` and `Digraph`.
 
 ### <a name="p83"/>[P83](#p83) (\*\*) Construct all spanning trees.
-Write a method spanningTrees to construct all spanning trees of a given graph.
-With this method, find out how many spanning trees there are for the graph
-depicted to the right. The data of this example graph can be found below. When
-you have a correct solution for the spanningTrees method, use it to define two
-other useful methods: isTree and isConnected. Both are five-minute tasks!
 
-Graph:
+![Graph](/projects/99-swift-problems/p83.gif)
 
-        Graph.term(List("a", "b", "c", "d", "e", "f", "g", "h"),
-           List(("a", "b"), ("a", "d"), ("b", "c"), ("b", "e"),
+Write a method `spanningTrees()` to construct all spanning trees of a given
+graph. With this method, find out how many spanning trees there are for the
+graph depicted above. When you have a correct solution for the `spanningTrees`
+method, use it to define two other useful methods: `isTree()` and
+`isConnected()`. Both are five-minute tasks!
+
+The graph above can be constructed as:
+
+~~~swift
+Graph(
+    nodes: List("a", "b", "c", "d", "e", "f", "g", "h"),
+    edges: List(("a", "b"), ("a", "d"), ("b", "c"), ("b", "e"),
                 ("c", "e"), ("d", "e"), ("d", "f"), ("d", "g"),
-                ("e", "h"), ("f", "g"), ("g", "h")))
+                ("e", "h"), ("f", "g"), ("g", "h"))
+)
+~~~
 
-scala> Graph.fromString("[a-b, b-c, a-c]").spanningTrees
-res0: List[Graph[String,Unit]] = List([a-b, b-c], [a-c, b-c], [a-b, a-c])
+Example:
+
+~~~swift
+Graph(string: "[a-b, b-c, a-c]").spanningTrees()
+~~~
+
+Result:
+
+~~~swift
+List(
+    Tree("a", Tree("b"), Tree("c")),
+    Tree("c", Tree("a"), Tree("b")),
+    Tree("b", Tree("a"), Tree("c"))
+) <- Return a list of graphs instead!
+~~~
+
+Implementation:
+
+~~~swift
+extension Graph {
+    func spanningTrees() -> List<Tree<T>>? {
+        ...
+    }
+}
+~~~
+
+Implement for both `Graph` and `Digraph`.
 
 ![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
 
 ### <a name="p84"/>[P84](#p84) (\*\*) Construct the minimal spanning tree.
-Write a method minimalSpanningTree to construct the minimal spanning tree of a
-given labeled graph.
 
-_Hint:_ Use Prim's Algorithm. A small modification of the
-solution of [P83](#p83) does the trick. The data of the example graph to the right can
-be found below.
+![Labeled Graph](/projects/99-swift-problems/p84.gif)
 
-Graph:
+Write a method `minimalSpanningTree()` to construct the minimal spanning tree
+of a given labeled graph.
 
-    Graph.termLabel(
-        List("a", "b", "c", "d", "e", "f", "g", "h"),
-        List(("a", "b", 5), ("a", "d", 3), ("b", "c", 2), ("b", "e", 4),
-            ("c", "e", 6), ("d", "e", 7), ("d", "f", 4), ("d", "g", 3),
-            ("e", "h", 5), ("f", "g", 4), ("g", "h", 1)))
+_Hint:_ Use [Prim's Algorithm](https://en.wikipedia.org/wiki/Prim%27s_algorithm).
+A small modification of the solution of [P83](#p83) does the trick.
 
-scala> Graph.fromStringLabel("[a-b/1, b-c/2, a-c/3]").minimalSpanningTree
-res0: Graph[String,Int] = [a-b/1, b-c/2]
+The graph above can be constructed as:
+
+~~~swift
+Graph(
+    nodes: List("a", "b", "c", "d", "e", "f", "g", "h"),
+    labeledEdges: List(("a", "b", 5), ("a", "d", 3), ("b", "c", 2),
+                       ("b", "e", 4), ("c", "e", 6), ("d", "e", 7),
+                       ("d", "f", 4), ("d", "g", 3), ("e", "h", 5),
+                       ("f", "g", 4), ("g", "h", 1))
+)
+~~~
+
+Example:
+
+~~~swift
+Graph(labeledString: "[a-b/1, b-c/2, a-c/3]").minimalSpanningTree()
+~~~
+
+Result:
+
+~~~swift
+[a-b/1, b-c/2]   <- Return a graph!
+~~~
 
 ![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
 
