@@ -32,12 +32,17 @@ more time (i.e. a few hours or more) to find a good solution.
 > Your goal should be to find the most elegant solution of the given problems.
 Efficiency is important, but clarity is even more crucial. Some of the (easy)
 problems can be trivially solved using built-in functions. However, in these
-cases, you learn more if you try to find your own solution.
+cases, <u>you learn more if you try to find your own solution</u>.
 
 I have maintained the difficulties from the Scala and Prolog problems, as they
 should also apply to Swift. The problem numbers have also been preserved to
 match the originals, with a few exceptions where I have split the problems in
 multiple parts.
+
+I recommend you try to solve all these problems by hand, **writing your own
+solutions**, while also thinking of performance by avoiding O(n<sup>2</sup>)
+solutions. It is fine, however, if you use your solutions from previous
+problems to solve the following ones.
 
 Problems are divided in seven categories:
 
@@ -55,7 +60,7 @@ folder to keep the Playground clean.
 
 A better way, maybe, would be creating an Xcode project for an iOS, OS X or
 tvOS application or framework. This would make it very easy to test your
-solutions with Unit Tests and to guarantee 100% code coverage. An OS X
+solutions with unit tests and code coverage. An OS X
 command line application would also work, but it will require more
 configuration to get the unit tests ready.
 
@@ -934,7 +939,32 @@ Note that in the above example, the first two lists in the result have length
 length 3 and there are two list of this length. Finally, the last three lists
 have length 2. This is the most frequent length.
 
+
+### <a name="list-apendix"/>[Apendix A](#list-apendix) (\*\*) Sequences.
+Now that you have solved all the linked list problems above, implement the
+`SequenceType` protocol on our `List` class.
+
+Implementation:
+
+~~~swift
+extension List: SequenceType {
+    func generate() -> AnyGenerator<T> {
+        ...
+    }
+}
+~~~
+
+This will give our class instant access to the following Swift 2.1 methods:
+`contains`, `enumerate`, `dropFirst`, `dropLast`, `elementsEqual`, `enumerate`,
+`filter`, `flatMap`, `flatten`, `forEach`, `generate`, `joinWithSeparator`,
+`lexicographicalCompare`, `map`, `maxElement`, `minElement`, `prefix`, `reduce`,
+`reverse`, `sort`, `split`, `startsWith`, `suffix` and `understimateCount`.
+
+These methods might be useful in the following sections.
+
+
 * * *
+
 
 ## <a name="arithmetic"/> [Section 2:](#arithmetic) Arithmetic
 
