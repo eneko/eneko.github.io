@@ -3718,3 +3718,18 @@ is a clean solution, not just a quick-and-dirty hack!
 (2) For efficiency reasons it is important, at least for larger puzzles, to
 sort the words and the sites in a particular order. For this part of the
 problem, the solution of [P28](#p28) may be very helpful.
+
+
+
+* * *
+
+
+## Ninety-Nine Swift Solutions
+
+If you are interested in sharing your solutions online and/or would like to
+review somebody else's solutions, please go to the
+[Ninety-Nine Swift Solutions](https://github.com/eneko/Ninety-Nine-Swift-Solutions)
+repository on GitHub and submit a pull request!
+
+Please use the format `pXX_username.swift` to name your solutions, where `XX` is
+the problem number and `username` is your GitHub username in lower-case.
