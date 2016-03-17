@@ -1,10 +1,10 @@
 ---
 layout: page
-permalink: /99-swift-problems/
+permalink: /projects/99-swift-problems/
 title: Ninety-Nine Swift Problems
 desc: Ninety-Nine Swift Problems is an adaptation from the Ninety-Nine Scala problems.
 keywords: swift, problems, programming, computer, science, cs, challenge, linkedlist, binarytree, graph
-image: /media/99-swift-problems/screenshot.jpg
+image: /media/99-swift-problems.png
 ---
 
 Ninety-Nine Swift Problems is a collection of interesting problems that will
@@ -88,10 +88,10 @@ class List<T> {
 }
 ~~~
 
-The gist [List.swift](https://gist.github.com/eneko/98b0313fa2e7bb529ecf)
+The gist [List.swift](https://gist.github.com/eneko/3ec52e4f2d05434e28b2)
 contains the basics of the `List` class to get you started,
 including a convenience initializer to create lists in the `List(1, 2, 3, ...)`
-form, and a implementation of the `CustomStringConvertible` protocol.
+form.
 
 Section rules:
 
@@ -3667,14 +3667,43 @@ extension Miscellaneous {
 ### <a name="p99"/>[P99](#p99) (\*\*\*) Crossword puzzle.
 Given an empty (or almost empty) framework of a crossword puzzle and a set of
 words. The problem is to place the words into the framework.
+
+![](/projects/99-swift-problems/p99.gif)
+
 The particular crossword puzzle is specified in a text file which first lists
 the words (one word per line) in an arbitrary order. Then, after an empty line,
 the crossword framework is defined. In this framework specification, an empty
 character location is represented by a dot `.`. In order to make the solution
 easier, character locations can also contain predefined character values.
-The puzzle opposite is defined in the file p99a.dat, other examples are
-p99b.dat and p99d.dat. There is also an example of a puzzle (p99c.dat)
-which does not have a solution.
+
+The puzzle above is defined in the file [p99a.txt](/projects/99-swift-problems/p99a.txt)
+(shown below). Other examples are [p99b.txt](/projects/99-swift-problems/p99b.txt)
+and [p99d.txt](/projects/99-swift-problems/p99d.txt). There is also an example
+of a puzzle ([p99c.txt](/projects/99-swift-problems/p99c.txt)) which does not
+have a solution.
+
+Example P99A:
+
+~~~
+LINUX
+PROLOG
+PERL
+ONLINE
+GNU
+XML
+NFS
+SQL
+EMACS
+WEB
+MAC
+
+......  .
+. .  .  .
+. ..... .
+. . . ...
+  . ... .
+ ...
+~~~
 
 Words are strings of at least two characters. A horizontal or vertical
 sequence of character places in the crossword puzzle framework is called
@@ -3688,6 +3717,4 @@ is a clean solution, not just a quick-and-dirty hack!
 
 (2) For efficiency reasons it is important, at least for larger puzzles, to
 sort the words and the sites in a particular order. For this part of the
-problem, the solution of P28 may be very helpful.
-
-![Incomplete](http://www.pcc.edu/enroll/paying-for-college/financial-aid/images/flag.png)
+problem, the solution of [P28](#p28) may be very helpful.
