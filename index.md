@@ -14,12 +14,16 @@ desc: Hi, I am Eneko Alonso, a software engineer specialized in Swift with many 
 - Network Integrations & REST APIs
 - Databases
 
-### Recent Projects
+### Projects
 
 - [Ninety-Nine Swift Problems](/projects/99-swift-problems)
 - [Grand Prix Stats Apple TV Application](/projects/grand-prix-stats)
 
-### Recent Articles
+### Infographics & Visualizations
+
+- [Formula One® Constructor Victories Year by Year]( /infographics/f1/constructor-wins-by-year)
+
+### Articles
 
 {% for post in site.posts %}
 - [{{ post.title }}]({{ post.url | prepend: site.baseurl }}){% endfor %}
