@@ -9,13 +9,14 @@ desc: Hi, I am Eneko Alonso, a software engineer specialized in Swift with many 
 
 ### Core Skills
 
-- Swift & Objective-C
-- iOS, tvOS, OS X & Linux
-- Network Integrations & REST APIs
-- Databases
+- Swift on iOS, tvOS, macOS & Linux
+- Network integrations, REST, SOAP and GraphQL APIs
+- Database modeling
 
 ### Projects
 
+- [SourceDocs](https://github.com/eneko/SourceDocs)
+- [MarkdownGenerator](https://github.com/eneko/MarkdownGenerator)
 - [Ninety-Nine Swift Problems](/projects/99-swift-problems)
 - [Grand Prix Stats Apple TV Application](/projects/grand-prix-stats)
 
