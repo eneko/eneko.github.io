@@ -33,7 +33,11 @@ To generate an Xcode project, you can run:
 
 ```
 $ swift package generate-xcodeproj
+generated: ./mycommandlinetool.xcodeproj
 ```
+
+![Running the project on Xcode](/media/articles/command-line-spm/xcode.png)
+
 
 Keep this command handy, as you will need to regenerate the Xcode project
 when adding new dependencies to the `Package.swift` file.
@@ -42,7 +46,7 @@ when adding new dependencies to the `Package.swift` file.
 #### Up next
 
 - Manual argument parsing
-- Using SPM ArgumentParser
+- [Parsing command line arguments with SPM ArgumentParser](/articles/parsing-command-line-arguments-with-swift-package-manager-argument-parser)
 - Writing commands with ArgumentParser
 - Internet requests
 - Connecting to MySQL
