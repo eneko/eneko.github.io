@@ -8,6 +8,7 @@ plugins:
   - jekyll-assets
   - jekyll-sitemap
   - jekyll-redirect-from
+  - jekyll-feed
 
 
 # Site settings
