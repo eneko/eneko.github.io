@@ -2,6 +2,9 @@
  * Syntax highlighting styles
  */
 
+//$code-background: #1C1F26;
+$code-background: #282C34;
+
 $plain-text: #EFEDED;
 $comments: #8C94A5;
 $documentation: #60997E;
@@ -25,7 +28,10 @@ $instances: #7D7094;
 
     .highlighter-rouge & {
       color: $plain-text;
-      background: #1C1F26;
+    }
+
+    pre {
+      background: $code-background;
     }
 
     .c     { color: $comments; font-style: italic } // Comment
