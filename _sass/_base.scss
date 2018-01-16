@@ -129,14 +129,15 @@ blockquote {
  */
 pre,
 code {
-    font-size: 15px;
+    font-family: $code-font-family;
     border: 1px solid $grey-color-light;
     border-radius: 3px;
-    background-color: #faf8f5;
 }
 
 code {
     padding: 1px 5px;
+    font-size: 14px;
+    line-height: 1em;
 }
 
 pre {
@@ -144,6 +145,9 @@ pre {
     overflow-x: auto;
 
     > code {
+        display: inline-block;
+        font-size: 13px;
+        line-height: 1.25;
         border: 0;
         padding-right: 0;
         padding-left: 0;

@@ -49,7 +49,7 @@ math operations. Here is the proposed interface:
 
 First, we create our new tool:
 
-```
+```terminal
 $ mkdir calculator && cd calculator
 $ swift package init --type executable
 $ swift run calculator
@@ -75,7 +75,7 @@ let package = Package(
 
 And generate the Xcode project:
 
-```
+```terminal
 $ swift package generate-xcodeproj
 $ open calculator.xcodeproj
 ```
@@ -145,7 +145,7 @@ init(parser: ArgumentParser) {
 
 This will allow us to pass any number of integers to compute the sum:
 
-```
+```terminal
 $ calculator add 1 2 3 4
 10
 ```
@@ -325,7 +325,7 @@ registry.run()
 
 Running our command generates the pretty usage output:
 
-```
+```terminal
 $ swift run calculator
 OVERVIEW: Basic Calculator
 
@@ -335,22 +335,27 @@ SUBCOMMANDS:
   add                     Compute the sum of all the numbers.
 ```
 
-```
+```terminal
 $ swift run calculator add --help
 OVERVIEW: Compute the sum of all the numbers.
 
 POSITIONAL ARGUMENTS:
   numbers   List of numbers to operate with.
-
 ```
 
 We can test it with passing some ints:
 
-```
+```terminal
 $ swift run calculator add 400 600
 1000
+```
+
+```terminal
 $ .build/debug/calculator add 1 2 3 4 5 6 7 8 9 10
 55
+```
+
+```terminal
 $ .build/debug/calculator add 40000000000000000000000 1
 '40000000000000000000000' is not convertible to Int for argument numbers; use --help to print usage
 ```
@@ -467,7 +472,7 @@ registry.run()
 
 Running our tool with no parameters outputs the updated usage overview:
 
-```
+```terminal
 $ swift run calculator
 OVERVIEW: Basic Calculator
 
@@ -482,24 +487,24 @@ SUBCOMMANDS:
 
 Some tests 💯:
 
-```
+```terminal
 $ swift run calculator subtract 10 7 7
 -4
 ```
 
-```
+```terminal
 $ swift run calculator multiply 1 2 3 4 5
 120
 ```
 
-```
+```terminal
 $ swift run calculator divide 20 5 2
 2
 ```
 
 And of course:
 
-```
+```terminal
 $ swift run calculator divide 20 0
 Fatal error: Remainder of or division by zero
 Illegal instruction: 4
