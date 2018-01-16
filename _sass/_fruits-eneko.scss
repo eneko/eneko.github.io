@@ -48,9 +48,9 @@ $instances: #7D7094;
     .gs    { color: #fff; font-weight: bold } // Generic.Strong
     .gu    { color: $documentation-keywords } // Generic.Subheading
     .gt    { color: #a00 } // Generic.Traceback
-    .kc    { color: $constants } // Keyword.Constant
+    .kc    { color: $keywords } // Keyword.Constant
     .kd    { color: $keywords } // Keyword.Declaration
-    .kp    { font-weight: bold } // Keyword.Pseudo
+    .kp    { color: $keywords; font-weight: bold } // Keyword.Pseudo
     .kr    { color: $keywords; font-weight: bold } // Keyword.Reserved
     .kt    { color: $type-names } // Keyword.Type
     .m     { color: $numbers } // Literal.Number
