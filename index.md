@@ -1,32 +1,41 @@
 ---
 layout: page
-title: Eneko Alonso, Swift Software Engineer
+title: Eneko Alonso, Software Engineer
 permalink: /
 desc: Hi, I am Eneko Alonso, a software engineer specialized in Swift with many years of experience developing apps for iOS and tvOS. I live in San Luis Obispo, California.
 ---
 
-![Eneko Huffman Tree](/media/eneko-huffman-tree.png)
-
-### Core Skills
-
-- Swift on iOS, tvOS, macOS & Linux
-- Network integrations, REST, SOAP and GraphQL APIs
-- Database modeling
+![Eneko Huffman Tree](/media/eneko-huffman-tree@2x.png)
 
 ### Projects
 
-- [SourceDocs](https://github.com/eneko/SourceDocs)
-- [MarkdownGenerator](https://github.com/eneko/MarkdownGenerator)
-- [Ninety-Nine Swift Problems](/projects/99-swift-problems)
-- [Grand Prix Stats Apple TV Application](/projects/grand-prix-stats)
-
-### Infographics & Visualizations
-
-- [Formula One® Constructor Victories Year by Year]( /infographics/f1/constructor-wins-by-year)
+- [SourceDocs](https://github.com/eneko/SourceDocs), a documentation generator for Swift projects.
+- [MarkdownGenerator](https://github.com/eneko/MarkdownGenerator), a tiny Swift framework to generate markdown.
+- [Ninety-Nine Swift Problems](/projects/99-swift-problems), educational exercises to be solved while learning Swift.
+- [Grand Prix Stats](/projects/grand-prix-stats), TV application for Formula 1® fans.
 
 ### Articles
 
 {% for post in site.posts %}
 - [{{ post.title }}]({{ post.url | prepend: site.baseurl }}){% endfor %}
 
-Follow me on Twitter at [@eneko](https://twitter.com/eneko), take a look at my professional profile on LinkedIn at [Eneko Alonso, Software Engineer](https://www.linkedin.com/in/eneko) or check out my open source contributions at [Eneko Alonso on GitHub](https://github.com/eneko).
+### Infographics & Visualizations
+
+- [Formula One® Constructor Victories Year by Year]( /infographics/f1/constructor-wins-by-year)
+
+### About Me
+
+#### Core Skills
+
+- Swift on iOS, tvOS, macOS & Linux
+- Network integrations, REST, SOAP and GraphQL APIs
+- Database modeling
+
+I am a software engineer, currently working full-time on the iOS team
+at [MINDBODY](https://mindbody.io) in [San Luis Obispo, California](http://visitslo.com).
+There, I get to work with other awesome folks, crafting beautiful mobile applications for
+our customers and their clients.
+
+Follow me on Twitter at [@eneko](https://twitter.com/eneko), take a look at
+[my profile on Stack Overflow](https://stackoverflow.com/users/422288/eneko-alonso)
+or check out my [open source contributions on GitHub](https://github.com/eneko).
