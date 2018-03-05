@@ -2,12 +2,13 @@
 layout: page
 permalink: /projects/99-swift-problems/
 title: Ninety-Nine Swift Problems
-desc: Ninety-Nine Swift Problems is an adaptation from the Ninety-Nine Scala problems.
+desc: Ninety-Nine Swift Problems is an adaptation from 99 Scala problems.
 keywords: swift, problems, programming, computer, science, cs, challenge, linkedlist, binarytree, graph
 image: /media/99-swift-problems.png
 ---
 
-Ninety-Nine Swift Problems is a collection of interesting problems that will
+Ninety-Nine Swift Problems is a collection of interesting problems
+(also known as challenges) that will
 help Swift programmers like you learn and practice your skills in logic
 programming, data structures and algorithms in the
 [Swift programming language](https://swift.org).
@@ -96,9 +97,26 @@ form.
 Section rules:
 
 - Individual methods or computed properties will be added to the `List<T>`
-class as extensions to solve each problem.
+  class as extensions to solve each problem.
 - Consider instances of `List` as immutable. All methods should
-return new instances of linked lists (instead of modifying the current list).
+  return new instances of linked lists (instead of modifying the current list).
+- Using sequence types from the Swift Standard Library, like `Array` or `Set`
+  is not allowed.
+
+<!-- ul>
+  {% for page in site.pages %}
+    {% if page.resource == true %}
+      {{ page.title }}
+      {% for pc in page.problem_categories %}
+        {{ page.title }}
+        {% if pc == "linked-lists" %}
+          <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+        {% endif %}   
+      {% endfor %}  
+    {% endif %}   
+  {% endfor %}  
+</ul -->
+
 
 ### <a name="p01"/>[P01](#p01) (\*) Find the last element of a linked list.
 Example:

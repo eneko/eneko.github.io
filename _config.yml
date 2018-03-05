@@ -25,3 +25,7 @@ twitter_username: eneko
 github_username: eneko
 stackoverflow_userid: 422288
 stackoverflow_username: eneko-alonso
+
+
+# Custom resources and categories
+problem_categories: [linked-lists, aritmetic, logic-and-codes, binary-trees, multiway-trees, graphs, miscellaneous]
