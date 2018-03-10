@@ -725,7 +725,8 @@ extension List {
 }
 ~~~
 
-_Hint: Use the solution to problem [P20](#p20)._
+_Hint #1: Use the solution to problem [P20](#p20)._<br>
+_Hint #2: Use the provided `randomInt(under:)` function for Linux support._
 
 ### <a name="p24"/>[P24](#p24) (\*) Lotto: Draw N different random numbers from the set 1..M.
 Return a linked list with the _lotto_ numbers.
@@ -1286,6 +1287,7 @@ extension Int {
 }
 ~~~
 
+### <a name="p41b"/>[P41B](#p41b) (\*\*) A list of Goldbach compositions (limited).
 In most cases, if an even number is written as the sum of two prime numbers,
 one of them is very small. Very rarely, the primes are both bigger than, say,
 `50`. Try to find out how many such cases there are in the range `2...3000`.
@@ -1493,7 +1495,7 @@ func table(variables: Int, expression: (vars: [Bool]) -> Bool) -> List<List<Bool
 }
 ~~~
 
-### <a name="p48"/>[P48](#p49) (\*\*) Gray code.
+### <a name="p49"/>[P49](#p49) (\*\*) Gray code.
 An n-bit Gray code is a sequence of n-bit strings constructed according to
 certain rules. For example,
 
