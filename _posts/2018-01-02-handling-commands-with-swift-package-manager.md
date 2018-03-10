@@ -99,8 +99,8 @@ the main command execution code inside a `run` method.
 
 ```swift
 protocol Command {
-    let command: String
-    let overview: String
+    var command: String { get }
+    var overview: String { get }
 
     init(parser: ArgumentParser)
     func run(with arguments: ArgumentParser.Result) throws
