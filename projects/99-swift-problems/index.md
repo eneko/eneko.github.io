@@ -528,7 +528,7 @@ Implementation:
 
 ~~~swift
 extension List {
-    func drop(every: Int) -> List {
+    func drop(every: Int) -> List? {
         ...
     }
 }
