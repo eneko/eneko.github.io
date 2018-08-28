@@ -37,7 +37,9 @@ View [`ProcessInfo` documentation](https://developer.apple.com/documentation/fou
 
 If you work at an organization were your project dependencies are stored in
 private git repositories, you will probably already use a private access token
-with Fastlane or other scripting tools.
+with [Carthage](https://github.com/Carthage/Carthage/pull/605), 
+[Fastlane](https://docs.fastlane.tools/actions/set_github_release/) 
+or other scripting tools.
 
 Swift Package Manager can access dependencies stored in private repositories,
 as long as an access token in included in the url.
