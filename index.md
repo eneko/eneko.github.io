@@ -2,7 +2,7 @@
 layout: page
 title: Eneko Alonso, Software Engineer
 permalink: /
-desc: Hi, I am Eneko Alonso, a software engineer specialized in Swift with many years of experience developing apps for iOS and tvOS. I live in San Luis Obispo, California.
+desc: Hi, I am Eneko Alonso, a software engineer specialized in Swift, with many years of experience developing apps for iOS and tvOS. I live in San Luis Obispo, California.
 ---
 
 ![Eneko Huffman Tree](/media/eneko-huffman-tree@2x.png)
@@ -12,6 +12,7 @@ desc: Hi, I am Eneko Alonso, a software engineer specialized in Swift with many 
 - [SourceDocs](https://github.com/eneko/SourceDocs), a documentation generator for Swift projects.
 - [MarkdownGenerator](https://github.com/eneko/MarkdownGenerator), a tiny Swift framework to generate markdown.
 - [Ninety-Nine Swift Problems](/projects/99-swift-problems), educational exercises to be solved while learning Swift.
+- [Ninety-Nine Swift Solutions](https://github.com/eneko/Ninety-Nine-Swift-Solutions), community solutions for the Ninety-Nine Swift Problems .
 - [Grand Prix Stats](/projects/grand-prix-stats), TV application for Formula 1® fans.
 
 ### Articles
@@ -29,12 +30,12 @@ desc: Hi, I am Eneko Alonso, a software engineer specialized in Swift with many 
 
 - Swift on iOS, tvOS, macOS & Linux
 - Network integrations, REST, SOAP and GraphQL APIs
-- Database modeling
+- Database modeling (RDBMS and No-SQL)
 
 I am a software engineer, currently working full-time on the iOS team
 at [MINDBODY](https://mindbody.io) in [San Luis Obispo, California](http://visitslo.com).
-There, I get to work with other awesome folks, crafting beautiful mobile applications for
-our customers and their clients.
+There, I get to work with very talented people, crafting beautiful mobile
+applications for our clients and their customers.
 
 Follow me on Twitter at [@eneko](https://twitter.com/eneko), take a look at
 [my profile on Stack Overflow](https://stackoverflow.com/users/422288/eneko-alonso)
