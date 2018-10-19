@@ -10,6 +10,7 @@ keywords: tvos, uifocusguide, layout, focus, guide, appletv, swift
 image: /media/articles/tvos-uifocusguide/07-all-guides.png
 redirect_from:
     - /2018/02/19/understanding-and-visualizing-uifocusguide-on-tvos.html
+    - /articles/understanding-and-visualizing-uifocusguide-on-tvOS
 ---
 
 ![UIFocusGuide](/media/articles/tvos-uifocusguide/07-all-guides.png)
