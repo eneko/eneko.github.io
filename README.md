@@ -1,2 +1,2 @@
 # eneko.github.io
-Jekyll site for [enekoalonso.com](https://enekoalonso.com)
+Jekyll site for [www.enekoalonso.com](https://www.enekoalonso.com)
