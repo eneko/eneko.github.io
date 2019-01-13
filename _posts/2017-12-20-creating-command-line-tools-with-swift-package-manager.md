@@ -50,5 +50,4 @@ when adding new dependencies to the `Package.swift` file.
 - [Parsing command line arguments with SPM ArgumentParser](/articles/parsing-command-line-arguments-with-swift-package-manager-argument-parser)
 - [Handling commands with ArgumentParser](/articles/handling-commands-with-swift-package-manager)
 - Internet requests
-- Connecting to MySQL
 - What else can you do with a command line tool?
