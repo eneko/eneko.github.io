@@ -27,16 +27,17 @@ desc: Hi, I am Eneko Alonso, a software engineer specialized in Swift, with many
 
 ### About Me
 
-#### Core Skills
-
-- Swift on iOS, tvOS, macOS & Linux
-- Network integrations, REST, SOAP and GraphQL APIs
-- Database modeling (RDBMS and No-SQL)
-
 I am a software engineer, currently working full-time on the iOS team
-at [MINDBODY](https://mindbody.io) in [San Luis Obispo, California](http://visitslo.com).
+at [Mindbody](https://mindbody.io) in [San Luis Obispo, California](http://visitslo.com).
 There, I get to work with very talented people, crafting beautiful mobile
 applications for our clients and their customers.
+
+Here are some of my technical skills:
+
+- Swift on iOS, tvOS, macOS & Linux
+- REST API design & integrations
+- Database modeling (RDBMS and No-SQL)
+
 
 Follow me on Twitter at [@eneko](https://twitter.com/eneko), take a look at
 [my profile on Stack Overflow](https://stackoverflow.com/users/422288/eneko-alonso)
