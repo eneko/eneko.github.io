@@ -11,8 +11,8 @@ If you are eager to test the new `async`/`await` Swift feature, you are lucky. T
 Swift evolution proposals have been drafted, the first one submitted and in review. These proposals
 have been partially implemented (available in the latest snapshots from `main` branch).
 
-- [Proposal SE-0296: Async/await](https://github.com/apple/swift-evolution/blob/main/proposals/0296-async-await.md#launching-async-tasks)
-- [Proposal SE-NNNN: Structured concurrency](https://github.com/DougGregor/swift-evolution/blob/structured-concurrency/proposals/nnnn-structured-concurrency.md#child-tasks)
+- [Proposal SE-0296: Async/await](https://github.com/apple/swift-evolution/blob/main/proposals/0296-async-await.md)
+- [Proposal SE-NNNN: Structured concurrency](https://github.com/DougGregor/swift-evolution/blob/structured-concurrency/proposals/nnnn-structured-concurrency.md)
 - [Proposal SE-NNNN: Concurrency Interoperability with Objective-C](https://github.com/DougGregor/swift-evolution/blob/concurrency-objc/proposals/NNNN-concurrency-objc.md)
 
 Before you get started, please consider this:
@@ -247,3 +247,11 @@ print(foo + bar)
 
 While this code works, it is prone to errors, including thread-safety. I'm hoping for the `async let` implementation to be finished soon.
 
+## My thoughts
+
+I have no much to say, actually, other than `async`/`await` is awesome and cannot be more grateful for all
+the people that have worked hard for making this happen.
+
+I firmly believe this will be one of the most important additions to the Swift language, if not the most.
+Chances are this will have great impact in how we write code in the future. And this is for the better of
+the entire Swift community.
