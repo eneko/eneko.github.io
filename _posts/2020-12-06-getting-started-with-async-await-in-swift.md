@@ -27,9 +27,9 @@ Here are the steps to get you set up.
 
 If you are on a Mac, you can download the latest Swift snapshot (Dec 5) for Xode from this url:
 
-https://swift.org/builds/development/xcode/swift-DEVELOPMENT-SNAPSHOT-2020-12-05-a/swift-DEVELOPMENT-SNAPSHOT-2020-12-05-a-osx.pkg
+[https://swift.org/builds/development/xcode/swift-DEVELOPMENT-SNAPSHOT-2020-12-05-a/swift-DEVELOPMENT-SNAPSHOT-2020-12-05-a-osx.pkg](https://swift.org/builds/development/xcode/swift-DEVELOPMENT-SNAPSHOT-2020-12-05-a/swift-DEVELOPMENT-SNAPSHOT-2020-12-05-a-osx.pkg)
 
-Other platforms are available on the [downloads page](https://swift.org/download/#snapshots)
+Other platforms are available on the [downloads page](https://swift.org/download/#snapshots).
 
 Once downloaded, install the package and proceed to the next step to configure Xcode.
 
@@ -42,7 +42,10 @@ select the Swift toolchain just installed (Dec 5)
 
 ## Package Setup
 
-In the command line, make a new folder (any name is good) and `cd` into it:
+For me, the easiest way to test new stuff is from the command line (I find executables super easy to
+set up).
+
+In the command line, make a new folder (any name you want) and `cd` into it:
 
 ```
 mkdir async-await-cli-demo
@@ -115,8 +118,8 @@ Turns out, we cannot call this method from `main.swift`, not even within a `Disp
 The idea behind this is that synchronous code (e.g. main thread of an application) will need to define
 asynchronous entry points, something covered in the [Structured Currency](https://github.com/DougGregor/swift-evolution/blob/structured-concurrency/proposals/nnnn-structured-concurrency.md) proposal.
 
-I was bummed for a little bit, because I really wanted to test this code out. I played a bit with `DispatchQueue` and `Task`, but decided to reach out for help. Thanks to [Doug Gregor quick response on Twitter](https://twitter.com/dgregor79/status/1335671565497733120),
-I was able to borrow his test extensions to make this code callable.
+I was bummed for a little bit, because I really wanted to test this code out. I played a bit with `DispatchQueue` and `Task`, but decided to reach out for help. Thanks to [Doug Gregor's quick response on Twitter](https://twitter.com/dgregor79/status/1335671565497733120),
+I was able to borrow his test extensions and move past this point.
 
 ```swift
 extension DispatchQueue {
@@ -152,7 +155,8 @@ extension DispatchQueue {
 }
 ```
 
-The above two extensions allow launching an async task from a `DispatchQueue`, with or without a `DispatchGroup`.
+The above two extensions allow launching an async task from a `DispatchQueue`, with or without a `DispatchGroup`. Note the `run()` method is flagged as deprecated, and it is intended for testing
+purposes only.
 
 ## Calling asynchronous code
 
