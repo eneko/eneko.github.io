@@ -1,9 +1,10 @@
 ---
 layout: post
-title: getting-started-with-async-await-in-swift
-date: 2020-12-06 19:06 -0800
+title: Getting started with async/await in Swift
+date: 2020-12-06
 desc: Hands-on experience with async/await in Swift
 image: /media/articles/async-await/async-await-demo.png
+keywords: swift, async, await, callback, closure, concurrency
 ---
 
 If you are eager to test the new `async`/`await` Swift feature, you are lucky. Three new
