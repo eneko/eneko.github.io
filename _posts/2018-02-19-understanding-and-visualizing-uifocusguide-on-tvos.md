@@ -2,7 +2,7 @@
 layout: post
 permalink: /articles/:title
 title: Understanding and Visualizing UIFocusGuide on tvOS
-date: 2018-02-19
+date: 2018-02-19T18:30:12Z
 desc:
   Working with tvOS can be tedious if the focus engine cannot infer the user
   interface layout. Let's see how UIFocusGuide can help us.
