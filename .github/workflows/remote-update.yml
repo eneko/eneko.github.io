@@ -18,3 +18,5 @@ jobs:
     - run: |
         echo "Hello ${{ github.event.inputs.name }}!"
         echo "- in ${{ github.event.inputs.home }}!"
+        echo ${{ github.event.inputs.name }} > test.md
+        cat test.md
