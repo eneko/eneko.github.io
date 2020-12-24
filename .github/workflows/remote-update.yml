@@ -31,4 +31,5 @@ jobs:
           git commit -m "Remote Update from GitHub Action"
       - name: Push
         run: |
+          git pull
           git push
