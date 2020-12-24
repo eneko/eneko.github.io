@@ -2,9 +2,8 @@
 
 h1, h2, h3, h4 { line-height: 1; margin: 0; }
 h1 { font-weight: 800; color: #333; }
-.post-title { letter-spacing: -2px; }
-h2 { padding: 20px 0 20px; font-weight: 700; color: #444; }
-h3 { padding: 20px 0 10px; font-weight: 600; color: #555; }
+h2 { padding: 20px 0 20px; font-weight: 500; color: #444; }
+h3 { padding: 20px 0 10px; font-weight: 500; color: #555; }
 h4 { padding: 20px 0 10px; font-weight: 500; color: #666; }
 
 img + em { color: #787878; text-align: center; display: block; font-size: 0.8em; }
@@ -15,7 +14,7 @@ img + em { color: #787878; text-align: center; display: block; font-size: 0.8em;
 
 .highlight { background: inherit; }
 code { background: #def; }
-pre code { background: inherit; border-radius: 4px; font-size: 0.8em; }
+pre code { background: inherit; border-radius: 4px; font-size: 1em; }
 
 blockquote { border-color: #ffa; background-color: #ffffe8; padding: 20px; }
 .post-content blockquote p { color: #444; font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif; font-weight: 300; font-style: normal; letter-spacing: normal; }
@@ -35,7 +34,7 @@ hr { margin: 50px auto; width: 60%; border: 0; height: 1px; background-image: li
     $grey-color:       #828282;
 
     body { background-color: #222; color: #fafafa; }
-    h1 { font-weight: 800; color: #eee; }
+    h1 { color: #eee; }
     h2 { color: #ddd; }
     h3 { color: #bbb; }
     h4 { color: #999; }
