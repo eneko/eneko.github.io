@@ -28,11 +28,12 @@ jobs:
       - name: Dump File
         run: |
           cat test.md
-      - name: Commit Changes
+      - name: Commit & Push
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git commit -m "Remote Update from GitHub Action" -a
+          git add .
+          git commit -m "Remote Update from GitHub Action"
           git push
 #       - name: Push changes
 #         uses: ad-m/github-push-action@master
