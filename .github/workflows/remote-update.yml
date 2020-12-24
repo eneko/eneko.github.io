@@ -23,7 +23,7 @@ jobs:
 #           FILE_NAME: "test.md"
 #           FILE_DATA: ${{ github.event.inputs.name }}
       - name: Write File
-        uses: DamianReeves/write-file-action
+        uses: DamianReeves/write-file-action@v1.0
         with:
           path: "test.md"
           contents: ${{ github.event.inputs.name }}
