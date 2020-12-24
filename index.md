@@ -5,7 +5,11 @@ permalink: /
 desc: Hi, I am Eneko Alonso, a software engineer specialized in Swift, with many years of experience developing apps for iOS and tvOS. I live in San Luis Obispo, California.
 ---
 
-![An Over-Engineered Blog](/media/blog-social.png)
+
+### Articles
+
+{% for post in site.posts %}
+- [{{ post.title }}]({{ post.url | prepend: site.baseurl }}){% endfor %}
 
 ### Projects
 
@@ -15,11 +19,6 @@ desc: Hi, I am Eneko Alonso, a software engineer specialized in Swift, with many
 - [Ninety-Nine Swift Solutions](https://github.com/eneko/Ninety-Nine-Swift-Solutions), community solutions for the Ninety-Nine Swift Problems .
 - [Grand Prix Stats](/projects/grand-prix-stats), TV application for Formula 1® fans.
 - [No Dice!](https://itunes.apple.com/us/app/no-dice/id1448825450?ls=1&mt=8), iOS application for Catan players.
-
-### Articles
-
-{% for post in site.posts %}
-- [{{ post.title }}]({{ post.url | prepend: site.baseurl }}){% endfor %}
 
 ### Infographics & Visualizations
 
