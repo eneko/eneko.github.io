@@ -15,9 +15,18 @@ jobs:
   writePost:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@master
+        with:
+          persist-credentials: false
+          fetch-depth: 0
       - uses: "finnp/create-file-action@master"
         env:
           FILE_NAME: "test.md"
           FILE_DATA: ${{ github.event.inputs.name }}
       - run: |
           cat test.md
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
