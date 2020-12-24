@@ -23,9 +23,6 @@ jobs:
           path: ${{ github.event.inputs.filename }}
           contents: ${{ github.event.inputs.content }}
           write-mode: overwrite
-      - name: Dump File
-        run: |
-          cat test.md
       - name: Commit
         run: |
           git config --local user.email "eneko.alonso@gmail.com"
