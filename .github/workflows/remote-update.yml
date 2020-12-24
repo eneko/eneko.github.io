@@ -15,18 +15,27 @@ jobs:
   writePost:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-        with:
-          persist-credentials: false
-          fetch-depth: 0
-      - uses: "finnp/create-file-action@master"
+      - name: Check-out
+        uses: actions/checkout@master
+#        with:
+          # persist-credentials: false
+ #         fetch-depth: 0
+      - name: Write File
+        uses: "finnp/create-file-action@master"
         env:
           FILE_NAME: "test.md"
           FILE_DATA: ${{ github.event.inputs.name }}
-      - run: |
+      - name: Dump File
+        run: |
           cat test.md
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref }}
+      - name: Commit Changes
+          # git config --local user.email "action@github.com"
+          # git config --local user.name "GitHub Action"
+        run: |
+          git commit -m "Remote Update from GitHub Action" -a
+          git push
+#       - name: Push changes
+#         uses: ad-m/github-push-action@master
+#         with:
+#           github_token: ${{ secrets.GITHUB_TOKEN }}
+#           branch: ${{ github.ref }}
