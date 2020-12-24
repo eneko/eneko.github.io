@@ -2,14 +2,14 @@ name: Remote Update
 on:
   workflow_dispatch:
     inputs:
-      name:
-        description: 'Person to greet'
+      content:
+        description: 'Content of the post'
         required: true
-        default: 'Mona the Octocat'
-      home:
-        description: 'location'
-        required: false
-        default: 'The Octoverse'
+        default: 'Lorem ipsum dolore sit'
+      filename:
+        description: 'Filename for the post'
+        required: true
+        default: 'test.md'
 
 jobs:
   writePost:
@@ -17,23 +17,16 @@ jobs:
     steps:
       - name: Check-out
         uses: actions/checkout@master
-#       - name: Write File
-#         uses: "finnp/create-file-action@master"
-#         env:
-#           FILE_NAME: "test.md"
-#           FILE_DATA: ${{ github.event.inputs.name }}
       - name: Write File
         uses: DamianReeves/write-file-action@v1.0
         with:
-          path: "test.md"
-          contents: ${{ github.event.inputs.name }}
+          path: ${{ github.event.inputs.filename }}
+          contents: ${{ github.event.inputs.content }}
           write-mode: overwrite
       - name: Dump File
         run: |
           cat test.md
       - name: Commit
-#           git config --local user.email "action@github.com"
-#           git config --local user.name "GitHub Action"
         run: |
           git config --local user.email "eneko.alonso@gmail.com"
           git config --local user.name "Eneko Alonso"
