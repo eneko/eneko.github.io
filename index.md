@@ -1,11 +1,11 @@
 ---
 layout: page
-title: Eneko Alonso, Software Engineer
+title: An Over-Engineered Blog
 permalink: /
 desc: Hi, I am Eneko Alonso, a software engineer specialized in Swift, with many years of experience developing apps for iOS and tvOS. I live in San Luis Obispo, California.
 ---
 
-![Eneko Huffman Tree](/media/eneko-huffman-tree@2x.png)
+![An Over-Engineered Blog](/media/blog-social.png)
 
 ### Projects
 
@@ -27,14 +27,14 @@ desc: Hi, I am Eneko Alonso, a software engineer specialized in Swift, with many
 
 ### About Me
 
-I am a software engineer, currently working full-time on the iOS team
+I am a software engineer, currently working full-time
 at [Mindbody](https://mindbody.io) in [San Luis Obispo, California](http://visitslo.com).
 There, I get to work with very talented people, crafting beautiful mobile
 applications for our clients and their customers.
 
 Here are some of my technical skills:
 
-- Swift on iOS, tvOS, macOS & Linux
+- Swift on iOS, tvOS, macOS & Linux (AWS Lambda 🎉)
 - REST API design & integrations
 - Database modeling (RDBMS and No-SQL)
 
