@@ -29,9 +29,9 @@ jobs:
         run: |
           cat test.md
       - name: Commit Changes
-          # git config --local user.email "action@github.com"
-          # git config --local user.name "GitHub Action"
         run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
           git commit -m "Remote Update from GitHub Action" -a
           git push
 #       - name: Push changes
