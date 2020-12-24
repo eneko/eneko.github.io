@@ -14,9 +14,13 @@ on:
 jobs:
   writePost:
     runs-on: ubuntu-latest
-    strategy:
-      max-parallel: 1
     steps:
+      - name: Turnstyle
+        uses: softprops/turnstyle@v1
+        with:
+          abort-after-seconds: 300
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Check-out
         uses: actions/checkout@master
       - name: Write File
