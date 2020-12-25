@@ -207,6 +207,7 @@
     font-size: 48px;
     letter-spacing: 0px;
     line-height: 1;
+    margin-bottom: 16px;
 
     @include media-query($on-laptop) {
         font-size: 48px;
@@ -239,4 +240,18 @@
             font-size: 18px;
         }
     }
+}
+
+
+
+/**
+ * Tags
+ */
+
+.tag {
+    background-color: $brand-color;
+    color: white;
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-size: 14px;
 }
