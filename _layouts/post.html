@@ -17,18 +17,18 @@ layout: default
       {% if page.author %} • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">{{ page.author }}</span></span>{% endif %}
     </p>
     {% if page.tags.size > 0 %}
-    <nav class="tags">
+    <div class="tags">
       {% assign tags = page.tags | sort %}
       {% for tag in tags %}
-      <span class="tag">{{ tag }}</span>
+      <span class="tag {{ tag }}">{{ tag }}</span>
       {% endfor %}
-    </nav>
+    </div>
     {% endif %}
   </header>
 
-  <div class="post-content" itemprop="articleBody">
+  <section class="post-content" itemprop="articleBody">
     {{ content }}
-  </div>
+  </section>
 
   <footer class="post-footer">
       <p>Thank you for reading this article! I'm hoping you liked it.</p>
