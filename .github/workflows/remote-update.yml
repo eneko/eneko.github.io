@@ -29,10 +29,15 @@ jobs:
           path: ${{ github.event.inputs.filename }}
           contents: ${{ github.event.inputs.content }}
           write-mode: overwrite
-      - name: Commit
+      - name: Git Config
         run: |
           git config --local user.email "eneko.alonso@gmail.com"
           git config --local user.name "Eneko Alonso"
+      - name: Pull
+        run: |
+          git pull
+      - name: Commit
+        run: |
           git add .
           git commit -m "Remote Update from GitHub Action"
       - name: Push
