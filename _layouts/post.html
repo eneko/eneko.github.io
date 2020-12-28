@@ -24,9 +24,11 @@ layout: default
       {% endfor %}
     </div>
     {% endif %}
+    {% if page.issue %}
     <div class="issue">
       <span class="issue-number"><b>Issue <a target="_blank" href="https://github.com/eneko/Blog/issues/{{page.issue}}">#{{page.issue}}</a></b></span>
     </div>
+    {% endif %}
   </header>
 
   <section class="post-content" itemprop="articleBody">
