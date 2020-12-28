@@ -8,4 +8,11 @@
 <meta name="twitter:description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
 {% endif %}
 <meta name="twitter:card" content="{% if page.image %}summary_large_image{% else %}summary{% endif %}">
-<meta name="twitter:image" content="{% if page.image %}{{ page.image | prepend: site.baseurl | prepend: site.url }}{% else %}{{ "/media/blog-social.png" | prepend: site.baseurl | prepend: site.url }}{% endif %}">
+{% assign image = page.image | truncate: 7 %}
+{% if image == "http..." %}
+<meta name="twitter:image" content="{{ page.image }}">
+{% elsif page.image %}
+<meta name="twitter:image" content="{{ page.image | prepend: site.baseurl | prepend: site.url }}">
+{% else %}
+<meta name="twitter:image" content="{{ "/media/blog-social.png" | prepend: site.baseurl | prepend: site.url }}">
+{% endif %}
