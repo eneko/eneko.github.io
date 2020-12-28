@@ -14,7 +14,7 @@ img + em { color: #787878; text-align: center; display: block; font-size: 0.8em;
 
 .highlight { background: inherit; }
 code { background: #def; }
-pre code { background: inherit; border-radius: 4px; }
+pre code { background: inherit; }
 
 blockquote { border-color: #ffa; background-color: #ffffe8; padding: 20px; }
 .post-content blockquote p { color: #444; font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif; font-weight: 300; font-style: normal; letter-spacing: normal; }
@@ -40,7 +40,7 @@ hr { margin: 50px auto; width: 60%; border: 0; height: 1px; background-image: li
     h4 { color: #999; }
     img + em { color: #989898; }
     code { background: #344; }
-    pre, code { border: solid 1px #333; }
+    pre, code { border-color: #333; }
     blockquote { border-color: #112; background-color: #114; }
     .post-content blockquote p { color: #eee; }
     footer.post-footer { border-top: dashed 1px #555; }
