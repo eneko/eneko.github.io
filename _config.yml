@@ -15,12 +15,17 @@ plugins:
 title: enekoalonso.com
 email: mail [at] enekoalonso [dot] com
 description: > # this means to ignore newlines until "baseurl:"
-  You are viewing enekoalonso.com.
-  This is the personal site of Eneko Alonso. Any content included and
-  any opinions expressed on this site are personal of Eneko only and do
-  not represent any of his current or past employers.
+  You are reading An Over-Engineered Blog, the personal site of Eneko Alonso.
+  All content included and any opinions expressed on this site are personal
+  and do not represent any of his current or past employers.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://www.enekoalonso.com" # the base hostname & protocol for your site
+
+# Author
+author:
+  name: Eneko Alonso
+
+# Social
 twitter_username: eneko
 github_username: eneko
 stackoverflow_userid: 422288

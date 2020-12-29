@@ -38,6 +38,7 @@ hr { margin: 50px auto; width: 60%; border: 0; height: 1px; background-image: li
     h2 { color: #ddd; }
     h3 { color: #bbb; }
     h4 { color: #999; }
+    a { &:hover { color: $text-color; }}
     img + em { color: #989898; }
     code { background: #344; }
     pre, code { border-color: #333; }
