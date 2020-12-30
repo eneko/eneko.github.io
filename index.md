@@ -6,10 +6,13 @@ desc: Hi, I am Eneko Alonso, a software engineer specialized in Swift, with many
 ---
 
 
-### Articles
+### Latest Articles
 
-{% for post in site.posts %}
+{% for post in site.posts limit:10 %}
 - [{{ post.title }}]({{ post.url | prepend: site.baseurl }}){% endfor %}
+
+More: [All Articles](/articles) · [RSS Feed <img class="feed-icon" src="/media/feed-icon.svg">]({{ "/feed.xml" | prepend: site.baseurl }})
+
 
 ### Projects
 
