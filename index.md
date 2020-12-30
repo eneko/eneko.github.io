@@ -8,8 +8,15 @@ desc: Hi, I am Eneko Alonso, a software engineer specialized in Swift, with many
 
 ### Latest Articles
 
-{% for post in site.posts limit:10 %}
-- [{{ post.title }}]({{ post.url | prepend: site.baseurl }}){% endfor %}
+<div class="article-list">
+{% for post in site.posts limit:15 %}
+  <div class="article-list-item">
+    <p class="preview"><a href="{{ post.url | prepend: site.baseurl }}"><img src="{{post.image}}" /></a></p>
+    <p class="title"><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></p>
+    <p class="excerpt">{{ post.excerpt | strip_html | truncate: 140 }}</p>
+  </div>
+{% endfor %}
+</div>
 
 More: [All Articles](/articles) · [RSS Feed <img class="feed-icon" src="/media/feed-icon.svg">]({{ "/feed.xml" | prepend: site.baseurl }})
 
