@@ -5,6 +5,8 @@ permalink: /
 desc: Hi, I am Eneko Alonso, a software engineer specialized in Swift, with many years of experience developing apps for iOS and tvOS. I live in San Luis Obispo, California.
 ---
 
+[![Blog Architecture](https://user-images.githubusercontent.com/32922/103234437-88d7db80-48f4-11eb-8902-927f015028e5.png)](https://user-images.githubusercontent.com/32922/103234437-88d7db80-48f4-11eb-8902-927f015028e5.png)
+<em>Current blog Architecture</em>
 
 ### Latest Articles
 
