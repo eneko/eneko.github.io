@@ -36,8 +36,12 @@ layout: default
   </section>
 
   <footer class="post-footer">
-      <p>Thank you for reading this article! I'm hoping you liked it.</p>
-      <p><span class="icon icon--twitter">{% include icon-twitter.svg %}</span><a href="https://twitter.com/intent/tweet?via={{ site.twitter_username }}&text=“{{ page.title }}”&url={{ page.url | prepend: site.url }}">Share on Twitter</a>
+    <p>Thank you for reading this article! I'm hoping you liked it.</p>
+    {% if page.issue %}
+    <p><span class="icon icon--twitter">{% include icon-twitter.svg %}</span><a href="https://twitter.com/intent/tweet?via={{ site.twitter_username }}&text=“{{ page.title }}”&url={{ page.issue | prepend: "/articles/issue-" | absolute_url }}">Share on Twitter</a>
+    {% else %}
+    <p><span class="icon icon--twitter">{% include icon-twitter.svg %}</span><a href="https://twitter.com/intent/tweet?via={{ site.twitter_username }}&text=“{{ page.title }}”&url={{ page.url | absolute_url }}">Share on Twitter</a>
+    {% endif %}
   </footer>
 
 </article>
