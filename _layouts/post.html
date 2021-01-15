@@ -37,11 +37,13 @@ layout: default
 
   <footer class="post-footer">
     <p>Thank you for reading this article! I'm hoping you liked it.</p>
+    {% assign hashtags = page.tags | join: "," | remove: ' ' %}
     {% if page.issue %}
-    <p><span class="icon icon--twitter">{% include icon-twitter.svg %}</span><a href="https://twitter.com/intent/tweet?via={{ site.twitter_username }}&text=“{{ page.title }}”&url={{ page.issue | prepend: "/articles/issue-" | absolute_url }}">Share on Twitter</a>
+    {% assign url = page.issue | prepend: "/articles/issue-" | absolute_url %}
     {% else %}
-    <p><span class="icon icon--twitter">{% include icon-twitter.svg %}</span><a href="https://twitter.com/intent/tweet?via={{ site.twitter_username }}&text=“{{ page.title }}”&url={{ page.url | absolute_url }}">Share on Twitter</a>
+    {% assign url = page.url | absolute_url %}
     {% endif %}
+    <p><span class="icon icon--twitter">{% include icon-twitter.svg %}</span><a target="_blank" href="https://twitter.com/intent/tweet?via={{ site.twitter_username }}&text=“{{ page.title }}”&hashtags={{ hashtags }}&url={{ url }}">Share on Twitter</a>
   </footer>
 
 </article>
