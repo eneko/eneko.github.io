@@ -13,6 +13,10 @@ image: /media/jwt/jwt-app.png
 **JWT** is a macOS application for securely decoding JSON Web Tokens without sending any information to the
 Internet.
 
+Download it now from the macOS App Store.
+
+[Download JWT JSON Web Token Decoder App](https://apps.apple.com/us/app/jwt-json-web-token-decoder/id1578129230)
+
 
 ## Features
 
