@@ -2,10 +2,9 @@
 layout: page
 permalink: /projects/jwt/
 title: JWT - JSON Web Token Decoder
-desc: JWT is a macOS application to safely and securely decode JSON Web Tokens without sending
-any data to the Internet.
+desc: JWT is a macOS application to safely and securely decode JSON Web Tokens without sending any data to the Internet.
 keywords: macOS, jwt, json, web, token, auth, authorization
-image: /media/jwt/jwt-app.png
+image: https://enekoalonso.com/media/jwt/jwt-app.png
 ---
 
 ![JWT JSON Web Token decoder macOS application](/media/jwt/jwt-app.png)
