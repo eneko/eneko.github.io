@@ -8,13 +8,13 @@ desc: Hi, I am Eneko Alonso, a software engineer specialized in Swift, with many
 [![Blog Architecture](https://user-images.githubusercontent.com/32922/103234437-88d7db80-48f4-11eb-8902-927f015028e5.png)](https://user-images.githubusercontent.com/32922/103234437-88d7db80-48f4-11eb-8902-927f015028e5.png)
 <em>Current blog architecture</em>
 
-### Latest Articles
+### Articles
 
 <div class="articles">
 {% for post in site.posts limit:5 %}
   <div class="article-item">
     <!-- p class="preview"><a href="{{ post.url | prepend: site.baseurl }}"><img src="{{post.image}}" /></a></p-->
-    <p class="title"><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></p>
+    <h2 class="title"><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h2>
     <p class="excerpt">{{ post.excerpt | strip_html | truncate: 140 }}</p>
   </div>
 {% endfor %}
