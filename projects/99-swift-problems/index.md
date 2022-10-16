@@ -3473,7 +3473,7 @@ Write a method for our `Tree` class that calculates a numbering scheme for the
 tree and returns a labeled graph. What is the solution for the larger tree
 pictured below?
 
-![](/projects/99-swift-problems/p92a.gif)
+![](/projects/99-swift-problems/p92b.gif)
 
 Implementation:
 
