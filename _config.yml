@@ -15,8 +15,8 @@ plugins:
 title: enekoalonso.com
 email: mail [at] enekoalonso [dot] com
 description: > # this means to ignore newlines until "baseurl:"
-  You are reading An Over-Engineered Blog, the personal site of Eneko Alonso.
-  All content included and any opinions expressed on this site are personal
+  This is the personal site of Eneko Alonso, a software engineer in California.
+  All content included and opinions expressed on this site are personal
   and do not represent any of his current or past employers.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://www.enekoalonso.com" # the base hostname & protocol for your site
