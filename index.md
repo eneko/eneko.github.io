@@ -10,7 +10,7 @@ desc: Hi, I am Eneko Alonso, a software engineer specialized in iOS development.
 
 I am a software engineer, living in California, with over twenty years of professional experience building iOS applications and web services.
 
-Recent jobs:
+Recent career:
 - Staff Software Engineer @ [Twitter/X](https://x.com), working on the iOS app
 - Application Architect @ [Mindbody](https://mindbodyonline.com), worked on Business and Consumer iOS applications
 - Senior Mobile Architect @ [Hathway](https://wearehathway.com), developed and released iOS applications for Coffee Bean & Tea Leaf, Jamba Juice, and others.
